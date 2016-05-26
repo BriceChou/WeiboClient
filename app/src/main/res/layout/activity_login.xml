@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="com.bricechou.weiboclient.LoginActivity">
+    tools:context="com.bricechou.weiboclient.activity.LoginActivity">
     
 
     <ImageView
@@ -26,7 +26,7 @@
         android:singleLine="true"
         android:id="@+id/text_account"
         android:layout_gravity="center_horizontal"
-        android:hint="邮箱/手机号"/>
+        android:hint="@string/hint_username"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -36,7 +36,7 @@
         android:singleLine="true"
         android:id="@+id/text_password"
         android:layout_gravity="center_horizontal"
-        android:hint="请输入密码"/>
+        android:hint="@string/hint_password"/>
 
     <Button
         android:layout_width="match_parent"
@@ -44,7 +44,7 @@
         android:layout_marginTop="30dp"
         android:textSize="18sp"
         android:background="#14c114"
-        android:text="登录"
+        android:text="@string/btn_login"
         android:id="@+id/login_submit"
         android:layout_gravity="center_horizontal" />
 
