@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,10 +7,46 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="com.bricechou.weiboclient.LoginActivity">
+    
 
-    <TextView
-        android:layout_width="wrap_content"
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/show_weibo_logo"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/login_weibo_logo"
+        android:scaleType="fitXY"/>
+
+    <EditText
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
-</RelativeLayout>
+        android:layout_marginTop="30dp"
+        android:singleLine="true"
+        android:id="@+id/text_account"
+        android:layout_gravity="center_horizontal"
+        android:hint="邮箱/手机号"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:inputType="textPassword"
+        android:singleLine="true"
+        android:id="@+id/text_password"
+        android:layout_gravity="center_horizontal"
+        android:hint="请输入密码"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:textSize="18sp"
+        android:background="#14c114"
+        android:text="登录"
+        android:id="@+id/login_submit"
+        android:layout_gravity="center_horizontal" />
+
+
+</LinearLayout>
