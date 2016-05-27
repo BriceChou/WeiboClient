@@ -46,6 +46,6 @@
         android:background="#14c114"
         android:text="@string/btn_login"
         android:id="@+id/login_submit"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>
