@@ -12,40 +12,21 @@
     tools:context=".activity.LoginActivity">
 
     <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:id="@+id/show_weibo_logo"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/login_weibo_logo"
-        android:scaleType="fitXY"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:layout_marginTop="30dp"
-        android:singleLine="true"
-        android:id="@+id/text_account"
-        android:layout_gravity="center_horizontal"
-        android:hint="@string/hint_username"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:inputType="textPassword"
-        android:singleLine="true"
-        android:id="@+id/text_password"
-        android:layout_gravity="center_horizontal"
-        android:hint="@string/hint_password"/>
-
+        android:id="@+id/show_weibo_logo"
+        android:layout_gravity="center"
+        android:src="@mipmap/login_weibo_logo"
+        android:scaleType="fitXY"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="80dp"
         android:textSize="18sp"
-        android:background="#14c114"
+        android:background="@color/orange"
         android:text="@string/btn_login"
         android:id="@+id/login_submit"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center"/>
 
 </LinearLayout>
