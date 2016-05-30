@@ -42,7 +42,6 @@
             android:value="weibo" />
 
         <activity android:name=".db.DbActivity" />
-        <activity android:name=".fragement.FragementActivity" />
         <activity android:name=".services.ServicesActivity"></activity>
     </application>
 
