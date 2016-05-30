@@ -43,7 +43,8 @@
 
         <activity android:name=".db.DbActivity" />
         <activity android:name=".fragement.FragementActivity" />
-        <activity android:name=".services.ServicesActivity"></activity>
+        <activity android:name=".services.ServicesActivity" />
+        <activity android:name=".activity.MainActivity"></activity>
     </application>
 
 </manifest>
