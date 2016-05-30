@@ -44,7 +44,8 @@
         <activity android:name=".db.DbActivity" />
         <activity android:name=".fragement.FragementActivity" />
         <activity android:name=".services.ServicesActivity" />
-        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".Main2Activity"></activity>
     </application>
 
 </manifest>
