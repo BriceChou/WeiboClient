@@ -3,9 +3,11 @@
     <string name="app_name">WeiboClient</string>
 
     <!--Named by WW-->
-    <string name="hint_password">请输入密码</string>
-    <string name="btn_login">登录</string>
-    <string name="hint_username">邮箱/手机号</string>
+    <string name="btn_login">授权微博登录</string>
+    <string name="text_home">首页</string>
+    <string name="text_message">消息</string>
+    <string name="text_square">发现</string>
+    <string name="text_user">我</string>
 
     <!--Named by ZML-->
     <string name="toast_account_error">您输入的账户格式错误,请重新输入!</string>
