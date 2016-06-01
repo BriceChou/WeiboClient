@@ -1,9 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('/local/BriceChou/Downloads/weibo_android_sdk-master_3.14/debug.keystore')
+            storePassword 'android'
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
-
     defaultConfig {
         applicationId "com.bricechou.weiboclient"
         minSdkVersion 18
@@ -16,6 +23,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            signingConfig signingConfigs.config
+        }
     }
 }
 
@@ -24,8 +34,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.4.0'
     /*
-    *现在是直接引用WeiboSDK project
-    * @TODO 考虑只引用接口,不引用其他不相关的文件
-    * */
+                    *现在是直接引用WeiboSDK project
+                    * @TODO 考虑只引用接口,不引用其他不相关的文件
+                    * */
     compile project(':weiboSDK')
 }
