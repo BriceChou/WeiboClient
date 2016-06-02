@@ -9,4 +9,6 @@
 /app/build
 /captures
 *.log
-/weiboSDK
+!/weiboSDK/libs/*.jar
+/weiboSDK/*
+
