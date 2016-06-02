@@ -58,9 +58,9 @@ public class FragmentController {
     public void showFragment(int position) {
         hideFragment();
         Fragment fragment = mfragments.get(position);
-        FragmentTransaction ft = mfragmentManager.beginTransaction();
-        ft.show(fragment);
-        ft.commit();
+        mFragmentTransaction = mfragmentManager.beginTransaction();
+        mFragmentTransaction.show(fragment);
+        mFragmentTransaction.commit();
     }
 
     public Fragment getFragment(int position) {

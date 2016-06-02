@@ -7,16 +7,17 @@ import android.content.SharedPreferences.Editor;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
 /**
- * @description 记录微博登录的相关数据信息
+ * 记录微博登录的相关数据信息
+ *
  * @author BriceChou
  * @datetime 16-6-1 下午3:37
  * @XXX 直接引用微博Demo 的写法
  */
 public class AccessTokenKeeper {
-    private static final String PREFERENCES_NAME  = "com_bricechou_weiboclient";
-    private static final String KEY_UID           = "uid";
-    private static final String KEY_ACCESS_TOKEN  = "access_token";
-    private static final String KEY_EXPIRES_IN    = "expires_in";
+    private static final String PREFERENCES_NAME = "com_bricechou_weiboclient";
+    private static final String KEY_UID = "uid";
+    private static final String KEY_ACCESS_TOKEN = "access_token";
+    private static final String KEY_EXPIRES_IN = "expires_in";
     private static final String KEY_REFRESH_TOKEN = "refresh_token";
 
     /**
@@ -43,7 +44,6 @@ public class AccessTokenKeeper {
      * 从 SharedPreferences 读取 Token 信息。
      *
      * @param context 应用程序上下文环境
-     *
      * @return 返回 Token 对象
      */
     public static Oauth2AccessToken readAccessToken(Context context) {

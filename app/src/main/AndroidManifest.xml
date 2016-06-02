@@ -33,9 +33,9 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
-        <service android:name="com.sina.weibo.sdk.net.DownloadService"
-            android:exported="false">
-        </service>
+        <service
+            android:name="com.sina.weibo.sdk.net.DownloadService"
+            android:exported="false"></service>
 
         <!-- 微博的APP KEY 这个也要考虑使用MD5进行加密处理 -->
         <meta-data
@@ -48,6 +48,7 @@
         <activity android:name=".db.DbActivity" />
         <activity android:name=".services.ServicesActivity" />
         <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.HomeActivity" />
     </application>
 
 </manifest>

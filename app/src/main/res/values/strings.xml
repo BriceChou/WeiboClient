@@ -14,5 +14,6 @@
     <string name="toast_login_auth_canceled">您已放弃进行微博登录,页面已返回!</string>
     <string name="toast_auth_success">微博授权登录成功!页面正在跳转……</string>
     <string name="toast_auth_failed">微博授权登录成功!页面正在跳转……</string>
+    <string name="tosast_function_unfinished">功能尚未开发完成,正在开发中……</string>
 
 </resources>

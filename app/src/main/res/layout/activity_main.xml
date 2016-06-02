@@ -6,6 +6,10 @@
     android:layout_height="match_parent"
     android:background="@color/bg_gray">
 
+    <!--@TODO 后期优化:全部独立出去,分为Top,Content,Bottom三块布局拆分main_layout 用三个FrameLayout 进行占位处理
+        @comment by BriceChou
+        @datetime 2016-06-02
+    -->
     <FrameLayout
         android:id="@+id/fl_content"
         android:layout_width="fill_parent"
