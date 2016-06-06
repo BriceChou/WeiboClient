@@ -7,5 +7,5 @@ In addition, when Bricechou finished the develoption and we need to merge this b
 
 The developer branch is a test version for WeiboClient.
 
-                              Author : BriceChou
+                  Author : BriceChou
 			      Created time: 2016-06-02
