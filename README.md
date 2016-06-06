@@ -1,6 +1,7 @@
-# WeiboClient
-Android demo application : Weibo login on client.
 
+# WeiboClient
+
+<<<<<<< .merge_file_sDxgAl
 This the mainly master branch and wrote by BriceChou and Wangwan.
 
 When we fixed all WeiboClient BUG, we merge branch "developer" into here.
