@@ -11,8 +11,7 @@ import android.widget.Toast;
 
 import com.bricechou.weiboclient.R;
 import com.bricechou.weiboclient.config.Constants;
-import com.bricechou.weiboclient.db.AccessTokenKeeper;
-
+import com.bricechou.weiboclient.db.LoginUserToken;
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.WeiboAuthListener;
@@ -23,9 +22,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     private static final String TAG = "LoginActivity";
 
-    private AuthInfo mAuthInfo; // 微博实例
+    // a Weibo instance
+    private AuthInfo mAuthInfo;
 
-    private Oauth2AccessToken mAccessToken; // 封装了 "access_token"，"expires_in"，"refresh_token"，并提供了他们的管理功能
+    //
+    private Oauth2AccessToken mAccessToken;
 
 
     private SsoHandler mSsoHandler; // 注意：SsoHandler 仅当 SDK 支持 SSO 时有效
@@ -128,7 +129,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             mAccessToken = Oauth2AccessToken.parseAccessToken(values);
             if (mAccessToken.isSessionValid()) {
                 // 保存 Token 到 SharedPreferences
-                AccessTokenKeeper.writeAccessToken(LoginActivity.this, mAccessToken);
+                LoginUserToken.saveAccessToken(LoginActivity.this, mAccessToken);
                 Toast.makeText(LoginActivity.this,
                         R.string.toast_auth_success, Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));

@@ -1,4 +1,4 @@
-package com.bricechou.weiboclient;
+package com.bricechou.weiboclient.utils;
 
 
 import android.os.Bundle;
@@ -15,7 +15,6 @@ public class BaseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // 获取当前与Fragment布局相关联的Activity
         // @comment by BriceChou
         mMainActivity = (MainActivity) getActivity();

@@ -13,8 +13,7 @@ import java.util.ArrayList;
  * Created by sdduser on 5/28/16.
  */
 public class FragmentController {
-    //单例模式
-    //私有化构造方法
+
     private int mcontainerId;//当前需要显示内容的ID
     private FragmentManager mfragmentManager;
     private ArrayList<Fragment> mfragments;
@@ -27,12 +26,25 @@ public class FragmentController {
         }
         return scontroller;
     }
+
+    /**
+     * 单例化模式 防止被创建多个该类
+     * @param activity
+     * @param containerId
+     * @comment by BriceChou
+     */
     private FragmentController(FragmentActivity activity,int containerId) {
         this.mcontainerId = containerId;
         mfragmentManager = activity.getSupportFragmentManager();
         initFragment();
     }
 
+    /**
+     * 初始化Fragment 用List集合将需要的Fragment进行储存
+     *
+     * @comment by BriceChou
+     * @datetime 16-6-6 上午10:31
+     */
     private void initFragment() {
         mfragments = new ArrayList<Fragment>();
         mfragments.add(new HomeFragment());
@@ -46,6 +58,12 @@ public class FragmentController {
         mFragmentTransaction.commit();
     }
 
+    /**
+     * 隐藏全部的Fragment
+     *
+     * @comment by BriceChou
+     * @datetime 16-6-6 上午10:33
+     */
     public void hideFragment() {
         mFragmentTransaction = mfragmentManager.beginTransaction();
         for(Fragment fragment : mfragments) {
@@ -55,6 +73,14 @@ public class FragmentController {
         }
         mFragmentTransaction.commit();
     }
+
+    /**
+     * 显示相应的Fragment
+     *
+     * @comment by BriceChou
+     * @datetime 16-6-6 上午10:33
+     */
+
     public void showFragment(int position) {
         hideFragment();
         Fragment fragment = mfragments.get(position);
@@ -62,6 +88,13 @@ public class FragmentController {
         mFragmentTransaction.show(fragment);
         mFragmentTransaction.commit();
     }
+
+    /**
+     * 获取对应位置的Fragment
+     *
+     * @comment by BriceChou
+     * @datetime 16-6-6 上午10:33
+     */
 
     public Fragment getFragment(int position) {
         return mfragments.get(position);
