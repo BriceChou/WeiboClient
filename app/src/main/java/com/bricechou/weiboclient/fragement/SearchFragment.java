@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bricechou.weiboclient.BaseFragment;
+import com.bricechou.weiboclient.utils.BaseFragment;
 import com.bricechou.weiboclient.R;
 
 /**

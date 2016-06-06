@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
-            storeFile file('/local/BriceChou/Downloads/weibo_android_sdk-master_3.14/debug.keystore')
+            storeFile file('/local/BriceChou/AppDemo/WeiboClient/weiboSDK/debug.keystore')
             storePassword 'android'
         }
     }
@@ -33,9 +33,5 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.4.0'
-    /*
-                    *现在是直接引用WeiboSDK project
-                    * @TODO 考虑只引用接口,不引用其他不相关的文件
-                    * */
     compile project(':weiboSDK')
 }
