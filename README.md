@@ -1,5 +1,7 @@
+
 # WeiboClient
 
+<<<<<<< HEAD
 This a branch for android application test version.
 
 When Bricechou and Wangwan finished the develoption for WeiboClient applciation ,we merge their branch into here.
