@@ -44,10 +44,8 @@
         <meta-data
             android:name="WEIBO_CHANNEL"
             android:value="weibo" />
-
-        <activity android:name=".services.ServicesActivity" />
+        
         <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.HomeActivity" />
     </application>
 
 </manifest>
