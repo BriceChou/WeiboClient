@@ -1,3 +1,5 @@
 /build
 /src/androidTest
-/test
+/src/test
+/src/main/jniLibs
+/debug.keystore
