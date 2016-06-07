@@ -69,7 +69,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login_submit:
-                initWeibo();
+                // initWeibo();
+                // @XXX it's use to test some activity.
+                startActivity(new Intent(LoginActivity.this,MainActivity.class));
                 break;
             default:
                 break;
@@ -125,10 +127,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
          */
         @Override
         public void onComplete(Bundle values) {
-            // 从 Bundle 中解析 Token
+            // get the Token value from Bundle
             mAccessToken = Oauth2AccessToken.parseAccessToken(values);
+            Log.d(TAG, "onComplete: "+mAccessToken.getToken());
             if (mAccessToken.isSessionValid()) {
-                // 保存 Token 到 SharedPreferences
+                // save Token to SharedPreferences
                 LoginUserToken.saveAccessToken(LoginActivity.this, mAccessToken);
                 Toast.makeText(LoginActivity.this,
                         R.string.toast_auth_success, Toast.LENGTH_SHORT).show();
