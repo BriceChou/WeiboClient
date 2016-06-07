@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_retweed_sel">
+
+    <TextView
+        android:id="@+id/tv_reweed_content"
+        android:layout_width="match_parent"
+        style="@style/TextViewBody"
+        android:padding="16dp"
+        android:textColor="@color/txt_gray"
+        android:text="这里是引用区域,这里是引用区域这里是引用区域这里是引用区域这里是引用区域这里是引用区域这里是引用区域这里是引用区域这里是引用区域这里是引用区域这里是引用区域这里是引用区域这里是引用区域"/>
+
+    <include
+        android:id="@+id/include_status_image"
+        layout="@layout/include_status_image"
+        android:visibility="gone" />
+
+</LinearLayout>
