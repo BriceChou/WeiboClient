@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <!-- Horizontal parting line -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/divider_gray"/>
+    <!---->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_retweed"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/bg_tran2gray_sel">
+
+            <ImageView
+                android:id="@+id/iv_retweed"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@mipmap/timeline_icon_retweet"/>
+            <TextView
+                android:id="@+id/tv_retweed"
+                style="@style/TextViewBody"
+                android:layout_marginLeft="8dp"
+                android:textColor="@color/txt_gray"
+                android:text="转发"/>
+        </LinearLayout>
+        <!-- Vertical parting line -->
+        <View
+            android:layout_width="1px"
+            android:layout_height="25dp"
+            android:background="@color/divider_gray"/>
+
+        <LinearLayout
+            android:id="@+id/ll_comment"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/bg_tran2gray_sel">
+
+            <ImageView
+                android:id="@+id/iv_comment"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@mipmap/timeline_icon_comment"/>
+            <TextView
+                android:id="@+id/tv_comment"
+                style="@style/TextViewBody"
+                android:layout_marginLeft="8dp"
+                android:textColor="@color/txt_gray"
+                android:text="评论"/>
+        </LinearLayout>
+        <!-- Vertical parting line -->
+        <View
+            android:layout_width="1px"
+            android:layout_height="25dp"
+            android:background="@color/divider_gray"/>
+        <LinearLayout
+            android:id="@+id/ll_like"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/bg_tran2gray_sel">
+
+            <ImageView
+                android:id="@+id/iv_like"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@mipmap/timeline_icon_unlike"/>
+            <TextView
+                android:id="@+id/tv_like"
+                style="@style/TextViewBody"
+                android:layout_marginLeft="8dp"
+                android:textColor="@color/txt_gray"
+                android:text="点赞"/>
+        </LinearLayout>
+    </LinearLayout>
+    <!--Horizontal parting line-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/divider_gray"/>
+
+</LinearLayout>

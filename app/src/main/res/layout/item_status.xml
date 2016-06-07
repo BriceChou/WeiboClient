@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_mainContent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_white2gray_sel"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!--include user portrait,username,sent time-->
+    <include layout="@layout/include_portrait"/>
+
+    <!--main text-->
+    <TextView
+        android:id="@+id/tv_item_content"
+        android:layout_width="match_parent"
+        style="@style/TextViewBody"
+        android:text="这里是发表的正文部分"
+        android:padding="16dp"
+        android:layout_marginTop="-16dp"/>
+    <!--attachment images-->
+    <include
+        android:id="@+id/include_status_image"
+        layout="@layout/include_status_image"
+        android:visibility="gone"/>
+
+    <!--the part of retweed-->
+    <include
+        android:id="@+id/include_status_retweeted"
+        layout="@layout/include_status_retweeted" />
+
+    <!--controlbar,include retweed,comment,like-->
+    <include
+        android:id="@+id/ll_bottom_control"
+        layout="@layout/include_status_controlbar" />
+
+
+</LinearLayout>
