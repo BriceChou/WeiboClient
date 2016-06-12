@@ -1,12 +1,11 @@
-package com.bricechou.weiboclient.fragement;
+package com.bricechou.weiboclient.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ListView;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.bricechou.weiboclient.R;
 import com.bricechou.weiboclient.adapter.WeiboHomeAdapter;
@@ -27,7 +26,6 @@ public class HomeFragment extends BaseFragment {
     private ListView lv_home;
     private StatusesAPI mStatusesAPI;
     private StatusList mStatusList;
-    private WeiboHomeAdapter mWeiboHomeAdapter;
 
     /**
      * show the weibo home page
@@ -38,9 +36,8 @@ public class HomeFragment extends BaseFragment {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mView = View.inflate(mMainActivity, R.layout.frag_home, null);
-        lv_home = (ListView) mView.findViewById(R.id.lv_home);
-        initWeiboContent(mMainActivity);
+        initView();
+        initWeiboContent();
         return mView;
     }
 
@@ -50,22 +47,25 @@ public class HomeFragment extends BaseFragment {
      * @author BriceChou
      * @datetime 16-6-6 15:14
      */
-    private void initWeiboContent(final Context context) {
-        mStatusesAPI = new StatusesAPI(context, Constants.APP_KEY, LoginUserToken.showAccessToken());
-        mStatusesAPI.friendsTimeline(0, 0, 5, 1, false, 0, false, new WeiboRequestListener(context) {
+    private void initWeiboContent() {
+        mStatusesAPI = new StatusesAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.showAccessToken());
+        mStatusesAPI.friendsTimeline(0, 0, 20, 1, false, 0, false, new WeiboRequestListener(mMainActivity) {
             @Override
             public void onComplete(String response) {
                 super.onComplete(response);
+
                 if (!TextUtils.isEmpty(response)) {
                     if (response.startsWith("{\"statuses\"")) {
                         // the Status instance load the data from JSON data.
                         mStatusList = mStatusList.parse(response);
-                        mWeiboHomeAdapter = new WeiboHomeAdapter(context,mStatusList);
-                        lv_home.setAdapter(mWeiboHomeAdapter);
+                        lv_home.setAdapter(new WeiboHomeAdapter(mMainActivity,mStatusList.statusList));
                     }
                 }
             }
         });
     }
-
+    private void initView() {
+        mView = View.inflate(mMainActivity, R.layout.frag_home, null);
+        lv_home = (ListView) mView.findViewById(R.id.lv_home);
+    }
 }

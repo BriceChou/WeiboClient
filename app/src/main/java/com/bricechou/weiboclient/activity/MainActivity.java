@@ -10,9 +10,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 
 import com.bricechou.weiboclient.R;
-import com.bricechou.weiboclient.fragement.FragmentController;
-
-import java.util.regex.Matcher;
+import com.bricechou.weiboclient.fragment.FragmentController;
 
 /**
  * Created by sdduser on 5/27/16.

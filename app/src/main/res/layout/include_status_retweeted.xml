@@ -3,10 +3,10 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_retweed_sel">
+    android:background="@drawable/bg_retweeted_sel">
 
     <TextView
-        android:id="@+id/tv_reweed_content"
+        android:id="@+id/tv_retweeted_content"
         android:layout_width="match_parent"
         style="@style/TextViewBody"
         android:padding="16dp"
