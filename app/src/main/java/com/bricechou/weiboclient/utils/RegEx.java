@@ -26,18 +26,20 @@ public class RegEx {
     private static final String PHONE_NUMBER_PATTERN = "^(13[0-9]|15[01]|153|15[6-9]|180|18[23]|18[5-9])\\d{8}$";
 
     /**
-     * @description 根据给定的相应的Type进行判断检查args是否符合要求
      * @param type 暂时只支持 mail 和 phoneNumber
      * @param args 输入需要判断的参数
+     * @description 根据给定的相应的Type进行判断检查args是否符合要求
      * @author BriceChou
      * @datetime 2016-05-27 16:29
      */
     public static boolean checkRegEx(String type, String args) {
         boolean flag;
-        switch (type){
-            case "mail":type = MAIL_PATTERN;
+        switch (type) {
+            case "mail":
+                type = MAIL_PATTERN;
                 break;
-            case "phoneNumber":type = PHONE_NUMBER_PATTERN;
+            case "phoneNumber":
+                type = PHONE_NUMBER_PATTERN;
                 break;
             default:
                 break;
@@ -49,18 +51,18 @@ public class RegEx {
             Matcher mtc = pattern.matcher(args);
             // 判断是否匹配
             flag = mtc.matches();
-            System.out.println(flag+" , "+ args);
+            System.out.println(flag + " , " + args);
         } catch (Exception e) {
             flag = false;
         }
         return flag;
     }
-    public static boolean  checkAllRegEx(String args){
-        boolean flag ;
-        if(checkRegEx("mail",args) || checkRegEx("phoneNumber",args)){
+
+    public static boolean checkAllRegEx(String args) {
+        boolean flag;
+        if (checkRegEx("mail", args) || checkRegEx("phoneNumber", args)) {
             flag = true;
-        }
-        else flag = false;
+        } else flag = false;
         return flag;
     }
 }
