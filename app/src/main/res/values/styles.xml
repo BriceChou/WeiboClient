@@ -60,5 +60,14 @@
         <item name="android:dividerHeight">0dp</item>
         <item name="android:scrollbars">none</item>
     </style>
+    <style name="TextViewLeftAndRight">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/txtsize_subhead</item>
+        <item name="android:textColor">@drawable/txtcolor_gray2oran_sel</item>
+    </style>
 
 </resources>
