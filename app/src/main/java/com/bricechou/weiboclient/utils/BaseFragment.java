@@ -1,6 +1,7 @@
 package com.bricechou.weiboclient.utils;
 
-
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
@@ -18,5 +19,9 @@ public class BaseFragment extends Fragment {
         // 获取当前与Fragment布局相关联的Activity
         // @comment by BriceChou
         mMainActivity = (MainActivity) getActivity();
+    }
+    protected void intent2Activity(Class<? extends Activity> tarActivity) {
+        Intent intent = new Intent(mMainActivity, tarActivity);
+        startActivity(intent);
     }
 }

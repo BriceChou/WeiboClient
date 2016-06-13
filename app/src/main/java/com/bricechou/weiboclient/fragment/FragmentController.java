@@ -1,4 +1,4 @@
-package com.bricechou.weiboclient.fragement;//package com.bricechou.weiboclient.fragement;
+package com.bricechou.weiboclient.fragment;//package com.bricechou.weiboclient.fragement;
 
 
 

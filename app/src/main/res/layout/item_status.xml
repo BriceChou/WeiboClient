@@ -17,11 +17,11 @@
         android:text="这里是发表的正文部分"
         android:padding="16dp"
         android:layout_marginTop="-16dp"/>
-    <!--attachment images-->
+    <!--attachment images
     <include
         android:id="@+id/include_status_image"
         layout="@layout/include_status_image"
-        android:visibility="gone"/>
+        android:visibility="gone"/>-->
 
     <!--the part of retweed-->
     <include

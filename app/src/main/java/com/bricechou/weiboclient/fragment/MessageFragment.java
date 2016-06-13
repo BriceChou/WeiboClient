@@ -1,4 +1,4 @@
-package com.bricechou.weiboclient.fragement;
+package com.bricechou.weiboclient.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
