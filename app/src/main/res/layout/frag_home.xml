@@ -11,4 +11,12 @@
         android:dividerHeight="8dp" >
     </ListView>
 
+    <include layout="@layout/include_titlebar"/>
+
+    <TextView
+        android:id="@+id/frag_home_body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/text_home"/>
+
 </LinearLayout>
