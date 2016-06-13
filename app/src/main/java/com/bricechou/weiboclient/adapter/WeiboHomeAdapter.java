@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bricechou.weiboclient.R;
+import com.bricechou.weiboclient.utils.TimeFormat;
 import com.sina.weibo.sdk.openapi.models.Status;
 import com.sina.weibo.sdk.openapi.models.User;
 
@@ -106,7 +107,7 @@ public class WeiboHomeAdapter extends BaseAdapter {
         final Status status = getItem(position);
         User user = status.user;
         holder.mTextViewUsername.setText(user.name);
-        holder.mTextViewCaption.setText(status.created_at+ " 来自 " + StringFormat.formatStatusSource(status.source) + " 客户端");
+        holder.mTextViewCaption.setText(TimeFormat.timeToString(status.created_at)+ " 来自 " + StringFormat.formatStatusSource(status.source));
         holder.mTextViewStatusContent.setText(status.text);
 
         // retweeted weibo content
