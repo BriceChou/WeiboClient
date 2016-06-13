@@ -1,10 +1,11 @@
 package com.bricechou.weiboclient.adapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -15,6 +16,8 @@ import com.sina.weibo.sdk.openapi.models.Status;
 import com.sina.weibo.sdk.openapi.models.User;
 
 import java.util.ArrayList;
+
+import com.bricechou.weiboclient.utils.StringFormat;
 
 /**
  * @author BriceChou
@@ -51,48 +54,48 @@ public class WeiboHomeAdapter extends BaseAdapter {
         final ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = View.inflate(mContext,R.layout.item_status, null);
-            holder.ll_mainContent = (LinearLayout) convertView
+            convertView = View.inflate(mContext, R.layout.item_status, null);
+            holder.mLinearLayoutMainContent = (LinearLayout) convertView
                     .findViewById(R.id.ll_mainContent);
 
-            holder.iv_portrait = (ImageView) convertView
+            holder.mImageViewPortrait = (ImageView) convertView
                     .findViewById(R.id.iv_portrait);
-            holder.rl_content = (RelativeLayout) convertView
+            holder.mRelativeLayoutContent = (RelativeLayout) convertView
                     .findViewById(R.id.rl_content);
-            holder.tv_username = (TextView) convertView
+            holder.mTextViewUsername = (TextView) convertView
                     .findViewById(R.id.tv_username);
-            holder.tv_caption = (TextView) convertView
+            holder.mTextViewCaption = (TextView) convertView
                     .findViewById(R.id.tv_caption);
 
-            holder.tv_item_content = (TextView) convertView
+            holder.mTextViewStatusContent = (TextView) convertView
                     .findViewById(R.id.tv_item_content);
-            // holder.include_status_image = (FrameLayout) convertView
-            //        .findViewById(R.id.include_status_image);
+           /* holder.mFrameLayoutStatusImage = (FrameLayout) convertView
+                    .findViewById(R.id.include_status_image);*/
 
-            holder.include_status_retweeted = (LinearLayout) convertView
+            holder.mLinearLayoutStatusRetweeted = (LinearLayout) convertView
                     .findViewById(R.id.include_status_retweeted);
-            holder.tv_retweeted_content = (TextView) holder.include_status_retweeted
+            holder.mTextViewRetweetedContent = (TextView) holder.mLinearLayoutStatusRetweeted
                     .findViewById(R.id.tv_retweeted_content);
-            // holder.include_retweeted_status_image = (FrameLayout) holder.include_status_retweeted
-            //        .findViewById(R.id.include_status_image);
+            /*holder.mFrameLayoutRetweetedStatusImage = (FrameLayout) holder.mLinearLayoutStatusRetweeted
+                    .findViewById(R.id.include_status_image);*/
 
-            holder.ll_retweet = (LinearLayout) convertView
+            holder.mLinearLayoutRetweet = (LinearLayout) convertView
                     .findViewById(R.id.ll_retweet);
-            holder.iv_retweet = (ImageView) convertView
+            holder.mImageViewRetweet = (ImageView) convertView
                     .findViewById(R.id.iv_retweet);
-            holder.tv_retweet = (TextView) convertView
+            holder.mTextViewRetweet = (TextView) convertView
                     .findViewById(R.id.tv_retweet);
-            holder.ll_comment = (LinearLayout) convertView
+            holder.mLinearLayoutComment = (LinearLayout) convertView
                     .findViewById(R.id.ll_comment);
-            holder.iv_comment = (ImageView) convertView
+            holder.mImageViewComment = (ImageView) convertView
                     .findViewById(R.id.iv_comment);
-            holder.tv_comment = (TextView) convertView
+            holder.mTextViewComment = (TextView) convertView
                     .findViewById(R.id.tv_comment);
-            holder.ll_like = (LinearLayout) convertView
+            holder.mLinearLayoutLike = (LinearLayout) convertView
                     .findViewById(R.id.ll_like);
-            holder.iv_like = (ImageView) convertView
+            holder.mImageViewLike = (ImageView) convertView
                     .findViewById(R.id.iv_like);
-            holder.tv_like = (TextView) convertView
+            holder.mTextViewLike = (TextView) convertView
                     .findViewById(R.id.tv_like);
             convertView.setTag(holder);
         } else {
@@ -102,25 +105,25 @@ public class WeiboHomeAdapter extends BaseAdapter {
         // bind data
         final Status status = getItem(position);
         User user = status.user;
-        holder.tv_username.setText(user.name);
-        holder.tv_caption.setText(status.created_at + " 来自 " + status.source);
-        holder.tv_item_content.setText(status.text);
+        holder.mTextViewUsername.setText(user.name);
+        holder.mTextViewCaption.setText(status.created_at+ " 来自 " + StringFormat.formatStatusSource(status.source) + " 客户端");
+        holder.mTextViewStatusContent.setText(status.text);
 
         // retweeted weibo content
         Status retweeted_status = status.retweeted_status;
 
         if (retweeted_status != null) {
             User retUser = retweeted_status.user;
-            holder.include_status_retweeted.setVisibility(View.VISIBLE);
-            holder.tv_item_content.setText("@" + retUser.name + ":" + retweeted_status.text);
+            holder.mLinearLayoutStatusRetweeted.setVisibility(View.VISIBLE);
+            holder.mTextViewRetweetedContent.setText("@" + retUser.name + ":" + retweeted_status.text);
         } else {
-            holder.include_status_retweeted.setVisibility(View.GONE);
+            holder.mLinearLayoutStatusRetweeted.setVisibility(View.GONE);
         }
-        holder.tv_retweet.setText(status.reposts_count == 0 ?
+        holder.mTextViewRetweet.setText(status.reposts_count == 0 ?
                 "转发" : status.reposts_count + "");
-        holder.tv_comment.setText(status.comments_count == 0 ?
+        holder.mTextViewComment.setText(status.comments_count == 0 ?
                 "评论" : status.comments_count + "");
-        holder.tv_like.setText(status.attitudes_count == 0 ?
+        holder.mTextViewLike.setText(status.attitudes_count == 0 ?
                 "赞" : status.attitudes_count + "");
         return convertView;
     }
@@ -134,36 +137,36 @@ public class WeiboHomeAdapter extends BaseAdapter {
     public static class ViewHolder {
 
         // item_status xml file content
-        public LinearLayout ll_mainContent;
+        public LinearLayout mLinearLayoutMainContent;
 
         // include_portrait xml file content
-        public ImageView iv_portrait;
-        public RelativeLayout rl_content;
+        public ImageView mImageViewPortrait;
+        public RelativeLayout mRelativeLayoutContent;
         // user name
-        public TextView tv_username;
+        public TextView mTextViewUsername;
         // user identification form what phone client?
-        public TextView tv_caption;
+        public TextView mTextViewCaption;
 
         // item_status.xml -->> weibo content
-        public TextView tv_item_content;
+        public TextView mTextViewStatusContent;
         // include_status_image.xml -->> weibo content image
-        // public FrameLayout include_status_image;
+        public FrameLayout mFrameLayoutStatusImage;
 
         // include_status_retweeted.xml -->> retweeted weibo content comment
-        public LinearLayout include_status_retweeted;
-        public TextView tv_retweeted_content;
-        // public FrameLayout include_retweeted_status_image;
+        public LinearLayout mLinearLayoutStatusRetweeted;
+        public TextView mTextViewRetweetedContent;
+        public FrameLayout mFrameLayoutRetweetedStatusImage;
 
         // include_status_controlbar.xml -->> retweet,comment,like
-        public LinearLayout ll_retweet;
-        public ImageView iv_retweet;
-        public TextView tv_retweet;
-        public LinearLayout ll_comment;
-        public ImageView iv_comment;
-        public TextView tv_comment;
-        public LinearLayout ll_like;
-        public ImageView iv_like;
-        public TextView tv_like;
+        public LinearLayout mLinearLayoutRetweet;
+        public ImageView mImageViewRetweet;
+        public TextView mTextViewRetweet;
+        public LinearLayout mLinearLayoutComment;
+        public ImageView mImageViewComment;
+        public TextView mTextViewComment;
+        public LinearLayout mLinearLayoutLike;
+        public ImageView mImageViewLike;
+        public TextView mTextViewLike;
     }
 
 }
