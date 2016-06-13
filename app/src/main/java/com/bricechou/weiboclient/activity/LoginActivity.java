@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.bricechou.weiboclient.R;
 import com.bricechou.weiboclient.config.Constants;
 import com.bricechou.weiboclient.db.LoginUserToken;
+import com.bricechou.weiboclient.utils.TimeFormat;
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.WeiboAuthListener;
