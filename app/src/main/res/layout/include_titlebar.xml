@@ -38,6 +38,7 @@
         android:id="@+id/titlebar_et_search"
         android:layout_width="300dp"
         android:layout_height="30dp"
+        android:gravity="top|left"
         android:layout_margin="10dp"
         android:drawableLeft="@mipmap/titlebar_search"
         android:drawablePadding="5dp"

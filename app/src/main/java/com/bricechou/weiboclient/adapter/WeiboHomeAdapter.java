@@ -106,7 +106,7 @@ public class WeiboHomeAdapter extends BaseAdapter {
         final Status status = getItem(position);
         User user = status.user;
         holder.mTextViewUsername.setText(user.name);
-        holder.mTextViewCaption.setText(status.created_at + " 来自 " + StringFormat.formatStatusSource(status.source) + " 客户端");
+        holder.mTextViewCaption.setText(status.created_at+ " 来自 " + StringFormat.formatStatusSource(status.source) + " 客户端");
         holder.mTextViewStatusContent.setText(status.text);
 
         // retweeted weibo content
