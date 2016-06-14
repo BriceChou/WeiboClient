@@ -1,5 +1,6 @@
 package com.bricechou.weiboclient.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -68,8 +69,7 @@ public class MainActivity extends FragmentActivity implements OnCheckedChangeLis
         // @author BriceChou
         switch (v.getId()) {
             case R.id.iv_add:
-                Toast.makeText(MainActivity.this,
-                        R.string.tosast_function_unfinished, Toast.LENGTH_LONG).show();
+                startActivity(new Intent(MainActivity.this,PostWeiboActivity.class));
                 break;
             default:
                 break;

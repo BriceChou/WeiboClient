@@ -24,8 +24,11 @@ public class HomeFragment extends BaseFragment {
 
     private final static String TAG = "HomeFragment";
     private View mView;
+    // fragment_home list view
     private ListView lv_home;
+    // Weibo content interface
     private StatusesAPI mStatusesAPI;
+    // All Weibo content collection
     private StatusList mStatusList;
 
     /**
@@ -39,6 +42,13 @@ public class HomeFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         initView();
         initWeiboContent();
+        /**
+         * Main page titlebar
+         *
+         * @comment by BriceChou
+         * @datetime 16-6-14 17:56
+         * @TODO Show the current user name
+         */
         new TitleBuilder(mView)
                 .setCenterText("帐号昵称")
                 .setLeftImage(R.drawable.icon_friendattention)
@@ -46,15 +56,11 @@ public class HomeFragment extends BaseFragment {
                 .setLeftOnclickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-
                     }
                 })
                 .setRightOnclickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-
                     }
                 });
         return mView;
@@ -77,12 +83,13 @@ public class HomeFragment extends BaseFragment {
                     if (response.startsWith("{\"statuses\"")) {
                         // the Status instance load the data from JSON data.
                         mStatusList = mStatusList.parse(response);
-                        lv_home.setAdapter(new WeiboHomeAdapter(mMainActivity,mStatusList.statusList));
+                        lv_home.setAdapter(new WeiboHomeAdapter(mMainActivity, mStatusList.statusList));
                     }
                 }
             }
         });
     }
+
     private void initView() {
         mView = View.inflate(mMainActivity, R.layout.frag_home, null);
         lv_home = (ListView) mView.findViewById(R.id.lv_home);
