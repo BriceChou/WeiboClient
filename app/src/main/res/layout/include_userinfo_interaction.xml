@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        style="@style/LinearLayoutUserInfo" >
+
+        <TextView
+            android:id="@+id/tv_status_count"
+            style="@style/TextViewBody"
+            android:text="0"/>
+
+        <TextView
+            style="@style/TextViewBody"
+            android:layout_marginTop="4dp"
+            android:text="微博"
+            android:textColor="@color/txt_gray" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/LinearLayoutUserInfo" >
+
+        <TextView
+            android:id="@+id/tv_follow_count"
+            style="@style/TextViewBody"
+            android:text="0"/>
+
+        <TextView
+            style="@style/TextViewBody"
+            android:layout_marginTop="4dp"
+            android:text="关注"
+            android:textColor="@color/txt_gray" />
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/LinearLayoutUserInfo" >
+        <TextView
+            android:id="@+id/tv_fans_count"
+            style="@style/TextViewBody"
+            android:text="0"/>
+
+        <TextView
+            style="@style/TextViewBody"
+            android:layout_marginTop="4dp"
+            android:text="粉丝"
+            android:textColor="@color/txt_gray" />
+    </LinearLayout>
+
+</LinearLayout>
