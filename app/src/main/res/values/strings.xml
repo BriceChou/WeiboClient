@@ -9,6 +9,7 @@
     <string name="text_square">发现</string>
     <string name="text_user">我</string>
     <string name="hint_search">大家正在搜：微博主题</string>
+    <string name="text_follow">全部关注</string>
 
     <!--Named by ZML-->
     <string name="toast_account_error">您输入的账户格式错误,请重新输入!</string>
