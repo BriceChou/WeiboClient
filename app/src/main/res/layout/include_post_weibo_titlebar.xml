@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50sp"
-    android:background="@drawable/bg_tran2gray_sel">
+    android:layout_height="50sp">
 
-    <!-- show the bottom menu bar
-         @auth BriceChou
-         @TODO change the menu bar icon
-    -->
+    <!-- show the bottom menu bar @auth BriceChou @TODO change the menu bar icon -->
     <Button
         android:id="@+id/btn_post_weibo_back"
-        android:layout_width="66dp"
-        android:layout_height="36dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_gravity="left|center_vertical"
-        android:gravity="center"
-        android:background="@drawable/bg_search"
-        android:text="Back"/>
+        android:background="@drawable/post_weibo_back"/>
 
     <TextView
         android:id="@+id/tv_post_weibo_title"
@@ -23,16 +17,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textSize="12pt"
+        android:textSize="11pt"
         android:text="@string/tv_post_weibo_title"/>
     
     <Button
         android:id="@+id/btn_post_weibo_send"
         android:layout_width="66dp"
-        android:layout_height="36dp"
+        android:layout_height="40dp"
         android:layout_gravity="right|center_vertical"
         android:gravity="center"
-        android:background="@drawable/bg_search"
         android:text="@string/btn_post_weibo_send"/>
     
 </FrameLayout>

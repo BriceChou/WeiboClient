@@ -24,6 +24,7 @@ import com.sina.weibo.sdk.openapi.models.StatusList;
  * Created by sdduser on 5/28/16.
  */
 public class UserFragment extends BaseFragment {
+    private final static String TAG = "UserFragment";
     private View mView;
     private ListView mFollowList;
     private FriendshipsAPI mFriendshipsAPI;
@@ -54,13 +55,11 @@ public class UserFragment extends BaseFragment {
                 .setLeftOnclickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                     }
                 })
                 .setRightOnclickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                     }
                 });
     }
@@ -81,14 +80,13 @@ public class UserFragment extends BaseFragment {
             public void onComplete(String response) {
                 super.onComplete(response);
                 Log.i("................",response);
-
-//                if (!TextUtils.isEmpty(response)) {
-//                    if (response.startsWith("{\"users\"")) {
-//                        // the Status instance load the data from JSON data.
-//                        mStatusList = mStatusList.parse(response);
-//                        mFollowList.setAdapter(new WeiboHomeAdapter(mMainActivity, mStatusList.statusList));
-//                    }
-//                }
+             /*   if (!TextUtils.isEmpty(response)) {
+                    if (response.startsWith("{\"users\"")) {
+                        // the Status instance load the data from JSON data.
+                        mStatusList = mStatusList.parse(response);
+                        mFollowList.setAdapter(new WeiboHomeAdapter(mMainActivity, mStatusList.statusList));
+                    }
+                }*/
             }
         });
     }

@@ -29,11 +29,11 @@
             android:gravity="center"
             android:background="@drawable/bg_tran2gray_sel">
 
-            <ImageView
-                android:id="@+id/iv_emoticon"
+            <Button
+                android:id="@+id/iv_post_weibo_emoticon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@mipmap/timeline_icon_retweet"/>
+                android:background="@drawable/icon_emoticon"/>
         </LinearLayout>
         <!-- Vertical parting line -->
         <View
@@ -42,7 +42,7 @@
             android:background="@color/divider_gray"/>
 
         <LinearLayout
-            android:id="@+id/ll_comment"
+            android:id="@+id/ll_mention"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:orientation="horizontal"
@@ -50,11 +50,11 @@
             android:gravity="center"
             android:background="@drawable/bg_tran2gray_sel">
 
-            <ImageView
-                android:id="@+id/iv_comment"
+            <Button
+                android:id="@+id/iv_post_weibo_mention"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@mipmap/timeline_icon_comment"/>
+                android:background="@drawable/icon_mention"/>
         </LinearLayout>
         <!-- Vertical parting line -->
         <View
@@ -62,7 +62,7 @@
             android:layout_height="25dp"
             android:background="@color/divider_gray"/>
         <LinearLayout
-            android:id="@+id/ll_like1"
+            android:id="@+id/ll_add_image"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:orientation="horizontal"
@@ -70,11 +70,11 @@
             android:gravity="center"
             android:background="@drawable/bg_tran2gray_sel">
 
-            <ImageView
-                android:id="@+id/iv_like2"
+            <Button
+                android:id="@+id/iv_post_weibo_image"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@mipmap/timeline_icon_unlike"/>
+                android:background="@drawable/icon_image"/>
         </LinearLayout>
         <!-- Vertical parting line -->
         <View
@@ -82,7 +82,7 @@
             android:layout_height="25dp"
             android:background="@color/divider_gray"/>
         <LinearLayout
-            android:id="@+id/ll_like"
+            android:id="@+id/ll_topic"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:orientation="horizontal"
@@ -90,11 +90,11 @@
             android:gravity="center"
             android:background="@drawable/bg_tran2gray_sel">
 
-            <ImageView
-                android:id="@+id/iv_like"
+            <Button
+                android:id="@+id/iv_post_weibo_topic"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@mipmap/timeline_icon_unlike"/>
+                android:background="@drawable/icon_topic"/>
         </LinearLayout>
     </LinearLayout>
     <!--Horizontal parting line-->
