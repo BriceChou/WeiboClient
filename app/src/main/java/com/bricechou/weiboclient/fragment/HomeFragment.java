@@ -67,7 +67,7 @@ public class HomeFragment extends BaseFragment {
      * @datetime 16-6-6 15:14
      */
     private void initWeiboContent() {
-        mStatusesAPI = new StatusesAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.showAccessToken());
+        mStatusesAPI = new StatusesAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.getAccessToken(mMainActivity));
         mStatusesAPI.friendsTimeline(0, 0, 20, 1, false, 0, false, new WeiboRequestListener(mMainActivity) {
             @Override
             public void onComplete(String response) {
@@ -77,12 +77,13 @@ public class HomeFragment extends BaseFragment {
                     if (response.startsWith("{\"statuses\"")) {
                         // the Status instance load the data from JSON data.
                         mStatusList = mStatusList.parse(response);
-                        lv_home.setAdapter(new WeiboHomeAdapter(mMainActivity,mStatusList.statusList));
+                        lv_home.setAdapter(new WeiboHomeAdapter(mMainActivity, mStatusList.statusList));
                     }
                 }
             }
         });
     }
+
     private void initView() {
         mView = View.inflate(mMainActivity, R.layout.frag_home, null);
         lv_home = (ListView) mView.findViewById(R.id.lv_home);

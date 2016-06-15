@@ -70,9 +70,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login_submit:
-                // initWeibo();
-                // @XXX it's use to test some activity.
-                startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                initWeibo();
                 break;
             default:
                 break;
