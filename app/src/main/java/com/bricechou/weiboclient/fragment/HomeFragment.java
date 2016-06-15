@@ -73,7 +73,7 @@ public class HomeFragment extends BaseFragment {
      * @datetime 16-6-6 15:14
      */
     private void initWeiboContent() {
-        mStatusesAPI = new StatusesAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.showAccessToken());
+        mStatusesAPI = new StatusesAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.getAccessToken(mMainActivity));
         mStatusesAPI.friendsTimeline(0, 0, 20, 1, false, 0, false, new WeiboRequestListener(mMainActivity) {
             @Override
             public void onComplete(String response) {

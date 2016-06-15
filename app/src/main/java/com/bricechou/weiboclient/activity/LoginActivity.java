@@ -41,11 +41,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         mSsoHandler = new SsoHandler(LoginActivity.this, mAuthInfo);
         // To call the web login page which provide with Weibo itself
         // @TODO 自动判断的方式比较慢,通过weiboAPI手动先进行判断,如果有客户端用客户端,没有就用WEB或者手机短信注册登录
-        mSsoHandler.authorizeWeb(new LoginAuthListener(this){
+        mSsoHandler.authorizeWeb(new LoginAuthListener(this) {
             @Override
             public void onComplete(Bundle values) {
                 super.onComplete(values);
-                startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
             }
         });
     }
@@ -67,9 +67,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login_submit:
-                // initWeibo();
+                initWeibo();
                 // @XXX it's use to test some activity.
-                startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                // startActivity(new Intent(LoginActivity.this,MainActivity.class));
                 break;
             default:
                 break;
@@ -78,6 +78,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     /**
      * 当 SSO 授权 Activity 退出时，该函数被调用。
+     *
      * @author BriceChou
      */
     @Override
