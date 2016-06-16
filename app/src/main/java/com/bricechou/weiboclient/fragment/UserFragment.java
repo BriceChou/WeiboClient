@@ -27,7 +27,6 @@ import com.sina.weibo.sdk.openapi.legacy.FriendshipsAPI;
  */
 public class UserFragment extends BaseFragment {
     private final static String TAG = "UserFragment";
-    //private StatusesAPI mStatusesAPI;
     private PersonalCenterAdaper mPersonalCenterAdaper;
     private UserCounts mUserCounts;
     private View mView;
@@ -38,7 +37,6 @@ public class UserFragment extends BaseFragment {
     private Long mUid;
     private long[] mUids;
     private UserList mUserList;
-    private Oauth2AccessToken mOauth2AccessToken;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -80,11 +78,11 @@ public class UserFragment extends BaseFragment {
         /**
          * 获取用户的关注列表。
          *
-         * @param uid           需要查询的用户UID
-         * @param count         单页返回的记录条数，默认为50，最大不超过200
-         * @param cursor        返回结果的游标，下一页用返回值里的next_cursor，上一页用previous_cursor，默认为0
-         * @param trim_status   返回值中user字段中的status字段开关，false：返回完整status字段、true：status字段仅返回status_id，默认为true
-         * @param listener      异步请求回调接口
+         * @param uid           the UID need to search
+         * @param count         The number of records returned by a single page，default is 50，max 200
+         * @param cursor        return cursor，The next page uses the next_cursor in the return value，previous page uses previous_cursor，default is 0
+         * @param trim_status    The status field switch in the return value default is true
+         * @param listener      Asynchronous request callback interface
          */
 
         mFriendshipsAPI.friends(mUid, 50, 0, true, new WeiboRequestListener(mMainActivity) {
@@ -94,22 +92,9 @@ public class UserFragment extends BaseFragment {
                 if (!TextUtils.isEmpty(response)) {
                     if (response.startsWith("{\"users\"")) {
                         Log.i("................", response);
-                        // the Status instance load the data from JSON data.
                         mUserList = mUserList.parse(response);
                         mPersonalCenterAdaper = new PersonalCenterAdaper(mMainActivity, mUserList.userList);
                         mFollowList.setAdapter(mPersonalCenterAdaper);
-                        //mStatusesAPI = new StatusesAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.showAccessToken());
-//                        Log.d(TAG, "total_number: " + mUserList.total_number);
-//                        Log.d(TAG, "user: " + mUserList.userList.get(0));
-//                        Log.d(TAG, "status_id: " + mUserList.userList.get(1).status_id);
-//                        long id = 3986099586186146L;
-//                        mStatusesAPI.show(id,new WeiboRequestListener(mMainActivity){
-//                            @Override
-//                            public void onComplete(String response) {
-//                                super.onComplete(response);
-//                                Log.d(TAG, "mStatusesAPI.show :"+ response);
-//                            }
-//                        });
                     }
                 }
             }
@@ -120,11 +105,11 @@ public class UserFragment extends BaseFragment {
             public void onComplete(String response) {
                 super.onComplete(response);
                 Log.i("................", response);
-//                if (!TextUtils.isEmpty(response)) {
-//                    mUserCounts = mUserCounts.parse(response);
-//                    mPersonalCenterAdaper.setmUserCounts(mUserCounts);
-//                    Log.d(TAG, "mUserCounts: " + mUserCounts.followers_count);
-//                }
+                if (!TextUtils.isEmpty(response)) {
+                    mUserCounts = mUserCounts.parse(response);
+                    mPersonalCenterAdaper.setmUserCounts(mUserCounts).setCounts(mView);
+                    Log.d(TAG, "mUserCounts: " + mUserCounts.followers_count);
+                }
             }
         });
     }

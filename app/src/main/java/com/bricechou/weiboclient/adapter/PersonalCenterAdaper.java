@@ -30,8 +30,24 @@ public class PersonalCenterAdaper extends BaseAdapter {
         this.mUserList = userList;
     }
 
-    public void setmUserCounts(UserCounts mUserCounts) {
+    public PersonalCenterAdaper setmUserCounts(UserCounts mUserCounts) {
         this.mUserCounts = mUserCounts;
+        return this;
+
+    }
+    public void setCounts(View view) {
+        ViewHolder holder = new ViewHolder();
+        holder.mTextViewStatus = (TextView) view
+                .findViewById(R.id.tv_status_count);
+        holder.mTextViewFriends = (TextView) view
+                .findViewById(R.id.tv_friends_count);
+        holder.mTextViewFollows = (TextView) view
+                .findViewById(R.id.tv_follows_count);
+
+        holder.mTextViewStatus.setText(mUserCounts.statuses_count);
+        holder.mTextViewFriends.setText(mUserCounts.friends_count);
+        holder.mTextViewFollows.setText(mUserCounts.followers_count);
+
     }
 
     public UserCounts getmUserCounts() {
@@ -71,13 +87,6 @@ public class PersonalCenterAdaper extends BaseAdapter {
             holder.mTextViewCaption = (TextView) convertView
                     .findViewById(R.id.tv_caption);
 
-
-            holder.mTextViewStatus = (TextView) convertView
-                    .findViewById(R.id.tv_status_count);
-            holder.mTextViewFriends = (TextView) convertView
-                    .findViewById(R.id.tv_friends_count);
-            holder.mTextViewFollows = (TextView) convertView
-                    .findViewById(R.id.tv_follows_count);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -87,11 +96,6 @@ public class PersonalCenterAdaper extends BaseAdapter {
         final User user = getItem(position);
         holder.mTextViewUsername.setText(user.screen_name);
         holder.mTextViewCaption.setText(user.description);
-
-        holder.mTextViewStatus.setText(mUserCounts.statuses_count);
-        holder.mTextViewFriends.setText(mUserCounts.friends_count);
-        holder.mTextViewFollows.setText(mUserCounts.followers_count);
-
         return convertView;
     }
 
@@ -107,6 +111,7 @@ public class PersonalCenterAdaper extends BaseAdapter {
         //weibo  brief introduction
         public TextView mTextViewCaption;
 
+        public LinearLayout mLinearLayoutInteraction;
         //include_userinfo_interaction xml
         public TextView mTextViewStatus;
         public TextView mTextViewFriends;
