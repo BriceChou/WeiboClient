@@ -13,7 +13,6 @@ import com.bricechou.weiboclient.R;
 import com.bricechou.weiboclient.api.WeiboRequestListener;
 import com.bricechou.weiboclient.config.Constants;
 import com.bricechou.weiboclient.db.LoginUserToken;
-import com.bricechou.weiboclient.db.UidList;
 import com.bricechou.weiboclient.utils.BaseFragment;
 import com.bricechou.weiboclient.utils.TitleBuilder;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
@@ -31,7 +30,6 @@ public class UserFragment extends BaseFragment {
     private LinearLayout mUserInfo;
     private FriendshipsAPI mFriendshipsAPI;
     private UsersAPI mUsersAPI;
-    private UidList mUidList;
     private Long mUid;
     private long[] mUids;
     private Oauth2AccessToken mOauth2AccessToken;
@@ -84,6 +82,20 @@ public class UserFragment extends BaseFragment {
          */
 
         mFriendshipsAPI.friends(mUid, 50, 0, true, new WeiboRequestListener(mMainActivity) {
+            @Override
+            public void onComplete(String response) {
+                super.onComplete(response);
+                if (!TextUtils.isEmpty(response)) {
+                    if (response.startsWith("{\"users\"")) {
+                        Log.i("................", response);
+                        // the Status instance load the data from JSON data.
+
+                        // mFollowList.setAdapter(new PersonalCenterAdaper(mMainActivity, mGroupList.groupList));
+                    }
+                }
+            }
+        });
+        mUsersAPI.counts(mUids, new WeiboRequestListener(mMainActivity) {
             @Override
             public void onComplete(String response) {
                 super.onComplete(response);
