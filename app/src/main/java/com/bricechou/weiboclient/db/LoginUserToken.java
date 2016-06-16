@@ -114,5 +114,4 @@ public class LoginUserToken {
         accessToken.setUid("2851891152");
         return accessToken;
     }
-
 }
