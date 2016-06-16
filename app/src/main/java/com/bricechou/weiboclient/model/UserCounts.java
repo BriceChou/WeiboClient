@@ -1,6 +1,7 @@
 package com.bricechou.weiboclient.model;
 
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,9 +26,16 @@ public class UserCounts {
     public String statuses_count;
 
     public static UserCounts parse(String jsonString) {
+        char[] jsonStringChar = jsonString.substring(0, 1).toCharArray();
+        char firstChar = jsonStringChar[0];
         try {
-            JSONObject jsonObject = new JSONObject(jsonString);
-            return UserCounts.parse(jsonObject);
+            if (firstChar == '{') {
+                JSONObject jsonObject = new JSONObject(jsonString);
+                return UserCounts.parse(jsonObject);
+            } else if (firstChar == '[') {
+                JSONArray jsonArray = new JSONArray(jsonString);
+                return UserCounts.parse(jsonArray);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -39,11 +47,24 @@ public class UserCounts {
             return null;
         }
 
-        UserCounts UserCounts = new UserCounts();
-        UserCounts.user_id          = jsonObject.optString("id", "");
-        UserCounts.followers_count  = jsonObject.optString("followers_count", "");
-        UserCounts.friends_count    = jsonObject.optString("friends_count", "");
-        UserCounts.statuses_count   = jsonObject.optString("statuses_count", "");
-        return UserCounts;
+        UserCounts userCounts = new UserCounts();
+        userCounts.user_id = jsonObject.optString("id", "");
+        userCounts.followers_count = jsonObject.optString("followers_count", "");
+        userCounts.friends_count = jsonObject.optString("friends_count", "");
+        userCounts.statuses_count = jsonObject.optString("statuses_count", "");
+        return userCounts;
+    }
+
+    public static UserCounts parse(JSONArray jsonArray) {
+        if (null == jsonArray) {
+            return null;
+        }
+        UserCounts userCounts = new UserCounts();
+        try {
+            userCounts = UserCounts.parse(jsonArray.getJSONObject(0));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return userCounts;
     }
 }
