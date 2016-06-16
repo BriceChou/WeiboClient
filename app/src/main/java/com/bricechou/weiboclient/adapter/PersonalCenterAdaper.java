@@ -1,6 +1,7 @@
 package com.bricechou.weiboclient.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -10,7 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bricechou.weiboclient.R;
-import com.sina.weibo.sdk.openapi.models.Status;
+import com.bricechou.weiboclient.model.UserCounts;
 import com.sina.weibo.sdk.openapi.models.User;
 
 import java.util.ArrayList;
@@ -22,12 +23,20 @@ public class PersonalCenterAdaper extends BaseAdapter {
     private final static String TAG = "PersonalCenterAdaper";
     private Context mContext;
     private ArrayList<User> mUserList;
+    private UserCounts mUserCounts;
 
     public PersonalCenterAdaper(Context context, ArrayList<User> userList) {
         this.mContext = context;
         this.mUserList = userList;
     }
 
+    public void setmUserCounts(UserCounts mUserCounts) {
+        this.mUserCounts = mUserCounts;
+    }
+
+    public UserCounts getmUserCounts() {
+        return mUserCounts;
+    }
 
     @Override
     public int getCount() {
@@ -76,15 +85,13 @@ public class PersonalCenterAdaper extends BaseAdapter {
 
         // bind data
         final User user = getItem(position);
-
-        //weibo content
-        Status status = user.status;
         holder.mTextViewUsername.setText(user.screen_name);
-        holder.mTextViewCaption.setText("简介");
+        holder.mTextViewCaption.setText(user.description);
 
-        holder.mTextViewStatus.setText(user.statuses_count);
-        holder.mTextViewFriends.setText(user.friends_count);
-        holder.mTextViewFollows.setText(user.followers_count);
+        holder.mTextViewStatus.setText(mUserCounts.statuses_count);
+        holder.mTextViewFriends.setText(mUserCounts.friends_count);
+        holder.mTextViewFollows.setText(mUserCounts.followers_count);
+
         return convertView;
     }
 
