@@ -108,12 +108,12 @@ public class LoginUserToken {
      * @datetime 16-6-7 10:40
      * @XXX we don't input weibo account and password
      */
-    /*
+
     public static Oauth2AccessToken showAccessToken() {
         Oauth2AccessToken accessToken = new Oauth2AccessToken();
         accessToken.setToken("2.005KPAHDDkQmLCfb61244d50Rb_7xC");
         return accessToken;
     }
-    */
+
 
 }

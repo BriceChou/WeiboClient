@@ -5,6 +5,7 @@
     android:orientation="horizontal" >
 
     <LinearLayout
+        android:id="@+id/ll_content_info"
         style="@style/LinearLayoutUserInfo" >
 
         <TextView
@@ -23,7 +24,7 @@
         style="@style/LinearLayoutUserInfo" >
 
         <TextView
-            android:id="@+id/tv_follow_count"
+            android:id="@+id/tv_friends_count"
             style="@style/TextViewBody"
             android:text="0"/>
 
@@ -37,7 +38,7 @@
     <LinearLayout
         style="@style/LinearLayoutUserInfo" >
         <TextView
-            android:id="@+id/tv_fans_count"
+            android:id="@+id/tv_follows_count"
             style="@style/TextViewBody"
             android:text="0"/>
 
