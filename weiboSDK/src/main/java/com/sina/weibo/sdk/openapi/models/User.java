@@ -21,7 +21,7 @@ import org.json.JSONObject;
 
 /**
  * 用户信息结构体。
- * 
+ *
  * @author SINA
  * @since 2013-11-24
  */
@@ -77,7 +77,9 @@ public class User {
     public int verified_type;
     /** 用户备注信息，只有在查询用户关系时才返回此字段 */
     public String remark;
-    /** 用户的最近一条微博信息字段 */
+    /** 用户的最近一条微博ID */
+    public String status_id;
+
     public Status status;
     /** 是否允许所有人对我的微博进行评论，true：是，false：否 */
     public boolean allow_all_comment;
@@ -95,13 +97,13 @@ public class User {
     public int bi_followers_count;
     /** 用户当前的语言版本，zh-cn：简体中文，zh-tw：繁体中文，en：英语 */
     public String lang;
-    
+
     /** 注意：以下字段暂时不清楚具体含义，OpenAPI 说明文档暂时没有同步更新对应字段 */
     public String star;
     public String mbtype;
     public String mbrank;
     public String block_word;
-    
+
     public static User parse(String jsonString) {
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
@@ -109,15 +111,15 @@ public class User {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        
+
         return null;
     }
-    
+
     public static User parse(JSONObject jsonObject) {
         if (null == jsonObject) {
             return null;
         }
-        
+
         User user = new User();
         user.id                 = jsonObject.optString("id", "");
         user.idstr              = jsonObject.optString("idstr", "");
@@ -144,7 +146,8 @@ public class User {
         user.verified           = jsonObject.optBoolean("verified", false);
         user.verified_type      = jsonObject.optInt("verified_type", -1);
         user.remark             = jsonObject.optString("remark", "");
-        //user.status             = jsonObject.optString("status", ""); // XXX: NO Need ?
+        user.status_id          = jsonObject.optString("status_id", "");
+        // user.status             = jsonObject.optString("status", ""); // XXX: NO Need ?
         user.allow_all_comment  = jsonObject.optBoolean("allow_all_comment", true);
         user.avatar_large       = jsonObject.optString("avatar_large", "");
         user.avatar_hd          = jsonObject.optString("avatar_hd", "");
@@ -153,13 +156,13 @@ public class User {
         user.online_status      = jsonObject.optInt("online_status", 0);
         user.bi_followers_count = jsonObject.optInt("bi_followers_count", 0);
         user.lang               = jsonObject.optString("lang", "");
-        
+
         // 注意：以下字段暂时不清楚具体含义，OpenAPI 说明文档暂时没有同步更新对应字段含义
         user.star               = jsonObject.optString("star", "");
         user.mbtype             = jsonObject.optString("mbtype", "");
         user.mbrank             = jsonObject.optString("mbrank", "");
         user.block_word         = jsonObject.optString("block_word", "");
-        
+
         return user;
     }
 }

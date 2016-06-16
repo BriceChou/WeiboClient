@@ -10,7 +10,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bricechou.weiboclient.R;
-import com.sina.weibo.sdk.openapi.models.Group;
 import com.sina.weibo.sdk.openapi.models.Status;
 import com.sina.weibo.sdk.openapi.models.User;
 
@@ -22,22 +21,22 @@ import java.util.ArrayList;
 public class PersonalCenterAdaper extends BaseAdapter {
     private final static String TAG = "PersonalCenterAdaper";
     private Context mContext;
-    private ArrayList<Group> mGroupList;
+    private ArrayList<User> mUserList;
 
-    public PersonalCenterAdaper(Context context, ArrayList<Group> groupList) {
+    public PersonalCenterAdaper(Context context, ArrayList<User> userList) {
         this.mContext = context;
-        this.mGroupList = groupList;
+        this.mUserList = userList;
     }
 
 
     @Override
     public int getCount() {
-        return mGroupList.size();
+        return mUserList.size();
     }
 
     @Override
-    public Group getItem(int position) {
-        return mGroupList.get(position);
+    public User getItem(int position) {
+        return mUserList.get(position);
     }
 
     @Override
@@ -76,16 +75,16 @@ public class PersonalCenterAdaper extends BaseAdapter {
         }
 
         // bind data
-        final Group group = getItem(position);
+        final User user = getItem(position);
 
         //weibo content
-//        Status status = user.status;
-//        holder.mTextViewUsername.setText(user.screen_name);
-//        holder.mTextViewCaption.setText("简介");
-//
-//        holder.mTextViewStatus.setText(user.statuses_count);
-//        holder.mTextViewFriends.setText(user.friends_count);
-//        holder.mTextViewFollows.setText(user.followers_count);
+        Status status = user.status;
+        holder.mTextViewUsername.setText(user.screen_name);
+        holder.mTextViewCaption.setText("简介");
+
+        holder.mTextViewStatus.setText(user.statuses_count);
+        holder.mTextViewFriends.setText(user.friends_count);
+        holder.mTextViewFollows.setText(user.followers_count);
         return convertView;
     }
 

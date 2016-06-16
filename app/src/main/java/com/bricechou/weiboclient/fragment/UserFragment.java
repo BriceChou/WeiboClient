@@ -13,18 +13,20 @@ import com.bricechou.weiboclient.R;
 import com.bricechou.weiboclient.api.WeiboRequestListener;
 import com.bricechou.weiboclient.config.Constants;
 import com.bricechou.weiboclient.db.LoginUserToken;
+import com.bricechou.weiboclient.model.UserList;
 import com.bricechou.weiboclient.utils.BaseFragment;
 import com.bricechou.weiboclient.utils.TitleBuilder;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.openapi.UsersAPI;
 import com.sina.weibo.sdk.openapi.legacy.FriendshipsAPI;
-
+import com.sina.weibo.sdk.openapi.legacy.StatusesAPI;
 
 /**
  * Created by sdduser on 5/28/16.
  */
 public class UserFragment extends BaseFragment {
     private final static String TAG = "UserFragment";
+    private StatusesAPI mStatusesAPI ;
     private View mView;
     private ListView mFollowList;
     private LinearLayout mUserInfo;
@@ -32,6 +34,7 @@ public class UserFragment extends BaseFragment {
     private UsersAPI mUsersAPI;
     private Long mUid;
     private long[] mUids;
+    private UserList mUserList;
     private Oauth2AccessToken mOauth2AccessToken;
 
     @Override
@@ -89,31 +92,30 @@ public class UserFragment extends BaseFragment {
                     if (response.startsWith("{\"users\"")) {
                         Log.i("................", response);
                         // the Status instance load the data from JSON data.
-
+                        mUserList = mUserList.parse(response);
+                        mStatusesAPI = new StatusesAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.showAccessToken());
+                        Log.d(TAG, "total_number: " + mUserList.total_number);
+                        Log.d(TAG, "user: " + mUserList.userList.get(0));
+                        Log.d(TAG, "status_id: " + mUserList.userList.get(1).status_id);
+                        long id = 3986099586186146L;
+                        mStatusesAPI.show(id,new WeiboRequestListener(mMainActivity){
+                            @Override
+                            public void onComplete(String response) {
+                                super.onComplete(response);
+                                Log.d(TAG, "mStatusesAPI.show :"+ response);
+                            }
+                        });
                         // mFollowList.setAdapter(new PersonalCenterAdaper(mMainActivity, mGroupList.groupList));
                     }
                 }
             }
         });
-        mUsersAPI.counts(mUids, new WeiboRequestListener(mMainActivity) {
-            @Override
-            public void onComplete(String response) {
-                super.onComplete(response);
-                if (!TextUtils.isEmpty(response)) {
-                    if (response.startsWith("{\"users\"")) {
-                        Log.i("................", response);
-                        // the Status instance load the data from JSON data.
 
-                        // mFollowList.setAdapter(new PersonalCenterAdaper(mMainActivity, mGroupList.groupList));
-                    }
-                }
-            }
-        });
         mUsersAPI.counts(mUids, new WeiboRequestListener(mMainActivity) {
             @Override
             public void onComplete(String response) {
                 super.onComplete(response);
-                Log.i("................", response);
+                //  Log.i("................", response);
              /*   if (!TextUtils.isEmpty(response)) {
                     if (response.startsWith("{\"users\"")) {
                         // the Status instance load the data from JSON data.

@@ -24,6 +24,8 @@ import org.json.JSONObject;
 
 import android.text.TextUtils;
 
+import com.sina.weibo.sdk.openapi.StatusesAPI;
+
 /**
  * 微博列表结构。
  * @see <a href="http://t.cn/zjM1a2W">常见返回对象数据结构</a>

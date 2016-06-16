@@ -20,6 +20,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.SparseArray;
+
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.net.RequestListener;
 import com.sina.weibo.sdk.net.WeiboParameters;
@@ -72,6 +73,7 @@ public class StatusesAPI extends AbsOpenAPI {
     private static final int WRITE_API_UPLOAD          = 4;
     private static final int WRITE_API_UPLOAD_URL_TEXT = 5;
 
+
     private static final SparseArray<String> sAPIList = new SparseArray<String>();
     static {
         sAPIList.put(READ_API_FRIENDS_TIMELINE, API_BASE_URL + "/friends_timeline.json");
@@ -85,7 +87,7 @@ public class StatusesAPI extends AbsOpenAPI {
     /**
      * 构造函数，使用各个 API 接口提供的服务前必须先获取 Token。
      * 
-     * @param accesssToken 访问令牌
+     * @param accessToken 访问令牌
      */
     public StatusesAPI(Context context, String appKey, Oauth2AccessToken accessToken) {
         super(context, appKey, accessToken);
@@ -282,5 +284,5 @@ public class StatusesAPI extends AbsOpenAPI {
         params.put("trim_user", trim_user ? 1 : 0);
         
         return params;
-    } 
+    }
 }

@@ -1,15 +1,18 @@
 package com.bricechou.weiboclient.model;
 
 
-import java.util.ArrayList;
+import android.text.TextUtils;
+import android.util.Log;
 
+import com.sina.weibo.sdk.openapi.models.Status;
+import com.sina.weibo.sdk.openapi.models.StatusList;
 import com.sina.weibo.sdk.openapi.models.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.text.TextUtils;
+import java.util.ArrayList;
 
 /**
  * Resolving the JSON type data about friendship list.
@@ -26,9 +29,7 @@ public class UserList {
      * @author BriceChou
      * @datetime 16-6-16 10:05
      */
-
     public ArrayList<User> userList;
-    public User users;
     public String previous_cursor;
     public String next_cursor;
     public int total_number;
@@ -44,6 +45,7 @@ public class UserList {
             usersList.previous_cursor = jsonObject.optString("previous_cursor", "0");
             usersList.next_cursor = jsonObject.optString("next_cursor", "0");
             usersList.total_number = jsonObject.optInt("total_number", 0);
+
             JSONArray jsonArray = jsonObject.optJSONArray("users");
             if (jsonArray != null && jsonArray.length() > 0) {
                 int length = jsonArray.length();
