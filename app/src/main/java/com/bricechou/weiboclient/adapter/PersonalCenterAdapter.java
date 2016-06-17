@@ -1,6 +1,7 @@
 package com.bricechou.weiboclient.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -35,7 +36,7 @@ public class PersonalCenterAdapter extends BaseAdapter {
         return this;
 
     }
-    public PersonalCenterAdaper setUserInfo(User userInfo) {
+    public PersonalCenterAdapter setUserInfo(User userInfo) {
         this.mUserInfo = userInfo;
         return this;
     }

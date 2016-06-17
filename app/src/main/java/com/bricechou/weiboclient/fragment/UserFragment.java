@@ -18,6 +18,7 @@ import com.bricechou.weiboclient.api.UserCounts;
 import com.bricechou.weiboclient.api.UserList;
 import com.bricechou.weiboclient.utils.BaseFragment;
 import com.bricechou.weiboclient.utils.TitleBuilder;
+import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.openapi.UsersAPI;
 import com.sina.weibo.sdk.openapi.legacy.FriendshipsAPI;
 import com.sina.weibo.sdk.openapi.models.User;
@@ -122,7 +123,7 @@ public class UserFragment extends BaseFragment {
                 Log.i(".....user screen name", response);
                 user = user.parse(response);
                 Log.i(".....user", String.valueOf(user));
-                mPersonalCenterAdaper.setUserInfo(user).holderLoginData(mView,user);
+                mPersonalCenterAdapter.setUserInfo(user).holderLoginData(mView,user);
             }
         });
     }
