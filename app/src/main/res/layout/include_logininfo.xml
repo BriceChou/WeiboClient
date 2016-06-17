@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_logininfo"
+    android:layout_width="match_parent"
+    android:layout_height="88dp"
+    android:background="@drawable/bg_white2gray_sel"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center_vertical"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/avatar_default" />
+
+    <RelativeLayout
+        android:id="@+id/rl_content_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="8dp"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:id="@+id/tv_loginname"
+            style="@style/TextViewSubhead"
+            android:text="账户昵称" />
+
+        <TextView
+            android:id="@+id/tv_logincaption"
+            style="@style/TextViewCaption"
+            android:layout_below="@id/tv_loginname"
+            android:layout_marginTop="8dp"
+            android:text="简介：暂无介绍"
+            android:textColor="@color/txt_gray" />
+
+    </RelativeLayout>
+
+</LinearLayout>

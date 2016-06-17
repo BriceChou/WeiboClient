@@ -23,6 +23,7 @@ public class PersonalCenterAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<User> mUserList;
     private UserCounts mUserCounts;
+    private User mUserInfo;
 
     public PersonalCenterAdapter(Context context, ArrayList<User> userList) {
         this.mContext = context;
@@ -33,6 +34,10 @@ public class PersonalCenterAdapter extends BaseAdapter {
         this.mUserCounts = mUserCounts;
         return this;
 
+    }
+    public PersonalCenterAdaper setUserInfo(User userInfo) {
+        this.mUserInfo = userInfo;
+        return this;
     }
     public void setCounts(View view) {
         ViewHolder holder = new ViewHolder();
@@ -47,6 +52,19 @@ public class PersonalCenterAdapter extends BaseAdapter {
         holder.mTextViewFriends.setText(mUserCounts.friends_count);
         holder.mTextViewFollows.setText(mUserCounts.followers_count);
 
+    }
+    public void holderLoginData(View view,User user) {
+        ViewHolder holder = new ViewHolder();
+        holder.mImageViewAvatar = (ImageView) view
+                .findViewById(R.id.iv_avatar);
+        holder.mTextViewLoginName = (TextView) view
+                .findViewById(R.id.tv_loginname);
+        holder.mTextViewLoginCaption = (TextView) view
+                .findViewById(R.id.tv_logincaption);
+        Log.i(TAG,user.screen_name);
+        Log.i(TAG,user.description);
+        holder.mTextViewLoginName.setText(user.screen_name);
+        holder.mTextViewLoginCaption.setText(user.description);
     }
 
     public UserCounts getmUserCounts() {
@@ -115,6 +133,10 @@ public class PersonalCenterAdapter extends BaseAdapter {
         public TextView mTextViewStatus;
         public TextView mTextViewFriends;
         public TextView mTextViewFollows;
+
+        //include_logininfo xml
+        public TextView mTextViewLoginName;
+        public TextView mTextViewLoginCaption;
 
     }
 }

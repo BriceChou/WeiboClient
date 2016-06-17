@@ -20,6 +20,7 @@ import com.bricechou.weiboclient.utils.BaseFragment;
 import com.bricechou.weiboclient.utils.TitleBuilder;
 import com.sina.weibo.sdk.openapi.UsersAPI;
 import com.sina.weibo.sdk.openapi.legacy.FriendshipsAPI;
+import com.sina.weibo.sdk.openapi.models.User;
 
 /**
  * Created by sdduser on 5/28/16.
@@ -30,32 +31,35 @@ public class UserFragment extends BaseFragment {
     private UserCounts mUserCounts;
     private View mView;
     private ListView mFollowList;
-    private LinearLayout mUserInfo;
+    private LinearLayout mLoginInfo;
     private FriendshipsAPI mFriendshipsAPI;
     private UsersAPI mUsersAPI;
     private Long mUid;
     private long[] mUids;
     private UserList mUserList;
+    private Oauth2AccessToken mOauth2AccessToken;
+    private User user;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         initView();
-        loadFollowList();
+        loadUserData();
         return mView;
     }
 
 
     private void initView() {
         mView = View.inflate(mMainActivity, R.layout.frag_user, null);
+        mLoginInfo = (LinearLayout) mView.findViewById(R.id.ll_logininfo);
         mFollowList = (ListView) mView.findViewById(R.id.lv_follow_list);
-        mUserInfo = (LinearLayout) mView.findViewById(R.id.ll_content_info);
         mFriendshipsAPI = new FriendshipsAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.showAccessToken());
         mUsersAPI = new UsersAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.showAccessToken());
-//        mOauth2AccessToken = LoginUserToken.getAccessToken(mMainActivity);
-//        mUid = Long.parseLong(mOauth2AccessToken.getUid());
+        //mOauth2AccessToken = LoginUserToken.getAccessToken(mMainActivity);
+        //mUid = Long.parseLong(mOauth2AccessToken.getUid());
         mUid = Long.parseLong("2851891152");
         mUids = new long[1];
         mUids[0] = Long.parseLong("2851891152");
+        //mUids[0] = Long.parseLong(mOauth2AccessToken.getUid());
         //titlebar
         new TitleBuilder(mView)
                 .setCenterText("我")
@@ -73,7 +77,7 @@ public class UserFragment extends BaseFragment {
                 });
     }
 
-    private void loadFollowList() {
+    private void loadUserData() {
         /**
          * 获取用户的关注列表。
          *
@@ -109,6 +113,16 @@ public class UserFragment extends BaseFragment {
                     mPersonalCenterAdapter.setmUserCounts(mUserCounts).setCounts(mView);
                     Log.d(TAG, "mUserCounts: " + mUserCounts.followers_count);
                 }
+            }
+        });
+        mUsersAPI.show(mUid,new WeiboRequestListener(mMainActivity) {
+            @Override
+            public void onComplete(String response) {
+                super.onComplete(response);
+                Log.i(".....user screen name", response);
+                user = user.parse(response);
+                Log.i(".....user", String.valueOf(user));
+                mPersonalCenterAdaper.setUserInfo(user).holderLoginData(mView,user);
             }
         });
     }
