@@ -6,55 +6,7 @@
     android:orientation="vertical">
 
     <include layout="@layout/include_titlebar" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="4dp">
-
-        <LinearLayout
-            android:id="@+id/ll_userinfo"
-            android:layout_width="match_parent"
-            android:layout_height="88dp"
-            android:background="@drawable/bg_white2gray_sel"
-            android:orientation="horizontal"
-            android:padding="16dp">
-
-            <ImageView
-                android:id="@+id/iv_avatar"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
-                android:layout_gravity="center_vertical"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/avatar_default" />
-
-            <RelativeLayout
-                android:id="@+id/rl_content"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="8dp"
-                android:paddingTop="8dp">
-
-                <TextView
-                    android:id="@+id/tv_username"
-                    style="@style/TextViewSubhead"
-                    android:text="账户昵称" />
-
-                <TextView
-                    android:id="@+id/tv_caption"
-                    style="@style/TextViewCaption"
-                    android:layout_below="@id/tv_username"
-                    android:layout_marginTop="8dp"
-                    android:text="简介：暂无介绍"
-                    android:textColor="@color/txt_gray" />
-
-            </RelativeLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
+    <include layout="@layout/include_logininfo"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
