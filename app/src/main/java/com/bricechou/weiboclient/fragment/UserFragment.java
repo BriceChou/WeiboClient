@@ -10,15 +10,14 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.bricechou.weiboclient.R;
-import com.bricechou.weiboclient.adapter.PersonalCenterAdaper;
+import com.bricechou.weiboclient.adapter.PersonalCenterAdapter;
 import com.bricechou.weiboclient.api.WeiboRequestListener;
 import com.bricechou.weiboclient.config.Constants;
 import com.bricechou.weiboclient.db.LoginUserToken;
-import com.bricechou.weiboclient.model.UserCounts;
-import com.bricechou.weiboclient.model.UserList;
+import com.bricechou.weiboclient.api.UserCounts;
+import com.bricechou.weiboclient.api.UserList;
 import com.bricechou.weiboclient.utils.BaseFragment;
 import com.bricechou.weiboclient.utils.TitleBuilder;
-import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.openapi.UsersAPI;
 import com.sina.weibo.sdk.openapi.legacy.FriendshipsAPI;
 
@@ -27,7 +26,7 @@ import com.sina.weibo.sdk.openapi.legacy.FriendshipsAPI;
  */
 public class UserFragment extends BaseFragment {
     private final static String TAG = "UserFragment";
-    private PersonalCenterAdaper mPersonalCenterAdaper;
+    private PersonalCenterAdapter mPersonalCenterAdapter;
     private UserCounts mUserCounts;
     private View mView;
     private ListView mFollowList;
@@ -93,8 +92,8 @@ public class UserFragment extends BaseFragment {
                     if (response.startsWith("{\"users\"")) {
                         Log.i("................", response);
                         mUserList = mUserList.parse(response);
-                        mPersonalCenterAdaper = new PersonalCenterAdaper(mMainActivity, mUserList.userList);
-                        mFollowList.setAdapter(mPersonalCenterAdaper);
+                        mPersonalCenterAdapter = new PersonalCenterAdapter(mMainActivity, mUserList.userList);
+                        mFollowList.setAdapter(mPersonalCenterAdapter);
                     }
                 }
             }
@@ -107,7 +106,7 @@ public class UserFragment extends BaseFragment {
                 Log.i("................", response);
                 if (!TextUtils.isEmpty(response)) {
                     mUserCounts = mUserCounts.parse(response);
-                    mPersonalCenterAdaper.setmUserCounts(mUserCounts).setCounts(mView);
+                    mPersonalCenterAdapter.setmUserCounts(mUserCounts).setCounts(mView);
                     Log.d(TAG, "mUserCounts: " + mUserCounts.followers_count);
                 }
             }

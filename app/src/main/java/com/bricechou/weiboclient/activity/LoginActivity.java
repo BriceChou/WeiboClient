@@ -9,19 +9,17 @@ import android.widget.Button;
 import com.bricechou.weiboclient.R;
 import com.bricechou.weiboclient.api.LoginAuthListener;
 import com.bricechou.weiboclient.config.Constants;
+import com.bricechou.weiboclient.utils.SQLiteUtil;
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.auth.sso.SsoHandler;
 
 public class LoginActivity extends Activity implements View.OnClickListener {
 
     private static final String TAG = "LoginActivity";
-
-    // A Weibo instance
-    private AuthInfo mAuthInfo;
-
-    private SsoHandler mSsoHandler; // 注意：SsoHandler 仅当 SDK 支持 SSO 时有效
-
-    private Button mButtonSubmit; // 成员变量登录按钮
+    private AuthInfo mAuthInfo; // A Weibo instance
+    private SsoHandler mSsoHandler; // deal with the user login class
+    private Button mButtonSubmit;
+    private SQLiteUtil mSqLiteUtil;
 
 
     private void initView() {
@@ -67,9 +65,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login_submit:
-                // initWeibo();
+                initWeibo();
                 // @XXX it's use to test some activity.
-                startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                // startActivity(new Intent(LoginActivity.this,MainActivity.class));
                 break;
             default:
                 break;

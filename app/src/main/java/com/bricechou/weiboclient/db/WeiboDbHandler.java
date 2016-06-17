@@ -4,6 +4,10 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.bricechou.weiboclient.activity.MainActivity;
+import com.bricechou.weiboclient.model.WeiboContent;
+import com.bricechou.weiboclient.utils.SQLiteUtil;
+
 /**
  * save the Weibo content into the SQLiteDatabase
  *
@@ -16,7 +20,6 @@ public class WeiboDbHandler extends SQLiteOpenHelper {
     public WeiboDbHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
-
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("create table t2m_weibo_content(" +
@@ -26,7 +29,6 @@ public class WeiboDbHandler extends SQLiteOpenHelper {
                 "pass varchar(200), " +
                 ")");
     }
-
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 

@@ -21,15 +21,11 @@ import com.sina.weibo.sdk.openapi.models.StatusList;
  * Created by sdduser on 5/28/16.
  */
 public class HomeFragment extends BaseFragment {
-
     private final static String TAG = "HomeFragment";
     private View mView;
-    // fragment_home list view
-    private ListView lv_home;
-    // Weibo content interface
-    private StatusesAPI mStatusesAPI;
-    // All Weibo content collection
-    private StatusList mStatusList;
+    private ListView lv_home; // fragment_home list view
+    private StatusList mStatusList; // All Weibo content collection
+    private StatusesAPI mStatusesAPI; // Weibo content interface
 
     /**
      * show the weibo home page

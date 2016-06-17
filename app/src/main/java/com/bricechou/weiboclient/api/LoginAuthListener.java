@@ -1,20 +1,22 @@
 package com.bricechou.weiboclient.api;
 
 /**
- * Created by sdduser on 16-6-14.
+ * Implements the WeiboAuthListener class
+ *
+ * @author BriceChou
+ * @datetime 16-6-14 11:36
  */
-
-import android.content.Context;
-import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
+import android.os.Bundle;
 import android.widget.Toast;
+import android.text.TextUtils;
+import android.content.Context;
 
 import com.bricechou.weiboclient.R;
-import com.bricechou.weiboclient.db.LoginUserToken;
+import com.sina.weibo.sdk.auth.sso.SsoHandler;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.WeiboAuthListener;
-import com.sina.weibo.sdk.auth.sso.SsoHandler;
+import com.bricechou.weiboclient.db.LoginUserToken;
 import com.sina.weibo.sdk.exception.WeiboException;
 
 /**

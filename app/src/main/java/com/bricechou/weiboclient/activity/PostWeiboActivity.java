@@ -25,17 +25,12 @@ import com.sina.weibo.sdk.openapi.StatusesAPI;
 public class PostWeiboActivity extends Activity implements View.OnClickListener {
 
     private final static String TAG = "PostWeiboActivity";
-    // back to main page
-    private Button mButtonBack;
-    // send a weibo to server
-    private Button mButtonSend;
-    // post weibo content
-    private EditText mEditTextContent;
-    // post weibo content image
-    private ImageView mImageViewContent;
+    private Button mButtonBack; // back to main page
+    private Button mButtonSend; // send a weibo to server
+    private EditText mEditTextContent;  // post weibo content
+    private ImageView mImageViewContent; // post weibo content image
     private StatusesAPI mStatusesAPI;
 
-    // Initial the layout view variable
     private void initView() {
         mEditTextContent = (EditText) findViewById(R.id.et_post_weibo_content);
         mImageViewContent = (ImageView) findViewById(R.id.iv_post_weibo_image);

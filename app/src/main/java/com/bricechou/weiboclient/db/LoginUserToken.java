@@ -8,13 +8,6 @@ import android.util.Log;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
 /**
- * 将用户登录时产生的 oAuth Token 进行储存
- * <p/>
- * SQLite： SQLite是一个轻量级的数据库，支持基本SQL语法，是常被采用的一种数据存储方式。
- * Android为此数据库提供了一个名为SQLiteDatabase的类，封装了一些操作数据库的API。
- * <p/>
- * SharedPreference： 是一种常用的数据存储方式，其本质就是一个xml文件，常用于存储较简单的参数设置。
- * 它的本质是基于XML文件存储key-value键值对数据，
  * 通常用来存储一些简单的配置信息。其存储位置在/data/data/<包名>/shared_prefs目录下。
  * SharedPreferences对象本身只能获取数据而不支持存储和修改，存储修改是通过Editor对象实现。
  * 实现SharedPreferences存储的步骤如下：
@@ -34,7 +27,6 @@ public class LoginUserToken {
     private static final String KEY_ACCESS_TOKEN = "access_token";
     private static final String KEY_EXPIRES_IN = "expires_in";
     private static final String KEY_REFRESH_TOKEN = "refresh_token";
-
     // 当用户使用手机登录时 或者 手机注册的手机号码 会产生 手机号码,其他方式是没有手机号码的
     private static final String KEY_PHONE_NUM = "phone_number";
 
@@ -49,7 +41,6 @@ public class LoginUserToken {
             Log.e(TAG, "saveAccessToken: accessToken is NULL.");
             return;
         }
-
         // 获取SharedPreferences对象
         // SharedPreferences preference = getSharedPreferences("数据Map的名称", 打开模式 );
         // 打开模式有多种，一般用可读和可写两种，MODE_WORLD_WRITEABLE，MODE_WORLD_READABLE。
@@ -106,13 +97,14 @@ public class LoginUserToken {
      *
      * @author BriceChou
      * @datetime 16-6-7 10:40
-     * @XXX we don't input weibo account and password
+     * @XXX we don't input weibo account and password that we use the developer account.
      */
-
     public static Oauth2AccessToken showAccessToken() {
         Oauth2AccessToken accessToken = new Oauth2AccessToken();
         accessToken.setToken("2.005KPAHDDkQmLCfb61244d50Rb_7xC");
+        accessToken.setRefreshToken("2.005KPAHDDkQmLCf648c5fafdaOK6ME");
         accessToken.setUid("2851891152");
+        accessToken.setExpiresIn("157679999");
         return accessToken;
     }
 }

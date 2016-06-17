@@ -1,7 +1,6 @@
 package com.bricechou.weiboclient.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,7 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bricechou.weiboclient.R;
-import com.bricechou.weiboclient.model.UserCounts;
+import com.bricechou.weiboclient.api.UserCounts;
 import com.sina.weibo.sdk.openapi.models.User;
 
 import java.util.ArrayList;
@@ -19,18 +18,18 @@ import java.util.ArrayList;
 /**
  * Created by user on 6/15/16.
  */
-public class PersonalCenterAdaper extends BaseAdapter {
-    private final static String TAG = "PersonalCenterAdaper";
+public class PersonalCenterAdapter extends BaseAdapter {
+    private final static String TAG = "PersonalCenterAdapter";
     private Context mContext;
     private ArrayList<User> mUserList;
     private UserCounts mUserCounts;
 
-    public PersonalCenterAdaper(Context context, ArrayList<User> userList) {
+    public PersonalCenterAdapter(Context context, ArrayList<User> userList) {
         this.mContext = context;
         this.mUserList = userList;
     }
 
-    public PersonalCenterAdaper setmUserCounts(UserCounts mUserCounts) {
+    public PersonalCenterAdapter setmUserCounts(UserCounts mUserCounts) {
         this.mUserCounts = mUserCounts;
         return this;
 
