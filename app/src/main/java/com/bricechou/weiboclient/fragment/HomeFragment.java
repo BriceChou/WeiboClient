@@ -11,11 +11,14 @@ import com.bricechou.weiboclient.R;
 import com.bricechou.weiboclient.adapter.WeiboHomeAdapter;
 import com.bricechou.weiboclient.api.WeiboRequestListener;
 import com.bricechou.weiboclient.config.Constants;
+import com.bricechou.weiboclient.db.LoginUserInformation;
 import com.bricechou.weiboclient.db.LoginUserToken;
 import com.bricechou.weiboclient.utils.BaseFragment;
 import com.bricechou.weiboclient.utils.TitleBuilder;
 import com.sina.weibo.sdk.openapi.StatusesAPI;
+import com.sina.weibo.sdk.openapi.UsersAPI;
 import com.sina.weibo.sdk.openapi.models.StatusList;
+import com.sina.weibo.sdk.openapi.models.User;
 
 /**
  * Created by sdduser on 5/28/16.
@@ -26,6 +29,8 @@ public class HomeFragment extends BaseFragment {
     private ListView lv_home; // fragment_home list view
     private StatusList mStatusList; // All Weibo content collection
     private StatusesAPI mStatusesAPI; // Weibo content interface
+    private LoginUserInformation mLoginUserInformation;
+    private User mUser;
 
     /**
      * show the weibo home page
@@ -38,6 +43,7 @@ public class HomeFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         initView();
         initWeiboContent();
+        // initLoginUser();
         /**
          * Main page titlebar
          *
@@ -46,7 +52,8 @@ public class HomeFragment extends BaseFragment {
          * @TODO Show the current user name
          */
         new TitleBuilder(mView)
-                .setCenterText("帐号昵称")
+                // .setCenterText("" + mLoginUserInformation.loginUser.name)
+                .setCenterText("周晢")
                 .setLeftImage(R.drawable.icon_friendattention)
                 .setRightImage(R.drawable.icon_radar)
                 .setLeftOnclickListener(new View.OnClickListener() {
@@ -60,6 +67,26 @@ public class HomeFragment extends BaseFragment {
                     }
                 });
         return mView;
+    }
+
+    /**
+     * To save the current login user information.
+     *
+     * @author BriceChou
+     * @datetime 16-6-20 13:59
+     * @TODO We can't save the data into a class model.
+     */
+    private void initLoginUser() {
+        mLoginUserInformation = new LoginUserInformation();
+        UsersAPI mUsersAPI = new UsersAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.showAccessToken());
+        mUsersAPI.show(LoginUserToken.showAccessToken().getUid(), new WeiboRequestListener(mMainActivity) {
+            @Override
+            public void onComplete(String response) {
+                super.onComplete(response);
+                mUser = mUser.parse(response);
+                mLoginUserInformation.setLoginUser(mLoginUserInformation, mUser);
+            }
+        });
     }
 
     /**

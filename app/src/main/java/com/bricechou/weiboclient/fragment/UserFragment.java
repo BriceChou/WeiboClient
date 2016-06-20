@@ -35,7 +35,7 @@ public class UserFragment extends BaseFragment {
     private LinearLayout mLoginInfo;
     private FriendshipsAPI mFriendshipsAPI;
     private UsersAPI mUsersAPI;
-    private Long mUid;
+    private long mUid;
     private long[] mUids;
     private UserList mUserList;
     private Oauth2AccessToken mOauth2AccessToken;
@@ -123,7 +123,7 @@ public class UserFragment extends BaseFragment {
                 Log.i(".....user screen name", response);
                 user = user.parse(response);
                 Log.i(".....user", String.valueOf(user));
-                mPersonalCenterAdapter.setUserInfo(user).holderLoginData(mView,user);
+                mPersonalCenterAdapter.setUserInfo(user,mUid).holderLoginData(mView,user);
             }
         });
     }

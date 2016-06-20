@@ -1,5 +1,9 @@
 package com.bricechou.weiboclient.model;
 
+import android.content.Context;
+
+import com.sina.weibo.sdk.openapi.models.Status;
+
 /**
  * This is a Model for current login user.
  * To record user related information.
@@ -9,37 +13,23 @@ package com.bricechou.weiboclient.model;
  * @TODO
  */
 public class LoginUser {
-    private Integer id;
-    private String username;
-    private String passwrod;
+    private final static String TAG = "LoginUser";
+    public String name;
+    public String screenName;
+    public String description;
+    public String location;
+    public String profileImageUrl;
+    public String profileUrl;
+    public String domain;
+    public String weihao;
+    public String gender;
+    public int statusesCount;
+    public int followersCount;
+    public int friendsCount;
+    public int favouritesCount;
+    public String createdAt;
+    public Status status;
 
-    public LoginUser(Integer id, String username, String passwrod) {
-        this.id = id;
-        this.passwrod = passwrod;
-        this.username = username;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getPasswrod() {
-        return passwrod;
-    }
-
-    public void setPasswrod(String passwrod) {
-        this.passwrod = passwrod;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public LoginUser() {
     }
 }

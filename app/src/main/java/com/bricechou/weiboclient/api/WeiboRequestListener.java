@@ -3,6 +3,7 @@ package com.bricechou.weiboclient.api;
 import android.content.Context;
 import android.util.Log;
 
+import com.bricechou.weiboclient.model.LoginUser;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
 

@@ -147,7 +147,7 @@ public class User {
         user.verified_type      = jsonObject.optInt("verified_type", -1);
         user.remark             = jsonObject.optString("remark", "");
         user.status_id          = jsonObject.optString("status_id", "");
-        // user.status             = jsonObject.optString("status", ""); // XXX: NO Need ?
+        user.status             = Status.parse(jsonObject.optJSONObject("status")); // XXX: NO Need ?
         user.allow_all_comment  = jsonObject.optBoolean("allow_all_comment", true);
         user.avatar_large       = jsonObject.optString("avatar_large", "");
         user.avatar_hd          = jsonObject.optString("avatar_hd", "");

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bricechou.weiboclient.R;
 import com.bricechou.weiboclient.api.UserCounts;
+import com.bricechou.weiboclient.model.LoginUser;
 import com.sina.weibo.sdk.openapi.models.User;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class PersonalCenterAdapter extends BaseAdapter {
         return this;
 
     }
-    public PersonalCenterAdapter setUserInfo(User userInfo) {
+    public PersonalCenterAdapter setUserInfo(User userInfo,long uid) {
         this.mUserInfo = userInfo;
         return this;
     }
