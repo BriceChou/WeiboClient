@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.bricechou.weiboclient.R;
-import com.bricechou.weiboclient.adapter.WeiboHomeAdapter;
+import com.bricechou.weiboclient.adapter.HomeAdapter;
 import com.bricechou.weiboclient.api.WeiboRequestListener;
 import com.bricechou.weiboclient.config.Constants;
 import com.bricechou.weiboclient.db.LoginUserInformation;
@@ -106,7 +106,7 @@ public class HomeFragment extends BaseFragment {
                     if (response.startsWith("{\"statuses\"")) {
                         // the Status instance load the data from JSON data.
                         mStatusList = mStatusList.parse(response);
-                        lv_home.setAdapter(new WeiboHomeAdapter(mMainActivity, mStatusList.statusList));
+                        lv_home.setAdapter(new HomeAdapter(mMainActivity, mStatusList.statusList));
                     }
                 }
             }

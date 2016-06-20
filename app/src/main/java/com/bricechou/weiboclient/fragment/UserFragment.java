@@ -10,12 +10,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.bricechou.weiboclient.R;
-import com.bricechou.weiboclient.adapter.PersonalCenterAdapter;
+import com.bricechou.weiboclient.adapter.UserAdapter;
+import com.bricechou.weiboclient.api.UserCounts;
+import com.bricechou.weiboclient.api.UserList;
 import com.bricechou.weiboclient.api.WeiboRequestListener;
 import com.bricechou.weiboclient.config.Constants;
 import com.bricechou.weiboclient.db.LoginUserToken;
-import com.bricechou.weiboclient.api.UserCounts;
-import com.bricechou.weiboclient.api.UserList;
 import com.bricechou.weiboclient.utils.BaseFragment;
 import com.bricechou.weiboclient.utils.TitleBuilder;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
@@ -28,7 +28,7 @@ import com.sina.weibo.sdk.openapi.models.User;
  */
 public class UserFragment extends BaseFragment {
     private final static String TAG = "UserFragment";
-    private PersonalCenterAdapter mPersonalCenterAdapter;
+    private UserAdapter mUserAdapter;
     private UserCounts mUserCounts;
     private View mView;
     private ListView mFollowList;
@@ -97,8 +97,8 @@ public class UserFragment extends BaseFragment {
                     if (response.startsWith("{\"users\"")) {
                         Log.i("................", response);
                         mUserList = mUserList.parse(response);
-                        mPersonalCenterAdapter = new PersonalCenterAdapter(mMainActivity, mUserList.userList);
-                        mFollowList.setAdapter(mPersonalCenterAdapter);
+                        mUserAdapter = new UserAdapter(mMainActivity, mUserList.userList);
+                        mFollowList.setAdapter(mUserAdapter);
                     }
                 }
             }
@@ -111,7 +111,7 @@ public class UserFragment extends BaseFragment {
                 Log.i("................", response);
                 if (!TextUtils.isEmpty(response)) {
                     mUserCounts = mUserCounts.parse(response);
-                    mPersonalCenterAdapter.setmUserCounts(mUserCounts).setCounts(mView);
+                    mUserAdapter.setmUserCounts(mUserCounts).setCounts(mView);
                     Log.d(TAG, "mUserCounts: " + mUserCounts.followers_count);
                 }
             }
@@ -123,7 +123,7 @@ public class UserFragment extends BaseFragment {
                 Log.i(".....user screen name", response);
                 user = user.parse(response);
                 Log.i(".....user", String.valueOf(user));
-                mPersonalCenterAdapter.setUserInfo(user,mUid).holderLoginData(mView,user);
+                mUserAdapter.setUserInfo(user,mUid).holderLoginData(mView,user);
             }
         });
     }

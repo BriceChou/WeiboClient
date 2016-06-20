@@ -1,7 +1,6 @@
 package com.bricechou.weiboclient.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -12,25 +11,27 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bricechou.weiboclient.R;
+import com.bricechou.weiboclient.utils.StringFormat;
 import com.bricechou.weiboclient.utils.TimeFormat;
+import com.bricechou.weiboclient.view.HomeViewHolder;
 import com.sina.weibo.sdk.openapi.models.Status;
 import com.sina.weibo.sdk.openapi.models.User;
 
 import java.util.ArrayList;
 
-import com.bricechou.weiboclient.utils.StringFormat;
-
 /**
+ * Bind user weibo content data to HomeFragment
+ *
  * @author BriceChou
  * @datetime 16-6-6 17:39
  * @TODO to konw the adapter concept
  */
-public class WeiboHomeAdapter extends BaseAdapter {
-    private final static String TAG = "WeiboHomeAdapter";
+public class HomeAdapter extends BaseAdapter {
+    private final static String TAG = "HomeAdapter";
     private Context mContext;
     private ArrayList<Status> mStatusList;
 
-    public WeiboHomeAdapter(Context context, ArrayList<Status> statusList) {
+    public HomeAdapter(Context context, ArrayList<Status> statusList) {
         this.mContext = context;
         this.mStatusList = statusList;
     }
@@ -52,9 +53,9 @@ public class WeiboHomeAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final ViewHolder holder;
+        final HomeViewHolder holder;
         if (convertView == null) {
-            holder = new ViewHolder();
+            holder = new HomeViewHolder();
             convertView = View.inflate(mContext, R.layout.item_status, null);
             holder.mLinearLayoutMainContent = (LinearLayout) convertView
                     .findViewById(R.id.ll_mainContent);
@@ -100,11 +101,11 @@ public class WeiboHomeAdapter extends BaseAdapter {
                     .findViewById(R.id.tv_like);
             convertView.setTag(holder);
         } else {
-            holder = (ViewHolder) convertView.getTag();
+            holder = (HomeViewHolder) convertView.getTag();
         }
 
         // bind data
-        final Status status = getItem(position);
+        Status status = getItem(position);
         User user = status.user;
         holder.mTextViewUsername.setText(user.name);
         holder.mTextViewCaption.setText(TimeFormat.timeToString(status.created_at)+ " 来自 " + StringFormat.formatStatusSource(status.source));
@@ -128,46 +129,4 @@ public class WeiboHomeAdapter extends BaseAdapter {
                 "赞" : status.attitudes_count + "");
         return convertView;
     }
-
-    /**
-     * show Weibo main content layout
-     *
-     * @author BriceChou
-     * @datetime 16-6-12 11:39
-     */
-    public static class ViewHolder {
-
-        // item_status xml file content
-        public LinearLayout mLinearLayoutMainContent;
-
-        // include_portrait xml file content
-        public ImageView mImageViewPortrait;
-        public RelativeLayout mRelativeLayoutContent;
-        // user name
-        public TextView mTextViewUsername;
-        // user identification form what phone client?
-        public TextView mTextViewCaption;
-
-        // item_status.xml -->> weibo content
-        public TextView mTextViewStatusContent;
-        // include_status_image.xml -->> weibo content image
-        public FrameLayout mFrameLayoutStatusImage;
-
-        // include_status_retweeted.xml -->> retweeted weibo content comment
-        public LinearLayout mLinearLayoutStatusRetweeted;
-        public TextView mTextViewRetweetedContent;
-        public FrameLayout mFrameLayoutRetweetedStatusImage;
-
-        // include_status_controlbar.xml -->> retweet,comment,like
-        public LinearLayout mLinearLayoutRetweet;
-        public ImageView mImageViewRetweet;
-        public TextView mTextViewRetweet;
-        public LinearLayout mLinearLayoutComment;
-        public ImageView mImageViewComment;
-        public TextView mTextViewComment;
-        public LinearLayout mLinearLayoutLike;
-        public ImageView mImageViewLike;
-        public TextView mTextViewLike;
-    }
-
 }

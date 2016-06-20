@@ -1,7 +1,33 @@
 package com.bricechou.weiboclient.adapter;
 
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+
 /**
- * Created by sdduser on 16-6-17.
+ * Binding the current login user message list data.
+ *
+ * @author BriceChou
+ * @datetime 16-6-20 15:21
  */
-public class MessageAdapter {
+public class MessageAdapter extends BaseAdapter {
+    @Override
+    public int getCount() {
+        return 0;
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return null;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        return convertView;
+    }
 }

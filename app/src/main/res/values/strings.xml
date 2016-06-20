@@ -16,13 +16,17 @@
     <string name="toast_login_auth_canceled">您已放弃进行微博登录,页面已返回!</string>
     <string name="toast_auth_success">微博授权登录成功!页面正在跳转……</string>
     <string name="toast_auth_failed">微博授权登录失败,请重新登录.</string>
-
     <string name="toast_function_unfinished">功能尚未开发完成,正在开发中……</string>
-
     <string name="toast_post_weibo_successed">您已成功发布一条微博!</string>
     <string name="toast_post_weibo_canceled">取消并返回主页面</string>
 
     <string name="hint_post_weibo_tip">侬还是说点啥伐...</string>
-    <string name="btn_post_weibo_send">发表</string>
     <string name="tv_post_weibo_title">发布微博</string>
+
+    <string name="btn_post_weibo_send">发表</string>
+    <string name="btn_message_messagebox">系统通知</string>
+    <string name="btn_message_comments">评论信息</string>
+    <string name="btn_message_good">赞</string>
+    <string name="btn_message_mention">\@我的</string>
+
 </resources>
