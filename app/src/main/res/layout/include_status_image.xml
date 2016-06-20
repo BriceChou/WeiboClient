@@ -4,11 +4,11 @@
     android:layout_height="wrap_content"
     android:padding="16dp">
 
-    <!--view  Multiple pictures
+    <!--view  Multiple pictures-->
     <com.bricechou.weiboclient.widget.WrapHeightGridView
         android:id="@+id/custom_images"
         android:layout_width="272dp"
-        style="@style/GridViewImages"/>-->
+        style="@style/GridViewImages"/>
 
     <!--view singal image-->
     <ImageView

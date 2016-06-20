@@ -5,12 +5,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bricechou.weiboclient.R;
+import com.bricechou.weiboclient.model.PicUrls;
 import com.bricechou.weiboclient.utils.StringFormat;
 import com.bricechou.weiboclient.utils.TimeFormat;
 import com.bricechou.weiboclient.view.HomeViewHolder;
@@ -18,6 +20,7 @@ import com.sina.weibo.sdk.openapi.models.Status;
 import com.sina.weibo.sdk.openapi.models.User;
 
 import java.util.ArrayList;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * Bind user weibo content data to HomeFragment
@@ -30,6 +33,7 @@ public class HomeAdapter extends BaseAdapter {
     private final static String TAG = "HomeAdapter";
     private Context mContext;
     private ArrayList<Status> mStatusList;
+    private ImageLoader mImageLoader;
 
     public HomeAdapter(Context context, ArrayList<Status> statusList) {
         this.mContext = context;
@@ -71,15 +75,15 @@ public class HomeAdapter extends BaseAdapter {
 
             holder.mTextViewStatusContent = (TextView) convertView
                     .findViewById(R.id.tv_item_content);
-           /* holder.mFrameLayoutStatusImage = (FrameLayout) convertView
-                    .findViewById(R.id.include_status_image);*/
+            holder.mFrameLayoutStatusImage = (FrameLayout) convertView
+                    .findViewById(R.id.include_status_image);
 
             holder.mLinearLayoutStatusRetweeted = (LinearLayout) convertView
                     .findViewById(R.id.include_status_retweeted);
             holder.mTextViewRetweetedContent = (TextView) holder.mLinearLayoutStatusRetweeted
                     .findViewById(R.id.tv_retweeted_content);
-            /*holder.mFrameLayoutRetweetedStatusImage = (FrameLayout) holder.mLinearLayoutStatusRetweeted
-                    .findViewById(R.id.include_status_image);*/
+            holder.mFrameLayoutRetweetedStatusImage = (FrameLayout) holder.mLinearLayoutStatusRetweeted
+                    .findViewById(R.id.include_status_image);
 
             holder.mLinearLayoutRetweet = (LinearLayout) convertView
                     .findViewById(R.id.ll_retweet);
@@ -108,8 +112,10 @@ public class HomeAdapter extends BaseAdapter {
         Status status = getItem(position);
         User user = status.user;
         holder.mTextViewUsername.setText(user.name);
-        holder.mTextViewCaption.setText(TimeFormat.timeToString(status.created_at)+ " 来自 " + StringFormat.formatStatusSource(status.source));
+        holder.mTextViewCaption.setText(TimeFormat.timeToString(status.created_at) + " 来自 " + StringFormat.formatStatusSource(status.source));
         holder.mTextViewStatusContent.setText(status.text);
+
+//        setImages(status, holder.mFrameLayoutStatusImage, holder.gv_images, holder.iv_image);
 
         // retweeted weibo content
         Status retweeted_status = status.retweeted_status;
@@ -128,5 +134,28 @@ public class HomeAdapter extends BaseAdapter {
         holder.mTextViewLike.setText(status.attitudes_count == 0 ?
                 "赞" : status.attitudes_count + "");
         return convertView;
+    }
+
+    private void setImages(Status status, FrameLayout imgContainer,
+                           GridView gv_images, ImageView iv_image) {
+        ArrayList<PicUrls> pic_urls = new ArrayList<>();
+        String thumbnail_pic = status.thumbnail_pic;
+
+        if (pic_urls != null && pic_urls.size() > 1) {
+            imgContainer.setVisibility(View.VISIBLE);
+            gv_images.setVisibility(View.VISIBLE);
+            iv_image.setVisibility(View.GONE);
+
+            StatusGridImgsAdapter gvAdapter = new StatusGridImgsAdapter(mContext, pic_urls);
+            gv_images.setAdapter(gvAdapter);
+        } else if (thumbnail_pic != null) {
+            imgContainer.setVisibility(View.VISIBLE);
+            gv_images.setVisibility(View.GONE);
+            iv_image.setVisibility(View.VISIBLE);
+
+            mImageLoader.displayImage(thumbnail_pic, iv_image);
+        } else {
+            imgContainer.setVisibility(View.GONE);
+        }
     }
 }
