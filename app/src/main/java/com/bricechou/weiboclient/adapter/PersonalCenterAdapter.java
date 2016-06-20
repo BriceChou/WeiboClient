@@ -1,7 +1,6 @@
 package com.bricechou.weiboclient.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,7 +10,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bricechou.weiboclient.R;
-import com.bricechou.weiboclient.api.UserCounts;
 import com.sina.weibo.sdk.openapi.models.User;
 
 import java.util.ArrayList;
@@ -23,7 +21,6 @@ public class PersonalCenterAdapter extends BaseAdapter {
     private final static String TAG = "PersonalCenterAdapter";
     private Context mContext;
     private ArrayList<User> mUserList;
-    private UserCounts mUserCounts;
     private User mUserInfo;
 
     public PersonalCenterAdapter(Context context, ArrayList<User> userList) {
@@ -31,30 +28,11 @@ public class PersonalCenterAdapter extends BaseAdapter {
         this.mUserList = userList;
     }
 
-    public PersonalCenterAdapter setmUserCounts(UserCounts mUserCounts) {
-        this.mUserCounts = mUserCounts;
-        return this;
-
-    }
     public PersonalCenterAdapter setUserInfo(User userInfo) {
         this.mUserInfo = userInfo;
         return this;
     }
-    public void setCounts(View view) {
-        ViewHolder holder = new ViewHolder();
-        holder.mTextViewStatus = (TextView) view
-                .findViewById(R.id.tv_status_count);
-        holder.mTextViewFriends = (TextView) view
-                .findViewById(R.id.tv_friends_count);
-        holder.mTextViewFollows = (TextView) view
-                .findViewById(R.id.tv_follows_count);
-
-        holder.mTextViewStatus.setText(mUserCounts.statuses_count);
-        holder.mTextViewFriends.setText(mUserCounts.friends_count);
-        holder.mTextViewFollows.setText(mUserCounts.followers_count);
-
-    }
-    public void holderLoginData(View view,User user) {
+    public void holderLoginData(View view) {
         ViewHolder holder = new ViewHolder();
         holder.mImageViewAvatar = (ImageView) view
                 .findViewById(R.id.iv_avatar);
@@ -62,15 +40,20 @@ public class PersonalCenterAdapter extends BaseAdapter {
                 .findViewById(R.id.tv_loginname);
         holder.mTextViewLoginCaption = (TextView) view
                 .findViewById(R.id.tv_logincaption);
-        Log.i(TAG,user.screen_name);
-        Log.i(TAG,user.description);
-        holder.mTextViewLoginName.setText(user.screen_name);
-        holder.mTextViewLoginCaption.setText(user.description);
+        holder.mTextViewStatus = (TextView) view
+                .findViewById(R.id.tv_status_count);
+        holder.mTextViewFriends = (TextView) view
+                .findViewById(R.id.tv_friends_count);
+        holder.mTextViewFollows = (TextView) view
+                .findViewById(R.id.tv_follows_count);
+
+        holder.mTextViewLoginName.setText(mUserInfo.screen_name);
+        holder.mTextViewLoginCaption.setText(mUserInfo.description);
+        holder.mTextViewFriends.setText(String.valueOf(mUserInfo.friends_count));
+        holder.mTextViewStatus.setText(String.valueOf(mUserInfo.statuses_count));
+        holder.mTextViewFollows.setText(String.valueOf(mUserInfo.followers_count));
     }
 
-    public UserCounts getmUserCounts() {
-        return mUserCounts;
-    }
 
     @Override
     public int getCount() {
