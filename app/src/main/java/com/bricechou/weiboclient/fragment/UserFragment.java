@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.bricechou.weiboclient.R;
-import com.bricechou.weiboclient.adapter.PersonalCenterAdapter;
+import com.bricechou.weiboclient.adapter.UserAdapter;
 import com.bricechou.weiboclient.api.WeiboRequestListener;
 import com.bricechou.weiboclient.config.Constants;
 import com.bricechou.weiboclient.db.LoginUserToken;
@@ -28,7 +28,7 @@ import com.sina.weibo.sdk.openapi.models.User;
  */
 public class UserFragment extends BaseFragment {
     private final static String TAG = "UserFragment";
-    private PersonalCenterAdapter mPersonalCenterAdapter;
+    private UserAdapter mPersonalCenterAdapter;
     private UserCounts mUserCounts;
     private View mView;
     private ListView mFollowList;
@@ -97,7 +97,7 @@ public class UserFragment extends BaseFragment {
                     if (response.startsWith("{\"users\"")) {
                         Log.i("................", response);
                         mUserList = mUserList.parse(response);
-                        mPersonalCenterAdapter = new PersonalCenterAdapter(mMainActivity, mUserList.userList);
+                        mPersonalCenterAdapter = new UserAdapter(mMainActivity, mUserList.userList);
                         mFollowList.setAdapter(mPersonalCenterAdapter);
                     }
                 }

@@ -19,24 +19,24 @@ import java.util.ArrayList;
 /**
  * Created by user on 6/15/16.
  */
-public class PersonalCenterAdapter extends BaseAdapter {
+public class UserAdapter extends BaseAdapter {
     private final static String TAG = "PersonalCenterAdapter";
     private Context mContext;
     private ArrayList<User> mUserList;
     private UserCounts mUserCounts;
     private User mUserInfo;
 
-    public PersonalCenterAdapter(Context context, ArrayList<User> userList) {
+    public UserAdapter(Context context, ArrayList<User> userList) {
         this.mContext = context;
         this.mUserList = userList;
     }
 
-    public PersonalCenterAdapter setmUserCounts(UserCounts mUserCounts) {
+    public UserAdapter setmUserCounts(UserCounts mUserCounts) {
         this.mUserCounts = mUserCounts;
         return this;
 
     }
-    public PersonalCenterAdapter setUserInfo(User userInfo) {
+    public UserAdapter setUserInfo(User userInfo) {
         this.mUserInfo = userInfo;
         return this;
     }
