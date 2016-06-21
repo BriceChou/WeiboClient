@@ -3,12 +3,11 @@ package com.bricechou.weiboclient.api;
 import android.content.Context;
 import android.util.Log;
 
-import com.bricechou.weiboclient.model.LoginUser;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
 
 /**
- * This is a callback method class and deal with the weibo JSON data.
+ * This is a callback method class.We can use one of this class function not all.
  *
  * @author BriceChou
  * @datetime 16-6-6 15:55
@@ -16,9 +15,7 @@ import com.sina.weibo.sdk.net.RequestListener;
  */
 
 public class WeiboRequestListener implements RequestListener {
-
     private static final String TAG = "WeiboRequestListener";
-
     private Context mContext; // define the current activity
 
     /**

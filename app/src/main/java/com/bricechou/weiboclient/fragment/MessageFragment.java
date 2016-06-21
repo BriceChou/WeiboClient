@@ -5,8 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bricechou.weiboclient.utils.BaseFragment;
 import com.bricechou.weiboclient.R;
+import com.bricechou.weiboclient.utils.BaseFragment;
 import com.bricechou.weiboclient.utils.TitleBuilder;
 
 /**
@@ -14,9 +14,10 @@ import com.bricechou.weiboclient.utils.TitleBuilder;
  */
 public class MessageFragment extends BaseFragment {
     private View mView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mView = View.inflate(mMainActivity, R.layout.frag_message,null);
+        mView = View.inflate(mMainActivity, R.layout.frag_message, null);
         new TitleBuilder(mView)
                 .setCenterText("消息")
                 .setLeftText("发现群")

@@ -9,7 +9,6 @@ import android.widget.Button;
 import com.bricechou.weiboclient.R;
 import com.bricechou.weiboclient.api.LoginAuthListener;
 import com.bricechou.weiboclient.config.Constants;
-import com.bricechou.weiboclient.utils.SQLiteUtil;
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.auth.sso.SsoHandler;
 
@@ -19,8 +18,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private AuthInfo mAuthInfo; // A Weibo instance
     private SsoHandler mSsoHandler; // deal with the user login class
     private Button mButtonSubmit;
-    private SQLiteUtil mSqLiteUtil;
-
 
     private void initView() {
         mButtonSubmit = (Button) findViewById(R.id.login_submit);
@@ -37,8 +34,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         mAuthInfo = new AuthInfo(this, Constants.APP_KEY, Constants.REDIRECT_URL, Constants.SCOPE);
         // Bind the weibo instance together with SSO auth method
         mSsoHandler = new SsoHandler(LoginActivity.this, mAuthInfo);
-        // To call the web login page which provide with Weibo itself
-        // @TODO 自动判断的方式比较慢,通过weiboAPI手动先进行判断,如果有客户端用客户端,没有就用WEB或者手机短信注册登录
+        // To call the web login page which provide with Weibo itself.
+        // @TODO To recognise the current phone status and use different way to login.
         mSsoHandler.authorizeWeb(new LoginAuthListener(this) {
             @Override
             public void onComplete(Bundle values) {
@@ -59,14 +56,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
      * When user click the button, this function will be called.
      *
      * @author BriceChou
-     * @TODO 当用户点击非登录按钮时, 进行相应信息提示操作!如:提示输入怎样的用户名或者密码!
      */
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login_submit:
                 // initWeibo();
-                // @XXX it's use to test some activity.
+                // @HACK it's use to test some activity.
                 startActivity(new Intent(LoginActivity.this,MainActivity.class));
                 break;
             default:
@@ -75,16 +71,14 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     }
 
     /**
-     * 当 SSO 授权 Activity 退出时，该函数被调用。
+     * When SSO handler exit,this function will be called.
      *
      * @author BriceChou
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // 微博ＡＰＩ规定必须添加回调页面,没有这个函数覆写将不能调用回调页面
-        // 当用户取消授权登录时,SSO 授权回调
-        // 重要：发起 SSO 登陆的 Activity 必须重写 onActivityResults
+        // Without this callback function,we can't use the SSO handler.
         if (mSsoHandler != null) {
             mSsoHandler.authorizeCallBack(requestCode, resultCode, data);
         }

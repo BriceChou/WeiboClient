@@ -16,11 +16,11 @@ import com.bricechou.weiboclient.model.PicUrls;
 import com.bricechou.weiboclient.utils.StringFormat;
 import com.bricechou.weiboclient.utils.TimeFormat;
 import com.bricechou.weiboclient.view.HomeViewHolder;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sina.weibo.sdk.openapi.models.Status;
 import com.sina.weibo.sdk.openapi.models.User;
 
 import java.util.ArrayList;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * Bind user weibo content data to HomeFragment
@@ -108,15 +108,14 @@ public class HomeAdapter extends BaseAdapter {
             holder = (HomeViewHolder) convertView.getTag();
         }
 
-        // bind data
+        // bind data into the view
         Status status = getItem(position);
         User user = status.user;
         holder.mTextViewUsername.setText(user.name);
         holder.mTextViewCaption.setText(TimeFormat.timeToString(status.created_at) + " 来自 " + StringFormat.formatStatusSource(status.source));
         holder.mTextViewStatusContent.setText(status.text);
 
-//        setImages(status, holder.mFrameLayoutStatusImage, holder.gv_images, holder.iv_image);
-
+        // setImages(status, holder.mFrameLayoutStatusImage, holder.gv_images, holder.iv_image);
         // retweeted weibo content
         Status retweeted_status = status.retweeted_status;
 
@@ -135,12 +134,17 @@ public class HomeAdapter extends BaseAdapter {
                 "赞" : status.attitudes_count + "");
         return convertView;
     }
-
+    /**
+     * To show the Weibo content image in the homepage.
+     *
+     * @author BriceChou
+     * @datetime 16-6-21 10:15
+     * @TODO To solve the imageLoader can resolve the image URL and show image.
+     */
     private void setImages(Status status, FrameLayout imgContainer,
                            GridView gv_images, ImageView iv_image) {
         ArrayList<PicUrls> pic_urls = new ArrayList<>();
         String thumbnail_pic = status.thumbnail_pic;
-
         if (pic_urls != null && pic_urls.size() > 1) {
             imgContainer.setVisibility(View.VISIBLE);
             gv_images.setVisibility(View.VISIBLE);

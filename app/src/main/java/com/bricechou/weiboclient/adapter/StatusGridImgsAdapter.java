@@ -14,6 +14,13 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 
+/**
+ * @author BriceChou
+ * @datetime 16-6-21 10:30
+ * @TODO To show the grid layout image.
+ */
+
+
 public class StatusGridImgsAdapter extends BaseAdapter {
 
     private Context context;
@@ -52,19 +59,15 @@ public class StatusGridImgsAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-
         GridView gv = (GridView) parent;
         int horizontalSpacing = gv.getHorizontalSpacing();
         int numColumns = gv.getNumColumns();
         int itemWidth = (gv.getWidth() - (numColumns - 1) * horizontalSpacing
                 - gv.getPaddingLeft() - gv.getPaddingRight()) / numColumns;
-
         LayoutParams params = new LayoutParams(itemWidth, itemWidth);
         holder.iv_image.setLayoutParams(params);
-
         PicUrls urls = getItem(position);
         imageLoader.displayImage(urls.getThumbnail_pic(), holder.iv_image);
-
         return convertView;
     }
 

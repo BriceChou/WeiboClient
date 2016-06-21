@@ -33,23 +33,23 @@ public class HomeFragment extends BaseFragment {
     private User mUser;
 
     /**
-     * show the weibo home page
+     * To show the weibo homepage
      *
      * @comment by BriceChou
      * @datetime 16-6-6 17:28
-     * @TODO to show the weibo content
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         initView();
         initWeiboContent();
         // initLoginUser();
+
         /**
          * Main page titlebar
          *
          * @comment by BriceChou
          * @datetime 16-6-14 17:56
-         * @TODO Show the current user name
+         * @FIXME Show the current user name
          */
         new TitleBuilder(mView)
                 // .setCenterText("" + mLoginUserInformation.loginUser.name)
@@ -74,7 +74,7 @@ public class HomeFragment extends BaseFragment {
      *
      * @author BriceChou
      * @datetime 16-6-20 13:59
-     * @TODO We can't save the data into a class model.
+     * @FIXME We can't save the data into a class model.
      */
     private void initLoginUser() {
         mLoginUserInformation = new LoginUserInformation();

@@ -8,15 +8,8 @@ import android.util.Log;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
 /**
- * 通常用来存储一些简单的配置信息。其存储位置在/data/data/<包名>/shared_prefs目录下。
- * SharedPreferences对象本身只能获取数据而不支持存储和修改，存储修改是通过Editor对象实现。
- * 实现SharedPreferences存储的步骤如下：
- * 一、根据Context获取SharedPreferences对象
- * 二、利用edit()方法获取Editor对象。
- * 三、通过Editor对象存储key-value键值对数据。
- * 四、通过commit()方法提交数据。
- * <p/>
- * <p/>
+ * To save Oauth2AccessToken object by SharedPreferences.
+ *
  * Created by BriceChou on 16-6-3.
  */
 
@@ -27,11 +20,9 @@ public class LoginUserToken {
     private static final String KEY_ACCESS_TOKEN = "access_token";
     private static final String KEY_EXPIRES_IN = "expires_in";
     private static final String KEY_REFRESH_TOKEN = "refresh_token";
-    // 当用户使用手机登录时 或者 手机注册的手机号码 会产生 手机号码,其他方式是没有手机号码的
-    private static final String KEY_PHONE_NUM = "phone_number";
 
     /**
-     * 保存用户登录的 Token 并写入到 SharedPreference 中
+     * To save the current login user Token data into the SharedPreferences.
      *
      * @author BriceChou
      * @datetime 16-6-3 上午11:35
@@ -41,24 +32,22 @@ public class LoginUserToken {
             Log.e(TAG, "saveAccessToken: accessToken is NULL.");
             return;
         }
-        // 获取SharedPreferences对象
-        // SharedPreferences preference = getSharedPreferences("数据Map的名称", 打开模式 );
-        // 打开模式有多种，一般用可读和可写两种，MODE_WORLD_WRITEABLE，MODE_WORLD_READABLE。
+        // To get the SharedPreferences instance.
+        // @param SharedPreferences OPEN MODE : MODE_WORLD_WRITEABLE，MODE_WORLD_READABLE
         SharedPreferences pref = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_APPEND);
-        // 写入数据 需要使用SharedPreferences的一个内部接口Editor
+        // save the accessToken data by Editor.
         Editor editor = pref.edit();
         editor.putString(KEY_UID, accessToken.getUid());
         editor.putString(KEY_ACCESS_TOKEN, accessToken.getToken());
         editor.putString(KEY_REFRESH_TOKEN, accessToken.getRefreshToken());
         editor.putLong(KEY_EXPIRES_IN, accessToken.getExpiresTime());
+        // commit all data in the editor.
         editor.commit();
     }
 
     /**
-     * 从 SharedPreferences 获取 Token 信息。
+     * To get the Oauth2AccessToken instance by context.
      *
-     * @param context context 应用程序上下文环境
-     * @return 返回 Token 对象
      * @datetime 16-6-3 下午2:05
      * @author BriceChou
      */
@@ -77,9 +66,7 @@ public class LoginUserToken {
     }
 
     /**
-     * 清空 SharedPreferences 中 Token信息。
-     *
-     * @param context 应用程序上下文环境
+     * To clear all Token information in the SharedPreferences.
      */
     public static void clear(Context context) {
         if (null == context) {

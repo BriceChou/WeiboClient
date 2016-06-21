@@ -27,12 +27,6 @@ public class FragmentController {
         return scontroller;
     }
 
-    /**
-     * 单例化模式 防止被创建多个该类
-     * @param activity
-     * @param containerId
-     * @comment by BriceChou
-     */
     private FragmentController(FragmentActivity activity,int containerId) {
         this.mcontainerId = containerId;
         mfragmentManager = activity.getSupportFragmentManager();
@@ -40,7 +34,7 @@ public class FragmentController {
     }
 
     /**
-     * 初始化Fragment 用List集合将需要的Fragment进行储存
+     * Initial all fragment and use array list to save the fragment.
      *
      * @comment by BriceChou
      * @datetime 16-6-6 上午10:31
@@ -59,7 +53,7 @@ public class FragmentController {
     }
 
     /**
-     * 隐藏全部的Fragment
+     * To hide all fragment.
      *
      * @comment by BriceChou
      * @datetime 16-6-6 上午10:33
@@ -75,7 +69,7 @@ public class FragmentController {
     }
 
     /**
-     * 显示相应的Fragment
+     * To show the fragment by position.
      *
      * @comment by BriceChou
      * @datetime 16-6-6 上午10:33
@@ -90,7 +84,7 @@ public class FragmentController {
     }
 
     /**
-     * 获取对应位置的Fragment
+     * To get the fragment object by position.
      *
      * @comment by BriceChou
      * @datetime 16-6-6 上午10:33

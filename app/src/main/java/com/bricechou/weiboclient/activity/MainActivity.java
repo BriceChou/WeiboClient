@@ -26,7 +26,7 @@ public class MainActivity extends FragmentActivity implements OnCheckedChangeLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // 获取layout 中的 FrameLayout 占位实例
+        // To get the layout instance in the xml file.
         // @comment by BriceChou
         // @datetime 2016-06-02
         mController = FragmentController.getInstance(this, R.id.fl_content);
@@ -65,7 +65,7 @@ public class MainActivity extends FragmentActivity implements OnCheckedChangeLis
 
     @Override
     public void onClick(View v) {
-        // 点击添加按钮发表微博
+        // To post a new Weibo content.
         // @author BriceChou
         switch (v.getId()) {
             case R.id.iv_add:

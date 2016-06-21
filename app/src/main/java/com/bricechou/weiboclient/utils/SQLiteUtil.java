@@ -8,7 +8,6 @@ import android.util.Log;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Public utils tool to deal with SQL database or table operation.
@@ -29,12 +28,10 @@ public class SQLiteUtil {
         mSQLiteOpenHelper = new SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
             @Override
             public void onCreate(SQLiteDatabase sqLiteDatabase) {
-                //当数据库被首次创建时执行该方法，一般将创建表等初始化操作在该方法中执行
             }
 
             @Override
             public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-                //当打开数据库时传入的版本号与当前的版本号不同时会调用该方法。
             }
         };
         mSQLiteDatabase = mSQLiteOpenHelper.getWritableDatabase();
@@ -177,8 +174,8 @@ public class SQLiteUtil {
         closeDatabse();
     }
 
-    public String typeConversion(String nameType){
-        String str ="";
+    public String typeConversion(String nameType) {
+        String str = "";
         if (nameType == null) {
             return null;
         } else if (nameType.equals("Integer")) {//判断变量的类型

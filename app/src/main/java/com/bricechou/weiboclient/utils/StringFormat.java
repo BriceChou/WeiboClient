@@ -18,12 +18,11 @@ public class StringFormat {
     private final static String TAG = "StringFormat";
 
     /**
-     * To format weibo status source
+     * To format weibo content source
      *
      * @author BriceChou
      * @datetime 16-6-13 14:49\
-     * @TODO think about more fast format function.
-     * This is not a good function to deal with it.
+     * @XXX think about more fast format function.This is not a good function to deal with it.
      */
     public static String formatStatusSource(String source) {
         String regex = "\">(.*)</a>";

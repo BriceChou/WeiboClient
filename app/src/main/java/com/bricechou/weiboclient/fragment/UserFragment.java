@@ -116,14 +116,14 @@ public class UserFragment extends BaseFragment {
                 }
             }
         });
-        mUsersAPI.show(mUid,new WeiboRequestListener(mMainActivity) {
+        mUsersAPI.show(mUid, new WeiboRequestListener(mMainActivity) {
             @Override
             public void onComplete(String response) {
                 super.onComplete(response);
                 Log.i(".....user screen name", response);
                 user = user.parse(response);
                 Log.i(".....user", String.valueOf(user));
-                mUserAdapter.setUserInfo(user,mUid).holderLoginData(mView,user);
+                mUserAdapter.setUserInfo(user, mUid).holderLoginData(mView, user);
             }
         });
     }

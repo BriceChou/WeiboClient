@@ -1,7 +1,5 @@
 package com.bricechou.weiboclient.model;
 
-import android.content.Context;
-
 import com.sina.weibo.sdk.openapi.models.Status;
 
 /**

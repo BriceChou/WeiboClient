@@ -16,7 +16,7 @@ public class BaseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // 获取当前与Fragment布局相关联的Activity
+        // To get the current activity bind with fragment.
         // @comment by BriceChou
         mMainActivity = (MainActivity) getActivity();
     }

@@ -1,10 +1,7 @@
 package com.bricechou.weiboclient.utils;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /**
- *
+ * To format the home page weibo content time.
  * @author BriceChou
  * @datetime 16-6-13 17:00
  */

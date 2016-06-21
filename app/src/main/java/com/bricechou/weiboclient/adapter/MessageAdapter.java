@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
  *
  * @author BriceChou
  * @datetime 16-6-20 15:21
+ * @TODO This is not important feature. So we finish it at the end of the project.
  */
 public class MessageAdapter extends BaseAdapter {
     @Override
