@@ -25,12 +25,12 @@ public class StatusGridImgsAdapter extends BaseAdapter {
 
     private Context context;
     private ArrayList<PicUrls> datas;
-    private ImageLoader imageLoader;
+    private ImageLoader mImageLoader;
 
     public StatusGridImgsAdapter(Context context, ArrayList<PicUrls> datas) {
         this.context = context;
         this.datas = datas;
-        imageLoader = ImageLoader.getInstance();
+        mImageLoader = ImageLoader.getInstance();
     }
 
     @Override
@@ -67,7 +67,7 @@ public class StatusGridImgsAdapter extends BaseAdapter {
         LayoutParams params = new LayoutParams(itemWidth, itemWidth);
         holder.iv_image.setLayoutParams(params);
         PicUrls urls = getItem(position);
-        imageLoader.displayImage(urls.getThumbnail_pic(), holder.iv_image);
+        mImageLoader.displayImage(urls.getThumbnail_pic(), holder.iv_image);
         return convertView;
     }
 

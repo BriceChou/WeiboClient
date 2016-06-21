@@ -9,6 +9,7 @@ import com.sina.weibo.sdk.openapi.models.User;
  *
  * @author BriceChou
  * @datetime 16-6-17 11:15
+ * @FIXME: can't save the LoginUser instance.
  */
 public class LoginUserInformation {
     public LoginUser loginUser;
