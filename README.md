@@ -1,8 +1,12 @@
 
 # WeiboClient
 
-This a branch for android application test version.
+Android demo application : Weibo login on client.
 
-When Bricechou and Wangwan finished the develoption for WeiboClient applciation ,we merge their branch into here.
+This the mainly master branch and wrote by BriceChou and Wangwan.
 
-(PS: Wangwan direct pull a new request and we merge her code into here.)
+When we fixed all WeiboClient BUG, we merge branch "developer" into here.
+
+So the master branch is a stability and available version.
+
+It's a final version of the WeiboClient.
