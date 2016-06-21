@@ -79,7 +79,9 @@ public class HomeFragment extends BaseFragment {
     private void initLoginUser() {
         mLoginUserInformation = new LoginUserInformation();
         UsersAPI mUsersAPI = new UsersAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.showAccessToken());
+        // UsersAPI mUsersAPI = new UsersAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.getAccessToken());
         mUsersAPI.show(LoginUserToken.showAccessToken().getUid(), new WeiboRequestListener(mMainActivity) {
+        // mUsersAPI.show(LoginUserToken.getAccessToken().getUid(), new WeiboRequestListener(mMainActivity) {
             @Override
             public void onComplete(String response) {
                 super.onComplete(response);
@@ -97,6 +99,7 @@ public class HomeFragment extends BaseFragment {
      */
     private void initWeiboContent() {
         mStatusesAPI = new StatusesAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.showAccessToken());
+        // mStatusesAPI = new StatusesAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.getAccessToken());
         mStatusesAPI.friendsTimeline(0, 0, 20, 1, false, 0, false, new WeiboRequestListener(mMainActivity) {
             @Override
             public void onComplete(String response) {
