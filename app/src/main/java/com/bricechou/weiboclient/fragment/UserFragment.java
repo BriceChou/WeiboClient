@@ -102,7 +102,7 @@ public class UserFragment extends BaseFragment {
                 super.onComplete(response);
                 Log.i(".....user screen name", response);
                 mUserInfo = mUserInfo.parse(response);
-                mUserAdapter.setUserInfo(mUserInfo, mUid).holderLoginData(mView);
+                mUserAdapter.setUserInfo(mUserInfo).holderLoginData(mView);
             }
         });
     }

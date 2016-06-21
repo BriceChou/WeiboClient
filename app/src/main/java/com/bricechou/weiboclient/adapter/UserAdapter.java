@@ -27,10 +27,12 @@ public class UserAdapter extends BaseAdapter {
         this.mContext = context;
         this.mUserList = userList;
     }
-    public UserAdapter setUserInfo(User userInfo,long uid) {
+
+    public UserAdapter setUserInfo(User userInfo) {
         this.mUserInfo = userInfo;
         return this;
     }
+
     public void holderLoginData(View view) {
         ViewHolder holder = new ViewHolder();
         holder.mImageViewAvatar = (ImageView) view

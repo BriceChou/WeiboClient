@@ -6,9 +6,12 @@
     android:background="@color/bg_gray">
 
     <include layout="@layout/include_titlebar"/>
+    <include layout="@layout/include_search_topic"/>
 
-    <TextView
-        style="@style/TextViewSubhead"
-        android:text="发现"/>
+    <ListView
+        android:id="@+id/lv_search_item"
+        style="@style/ListViewCommon"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"/>
 
 </LinearLayout>
