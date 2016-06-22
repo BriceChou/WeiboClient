@@ -12,10 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bricechou.weiboclient.R;
-import com.bricechou.weiboclient.model.PicUrls;
 import com.bricechou.weiboclient.utils.StringFormat;
 import com.bricechou.weiboclient.utils.TimeFormat;
-import com.bricechou.weiboclient.view.HomeViewHolder;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sina.weibo.sdk.openapi.models.Status;
 import com.sina.weibo.sdk.openapi.models.User;
@@ -75,8 +73,14 @@ public class HomeAdapter extends BaseAdapter {
 
             holder.mTextViewStatusContent = (TextView) convertView
                     .findViewById(R.id.tv_item_content);
+
             holder.mFrameLayoutStatusImage = (FrameLayout) convertView
                     .findViewById(R.id.include_status_image);
+            holder.mImageViewCustomImages = (GridView) holder.mFrameLayoutStatusImage
+                    .findViewById(R.id.custom_images);
+            holder.mImageViewStatusImage = (ImageView) holder.mFrameLayoutStatusImage
+                    .findViewById(R.id.iv_image);
+
 
             holder.mLinearLayoutStatusRetweeted = (LinearLayout) convertView
                     .findViewById(R.id.include_status_retweeted);
@@ -110,12 +114,14 @@ public class HomeAdapter extends BaseAdapter {
 
         // bind data into the view
         Status status = getItem(position);
+
         User user = status.user;
+        mImageLoader.displayImage(user.profile_image_url, holder.mImageViewPortrait);
         holder.mTextViewUsername.setText(user.name);
         holder.mTextViewCaption.setText(TimeFormat.timeToString(status.created_at) + " 来自 " + StringFormat.formatStatusSource(status.source));
         holder.mTextViewStatusContent.setText(status.text);
 
-        // setImages(status, holder.mFrameLayoutStatusImage, holder.gv_images, holder.iv_image);
+        setImages(status, holder.mFrameLayoutStatusImage, holder.mImageViewCustomImages, holder.mImageViewStatusImage);
         // retweeted weibo content
         Status retweeted_status = status.retweeted_status;
 
@@ -134,6 +140,7 @@ public class HomeAdapter extends BaseAdapter {
                 "赞" : status.attitudes_count + "");
         return convertView;
     }
+
     /**
      * To show the Weibo content image in the homepage.
      *
@@ -143,15 +150,15 @@ public class HomeAdapter extends BaseAdapter {
      */
     private void setImages(Status status, FrameLayout imgContainer,
                            GridView gv_images, ImageView iv_image) {
-        ArrayList<PicUrls> pic_urls = new ArrayList<>();
+        ArrayList<String> pic_urls = status.pic_urls;
         String thumbnail_pic = status.thumbnail_pic;
         if (pic_urls != null && pic_urls.size() > 1) {
             imgContainer.setVisibility(View.VISIBLE);
             gv_images.setVisibility(View.VISIBLE);
             iv_image.setVisibility(View.GONE);
 
-            StatusGridImgsAdapter gvAdapter = new StatusGridImgsAdapter(mContext, pic_urls);
-            gv_images.setAdapter(gvAdapter);
+            StatusGridImagesAdapter mStatusGridImagesAdapter = new StatusGridImagesAdapter(mContext, status);
+            gv_images.setAdapter(mStatusGridImagesAdapter);
         } else if (thumbnail_pic != null) {
             imgContainer.setVisibility(View.VISIBLE);
             gv_images.setVisibility(View.GONE);
@@ -161,5 +168,49 @@ public class HomeAdapter extends BaseAdapter {
         } else {
             imgContainer.setVisibility(View.GONE);
         }
+    }
+
+    /**
+     * To manage the Homepage layout resource.
+     * Only create this class once time.
+     *
+     * @author BriceChou
+     * @datetime 16-6-12 11:39
+     */
+    public static class HomeViewHolder {
+
+        // item_status xml file content
+        public LinearLayout mLinearLayoutMainContent;
+
+        // include_portrait xml file content
+        public ImageView mImageViewPortrait;
+        public RelativeLayout mRelativeLayoutContent;
+        // user name
+        public TextView mTextViewUsername;
+        // user identification form what phone client
+        public TextView mTextViewCaption;
+
+        // item_status.xml -->> weibo content
+        public TextView mTextViewStatusContent;
+        // include_status_image.xml -->> weibo content image
+        public FrameLayout mFrameLayoutStatusImage;
+        public GridView mImageViewCustomImages;
+        public ImageView mImageViewStatusImage;
+
+        // include_status_retweeted.xml -->> retweeted weibo content comment
+        public LinearLayout mLinearLayoutStatusRetweeted;
+        public TextView mTextViewRetweetedContent;
+
+        public FrameLayout mFrameLayoutRetweetedStatusImage;
+        // include_status_controlbar.xml -->> retweet,comment,like
+        public LinearLayout mLinearLayoutRetweet;
+        public ImageView mImageViewRetweet;
+        public TextView mTextViewRetweet;
+        public LinearLayout mLinearLayoutComment;
+        public ImageView mImageViewComment;
+        public TextView mTextViewComment;
+        public LinearLayout mLinearLayoutLike;
+        public ImageView mImageViewLike;
+        public TextView mTextViewLike;
     }
 }
