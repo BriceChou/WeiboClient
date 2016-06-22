@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50sp">
+    android:layout_height="50dp"
+    android:background="@color/bg_gray_bar">
 
     <!-- show the bottom menu bar @auth BriceChou @TODO change the menu bar icon -->
-    <Button
-        android:id="@+id/btn_post_weibo_back"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+    <ImageView
+        android:id="@+id/iv_post_weibo_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="left|center_vertical"
-        android:background="@drawable/post_weibo_back"/>
+        android:background="@drawable/navigationbar_back" />
 
     <TextView
         android:id="@+id/tv_post_weibo_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:gravity="center"
-        android:textSize="11pt"
-        android:text="@string/tv_post_weibo_title"/>
-    
-    <Button
-        android:id="@+id/btn_post_weibo_send"
-        android:layout_width="66dp"
-        android:layout_height="40dp"
+        android:gravity="center_horizontal"
+        android:text="@string/tv_post_weibo_title"
+        android:textSize="11pt" />
+
+    <ImageView
+        android:id="@+id/iv_post_weibo_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="right|center_vertical"
-        android:gravity="center"
-        android:text="@string/btn_post_weibo_send"/>
-    
+        android:background="@drawable/navigationbar_confirm"
+        android:gravity="center" />
+
 </FrameLayout>

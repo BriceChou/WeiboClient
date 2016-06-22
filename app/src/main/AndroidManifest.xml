@@ -46,7 +46,8 @@
             android:value="weibo" />
 
         <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.PostWeiboActivity"></activity>
+        <activity android:name=".activity.PostWeiboActivity" />
+        <activity android:name=".activity.WeiboDetailActivity"></activity>
     </application>
 
 </manifest>

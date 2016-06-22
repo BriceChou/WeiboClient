@@ -25,20 +25,20 @@ import com.sina.weibo.sdk.openapi.StatusesAPI;
 public class PostWeiboActivity extends Activity implements View.OnClickListener {
 
     private final static String TAG = "PostWeiboActivity";
-    private Button mButtonBack; // back to main page
-    private Button mButtonSend; // send a weibo to server
+    private ImageView mImageViewBack; // back to main page
+    private ImageView mImageViewSend; // send a weibo to server
     private EditText mEditTextContent;  // post weibo content
-    private ImageView mImageViewContent; // post weibo content image
+    private ImageView mImageViewContent; // add weibo content image
     private StatusesAPI mStatusesAPI;
 
     private void initView() {
         mEditTextContent = (EditText) findViewById(R.id.et_post_weibo_content);
         mImageViewContent = (ImageView) findViewById(R.id.iv_post_weibo_image);
-        mButtonBack = (Button) findViewById(R.id.btn_post_weibo_back);
-        mButtonSend = (Button) findViewById(R.id.btn_post_weibo_send);
+        mImageViewBack = (ImageView) findViewById(R.id.iv_post_weibo_back);
+        mImageViewSend = (ImageView) findViewById(R.id.iv_post_weibo_send);
         // Set the click listener
-        mButtonBack.setOnClickListener(this);
-        mButtonSend.setOnClickListener(this);
+        mImageViewBack.setOnClickListener(this);
+        mImageViewSend.setOnClickListener(this);
     }
 
     @Override
@@ -55,16 +55,14 @@ public class PostWeiboActivity extends Activity implements View.OnClickListener 
      * @datetime 16-6-14 17:57
      * @TODO Show the correct earth location by Google Geographical APIs
      */
-    private void postWeibo() {
+    private void postWeibo(String text) {
         // mStatusesAPI = new StatusesAPI(this, Constants.APP_KEY, LoginUserToken.getAccessToken());
         mStatusesAPI = new StatusesAPI(this, Constants.APP_KEY, LoginUserToken.showAccessToken());
-        mStatusesAPI.update(mEditTextContent.getText().toString(), "22", "12", new WeiboRequestListener(this) {
+        mStatusesAPI.update(text, "22", "12", new WeiboRequestListener(this) {
             @Override
             public void onComplete(String response) {
                 super.onComplete(response);
                 Toast.makeText(PostWeiboActivity.this, R.string.toast_post_weibo_successed, Toast.LENGTH_SHORT).show();
-                // Exit this activity.
-                finish();
             }
         });
     }
@@ -72,15 +70,18 @@ public class PostWeiboActivity extends Activity implements View.OnClickListener 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btn_post_weibo_back:
+            case R.id.iv_post_weibo_back:
                 Toast.makeText(PostWeiboActivity.this,
                         R.string.toast_post_weibo_canceled, Toast.LENGTH_SHORT).show();
                 // Exit this activity.
                 finish();
                 break;
-            case R.id.btn_post_weibo_send:
+            case R.id.iv_post_weibo_send:
+                String text = mEditTextContent.getText().toString();
+                // Exit this activity.
+                finish();
                 // To send a Weibo with text.(Don't have image.)
-                postWeibo();
+                postWeibo(text);
                 break;
         }
     }

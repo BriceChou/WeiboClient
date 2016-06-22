@@ -2,9 +2,11 @@ package com.bricechou.weiboclient.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.bricechou.weiboclient.R;
@@ -81,7 +83,7 @@ public class HomeFragment extends BaseFragment {
         UsersAPI mUsersAPI = new UsersAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.showAccessToken());
         // UsersAPI mUsersAPI = new UsersAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.getAccessToken());
         mUsersAPI.show(LoginUserToken.showAccessToken().getUid(), new WeiboRequestListener(mMainActivity) {
-        // mUsersAPI.show(LoginUserToken.getAccessToken().getUid(), new WeiboRequestListener(mMainActivity) {
+            // mUsersAPI.show(LoginUserToken.getAccessToken().getUid(), new WeiboRequestListener(mMainActivity) {
             @Override
             public void onComplete(String response) {
                 super.onComplete(response);

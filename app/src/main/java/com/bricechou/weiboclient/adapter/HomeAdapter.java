@@ -1,6 +1,7 @@
 package com.bricechou.weiboclient.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -10,8 +11,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bricechou.weiboclient.R;
+import com.bricechou.weiboclient.activity.WeiboDetailActivity;
 import com.bricechou.weiboclient.utils.StringFormat;
 import com.bricechou.weiboclient.utils.TimeFormat;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -88,11 +91,11 @@ public class HomeAdapter extends BaseAdapter {
                     .findViewById(R.id.tv_retweeted_content);
             // retweet weibo content image
             holder.mFrameLayoutRetweetedStatusImage = (FrameLayout) holder.mLinearLayoutStatusRetweeted
-                    .findViewById(R.id.include_status_retweeted_image);
+                    .findViewById(R.id.include_status_image);
             holder.mImageViewRetweetCustomImage = (GridView) holder.mFrameLayoutRetweetedStatusImage
-                    .findViewById(R.id.custom_images_retweeted);
+                    .findViewById(R.id.custom_images);
             holder.mImageViewRetweetStatusImage = (ImageView) holder.mFrameLayoutRetweetedStatusImage
-                    .findViewById(R.id.iv_image_retweeted);
+                    .findViewById(R.id.iv_image);
             // controller bar
             holder.mLinearLayoutRetweet = (LinearLayout) convertView
                     .findViewById(R.id.ll_retweet);
@@ -142,6 +145,36 @@ public class HomeAdapter extends BaseAdapter {
                 "评论" : status.comments_count + "");
         holder.mTextViewLike.setText(status.attitudes_count == 0 ?
                 "赞" : status.attitudes_count + "");
+
+        // set item click listener
+        holder.mLinearLayoutMainContent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(mContext,"页面正在跳转到详细页面!",Toast.LENGTH_SHORT).show();
+                mContext.startActivity(new Intent(mContext, WeiboDetailActivity.class));
+            }
+        });
+
+        holder.mLinearLayoutRetweet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(mContext,"您转发我了!",Toast.LENGTH_SHORT).show();
+            }
+        });
+        holder.mLinearLayoutComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Toast.makeText(mContext,"您评论我了!",Toast.LENGTH_SHORT).show();
+            }
+        });
+        holder.mLinearLayoutLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(mContext,"您赞赞我了!",Toast.LENGTH_SHORT).show();
+            }
+        });
+
         return convertView;
     }
 
@@ -159,7 +192,6 @@ public class HomeAdapter extends BaseAdapter {
             imgContainer.setVisibility(View.VISIBLE);
             gv_image.setVisibility(View.VISIBLE);
             iv_image.setVisibility(View.GONE);
-
             StatusGridImagesAdapter mStatusGridImagesAdapter = new StatusGridImagesAdapter(mContext, status);
             gv_image.setAdapter(mStatusGridImagesAdapter);
         } else if (thumbnail_pic != "") {
