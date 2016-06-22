@@ -1,8 +1,11 @@
 
 # WeiboClient
 
-This a branch for android application test version.
+This a branch for zml(BriceChou) develop android application.
 
-When Bricechou and Wangwan finished the develoption for WeiboClient applciation ,we merge their branch into here.
+In addition, when Bricechou finished the develoption and we need to merge this branch to developer branch.
 
-(PS: Wangwan direct pull a new request and we merge her code into here.)
+The developer branch is a test version for WeiboClient.
+
+			Author : BriceChou
+		Created time: 2016-06-02

@@ -4,14 +4,14 @@
     android:layout_height="wrap_content" >
 
     <ImageView
-        android:id="@+id/iv_image"
+        android:id="@+id/iv_status_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop" >
     </ImageView>
 
     <ImageView
-        android:id="@+id/iv_delete_image"
+        android:id="@+id/iv_delete_status_image"
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_alignParentRight="true"

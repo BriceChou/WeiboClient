@@ -31,4 +31,15 @@ public class MessageAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         return convertView;
     }
+
+    /**
+     * To manage the Message page layout resource.
+     * Only create this class once time.
+     *
+     * @author BriceChou
+     * @datetime 16-6-12 11:39
+     */
+    public static class MessageViewHolder {
+
+    }
 }
