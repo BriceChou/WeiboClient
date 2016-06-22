@@ -6,9 +6,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.bricechou.weiboclient.R;
+import com.bricechou.weiboclient.activity.MainActivity;
 import com.bricechou.weiboclient.adapter.UserAdapter;
 import com.bricechou.weiboclient.api.UserList;
 import com.bricechou.weiboclient.api.WeiboRequestListener;
@@ -16,6 +18,8 @@ import com.bricechou.weiboclient.config.Constants;
 import com.bricechou.weiboclient.db.LoginUserToken;
 import com.bricechou.weiboclient.utils.BaseFragment;
 import com.bricechou.weiboclient.utils.TitleBuilder;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.sina.weibo.sdk.openapi.UsersAPI;
 import com.sina.weibo.sdk.openapi.legacy.FriendshipsAPI;
 import com.sina.weibo.sdk.openapi.models.User;
@@ -33,6 +37,7 @@ public class UserFragment extends BaseFragment {
     private long mUid;
     private UserList mUserList;
     private User mUserInfo;
+    private ImageLoader mImageLoader;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,6 +59,8 @@ public class UserFragment extends BaseFragment {
         mUid = Long.parseLong("2851891152");
         // mUid = Long.parseLong(mOauth2AccessToken.getUid());
         //titlebar
+        mImageLoader = ImageLoader.getInstance();
+        mImageLoader.init(ImageLoaderConfiguration.createDefault(mMainActivity));
         new TitleBuilder(mView)
                 .setCenterText("我")
                 .setLeftText("添加好友")
@@ -102,7 +109,7 @@ public class UserFragment extends BaseFragment {
                 super.onComplete(response);
                 Log.i(".....user screen name", response);
                 mUserInfo = mUserInfo.parse(response);
-                mUserAdapter.setUserInfo(mUserInfo).holderLoginData(mView);
+                mUserAdapter.setUserInfo(mUserInfo).holderLoginData(mView,mImageLoader);
             }
         });
     }
