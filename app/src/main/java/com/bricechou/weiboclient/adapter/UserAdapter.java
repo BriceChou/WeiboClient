@@ -10,6 +10,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bricechou.weiboclient.R;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.sina.weibo.sdk.openapi.models.User;
 
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ public class UserAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<User> mUserList;
     private User mUserInfo;
+    private ImageLoader mImageLoader;
 
     public UserAdapter(Context context, ArrayList<User> userList) {
         this.mContext = context;
@@ -33,7 +36,8 @@ public class UserAdapter extends BaseAdapter {
         return this;
     }
 
-    public void holderLoginData(View view) {
+    public void holderLoginData(View view,ImageLoader mImageLoader) {
+
         ViewHolder holder = new ViewHolder();
         holder.mImageViewAvatar = (ImageView) view
                 .findViewById(R.id.iv_avatar);
@@ -47,9 +51,9 @@ public class UserAdapter extends BaseAdapter {
                 .findViewById(R.id.tv_friends_count);
         holder.mTextViewFollows = (TextView) view
                 .findViewById(R.id.tv_follows_count);
-
+        mImageLoader.displayImage(mUserInfo.profile_image_url,holder.mImageViewAvatar);
         holder.mTextViewLoginName.setText(mUserInfo.screen_name);
-        holder.mTextViewLoginCaption.setText(mUserInfo.description);
+        holder.mTextViewLoginCaption.setText("简介：" + mUserInfo.description);
         holder.mTextViewFriends.setText(String.valueOf(mUserInfo.friends_count));
         holder.mTextViewStatus.setText(String.valueOf(mUserInfo.statuses_count));
         holder.mTextViewFollows.setText(String.valueOf(mUserInfo.followers_count));
@@ -96,6 +100,7 @@ public class UserAdapter extends BaseAdapter {
 
         // bind data
         final User user = getItem(position);
+        ImageLoader.getInstance().displayImage(user.profile_image_url,holder.mImageViewAvatar);
         holder.mTextViewUsername.setText(user.screen_name);
         holder.mTextViewCaption.setText(user.description);
         return convertView;
