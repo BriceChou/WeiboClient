@@ -14,8 +14,8 @@
         android:text="这里是引用区域,这里是引用区域这里是引用区域这里是引用区域这里是引用区域这里是引用区域这里是引用区域这里是引用区域这里是引用区域这里是引用区域这里是引用区域这里是引用区域这里是引用区域"/>
 
     <include
-        android:id="@+id/include_status_image"
-        layout="@layout/include_status_image"
+        android:id="@+id/include_status_retweeted_image"
+        layout="@layout/include_status_retweeted_image"
         android:visibility="gone" />
 
 </LinearLayout>

@@ -62,7 +62,7 @@ public class HomeAdapter extends BaseAdapter {
             convertView = View.inflate(mContext, R.layout.item_status, null);
             holder.mLinearLayoutMainContent = (LinearLayout) convertView
                     .findViewById(R.id.ll_mainContent);
-
+            // weibo avatar
             holder.mImageViewPortrait = (ImageView) convertView
                     .findViewById(R.id.iv_portrait);
             holder.mRelativeLayoutContent = (RelativeLayout) convertView
@@ -71,25 +71,29 @@ public class HomeAdapter extends BaseAdapter {
                     .findViewById(R.id.tv_username);
             holder.mTextViewCaption = (TextView) convertView
                     .findViewById(R.id.tv_caption);
-
+            // weibo content
             holder.mTextViewStatusContent = (TextView) convertView
                     .findViewById(R.id.tv_item_content);
-
+            // weibo content image
             holder.mFrameLayoutStatusImage = (FrameLayout) convertView
                     .findViewById(R.id.include_status_image);
             holder.mImageViewCustomImages = (GridView) holder.mFrameLayoutStatusImage
                     .findViewById(R.id.custom_images);
             holder.mImageViewStatusImage = (ImageView) holder.mFrameLayoutStatusImage
                     .findViewById(R.id.iv_image);
-
-
+            // retweet weibo content
             holder.mLinearLayoutStatusRetweeted = (LinearLayout) convertView
                     .findViewById(R.id.include_status_retweeted);
             holder.mTextViewRetweetedContent = (TextView) holder.mLinearLayoutStatusRetweeted
                     .findViewById(R.id.tv_retweeted_content);
+            // retweet weibo content image
             holder.mFrameLayoutRetweetedStatusImage = (FrameLayout) holder.mLinearLayoutStatusRetweeted
-                    .findViewById(R.id.include_status_image);
-
+                    .findViewById(R.id.include_status_retweeted_image);
+            holder.mImageViewRetweetCustomImage = (GridView) holder.mFrameLayoutRetweetedStatusImage
+                    .findViewById(R.id.custom_images_retweeted);
+            holder.mImageViewRetweetStatusImage = (ImageView) holder.mFrameLayoutRetweetedStatusImage
+                    .findViewById(R.id.iv_image_retweeted);
+            // controller bar
             holder.mLinearLayoutRetweet = (LinearLayout) convertView
                     .findViewById(R.id.ll_retweet);
             holder.mImageViewRetweet = (ImageView) convertView
@@ -115,21 +119,20 @@ public class HomeAdapter extends BaseAdapter {
 
         // bind data into the view
         Status status = getItem(position);
-
         User user = status.user;
         mImageLoader.displayImage(user.profile_image_url, holder.mImageViewPortrait);
         holder.mTextViewUsername.setText(user.name);
         holder.mTextViewCaption.setText(TimeFormat.timeToString(status.created_at) + " 来自 " + StringFormat.formatStatusSource(status.source));
         holder.mTextViewStatusContent.setText(status.text);
-
         setImages(status, holder.mFrameLayoutStatusImage, holder.mImageViewCustomImages, holder.mImageViewStatusImage);
         // retweeted weibo content
         Status retweeted_status = status.retweeted_status;
-
         if (retweeted_status != null) {
             User retUser = retweeted_status.user;
             holder.mLinearLayoutStatusRetweeted.setVisibility(View.VISIBLE);
             holder.mTextViewRetweetedContent.setText("@" + retUser.name + ":" + retweeted_status.text);
+            // show the retweeted weibo content image
+            setImages(retweeted_status, holder.mFrameLayoutRetweetedStatusImage, holder.mImageViewRetweetCustomImage, holder.mImageViewRetweetStatusImage);
         } else {
             holder.mLinearLayoutStatusRetweeted.setVisibility(View.GONE);
         }
@@ -147,24 +150,22 @@ public class HomeAdapter extends BaseAdapter {
      *
      * @author BriceChou
      * @datetime 16-6-21 10:15
-     * @TODO To solve the imageLoader can resolve the image URL and show image.
      */
     private void setImages(Status status, FrameLayout imgContainer,
-                           GridView gv_images, ImageView iv_image) {
+                           GridView gv_image, ImageView iv_image) {
         ArrayList<String> pic_urls = status.pic_urls;
         String thumbnail_pic = status.thumbnail_pic;
         if (pic_urls != null && pic_urls.size() > 1) {
             imgContainer.setVisibility(View.VISIBLE);
-            gv_images.setVisibility(View.VISIBLE);
+            gv_image.setVisibility(View.VISIBLE);
             iv_image.setVisibility(View.GONE);
 
             StatusGridImagesAdapter mStatusGridImagesAdapter = new StatusGridImagesAdapter(mContext, status);
-            gv_images.setAdapter(mStatusGridImagesAdapter);
-        } else if (thumbnail_pic != null) {
+            gv_image.setAdapter(mStatusGridImagesAdapter);
+        } else if (thumbnail_pic != "") {
             imgContainer.setVisibility(View.VISIBLE);
-            gv_images.setVisibility(View.GONE);
+            gv_image.setVisibility(View.GONE);
             iv_image.setVisibility(View.VISIBLE);
-
             mImageLoader.displayImage(thumbnail_pic, iv_image);
         } else {
             imgContainer.setVisibility(View.GONE);
@@ -179,10 +180,8 @@ public class HomeAdapter extends BaseAdapter {
      * @datetime 16-6-12 11:39
      */
     public static class HomeViewHolder {
-
         // item_status xml file content
         public LinearLayout mLinearLayoutMainContent;
-
         // include_portrait xml file content
         public ImageView mImageViewPortrait;
         public RelativeLayout mRelativeLayoutContent;
@@ -190,19 +189,18 @@ public class HomeAdapter extends BaseAdapter {
         public TextView mTextViewUsername;
         // user identification form what phone client
         public TextView mTextViewCaption;
-
         // item_status.xml -->> weibo content
         public TextView mTextViewStatusContent;
         // include_status_image.xml -->> weibo content image
         public FrameLayout mFrameLayoutStatusImage;
         public GridView mImageViewCustomImages;
         public ImageView mImageViewStatusImage;
-
         // include_status_retweeted.xml -->> retweeted weibo content comment
         public LinearLayout mLinearLayoutStatusRetweeted;
         public TextView mTextViewRetweetedContent;
-
         public FrameLayout mFrameLayoutRetweetedStatusImage;
+        public GridView mImageViewRetweetCustomImage;
+        public ImageView mImageViewRetweetStatusImage;
         // include_status_controlbar.xml -->> retweet,comment,like
         public LinearLayout mLinearLayoutRetweet;
         public ImageView mImageViewRetweet;
