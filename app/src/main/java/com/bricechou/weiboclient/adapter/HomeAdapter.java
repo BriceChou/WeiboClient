@@ -36,6 +36,7 @@ public class HomeAdapter extends BaseAdapter {
     public HomeAdapter(Context context, ArrayList<Status> statusList) {
         this.mContext = context;
         this.mStatusList = statusList;
+        mImageLoader = ImageLoader.getInstance();
     }
 
     @Override
@@ -116,12 +117,12 @@ public class HomeAdapter extends BaseAdapter {
         Status status = getItem(position);
 
         User user = status.user;
-       // mImageLoader.displayImage(user.profile_image_url, holder.mImageViewPortrait);
+        mImageLoader.displayImage(user.profile_image_url, holder.mImageViewPortrait);
         holder.mTextViewUsername.setText(user.name);
         holder.mTextViewCaption.setText(TimeFormat.timeToString(status.created_at) + " 来自 " + StringFormat.formatStatusSource(status.source));
         holder.mTextViewStatusContent.setText(status.text);
 
-        // setImages(status, holder.mFrameLayoutStatusImage, holder.mImageViewCustomImages, holder.mImageViewStatusImage);
+        setImages(status, holder.mFrameLayoutStatusImage, holder.mImageViewCustomImages, holder.mImageViewStatusImage);
         // retweeted weibo content
         Status retweeted_status = status.retweeted_status;
 
