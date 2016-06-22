@@ -72,7 +72,6 @@ public class MainActivity extends FragmentActivity implements OnCheckedChangeLis
                 startActivity(new Intent(MainActivity.this,PostWeiboActivity.class));
                 break;
             default:
-                break;
         }
     }
 }

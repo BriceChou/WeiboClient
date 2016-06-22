@@ -83,6 +83,7 @@ public class PostWeiboActivity extends Activity implements View.OnClickListener 
                 // To send a Weibo with text.(Don't have image.)
                 postWeibo(text);
                 break;
+            default:
         }
     }
 }

@@ -34,8 +34,6 @@
             android:id="@+id/include_status_retweeted"
             layout="@layout/include_status_retweeted"
             android:visibility="gone" />
-
     </LinearLayout>
-
 
 </LinearLayout>
