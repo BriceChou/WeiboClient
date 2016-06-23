@@ -34,7 +34,7 @@ public class StringFormat {
             while (mtc.find()) {
                 source = mtc.group();
             }
-            source = source.substring(2,source.length()-4);
+            source = source.substring(2, source.length() - 4);
         } catch (Exception e) {
             Log.e(TAG, "formatStatusSource: " + e.getMessage(), new Throwable());
         }

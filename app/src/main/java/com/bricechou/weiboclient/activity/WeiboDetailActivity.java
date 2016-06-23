@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import com.bricechou.weiboclient.R;
 
-public class WeiboDetailActivity extends Activity implements View.OnClickListener{
+public class WeiboDetailActivity extends Activity implements View.OnClickListener {
     private ImageView mImageViewBack;
     private ImageView mImageViewMore;
 
@@ -19,16 +19,16 @@ public class WeiboDetailActivity extends Activity implements View.OnClickListene
         initView();
     }
 
-    private void initView(){
-        mImageViewBack = (ImageView)findViewById(R.id.weibo_detail_back);
-        mImageViewMore = (ImageView)findViewById(R.id.weibo_detail_more);
+    private void initView() {
+        mImageViewBack = (ImageView) findViewById(R.id.weibo_detail_back);
+        mImageViewMore = (ImageView) findViewById(R.id.weibo_detail_more);
         mImageViewBack.setOnClickListener(this);
         mImageViewMore.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.weibo_detail_back:
                 // Exit this activity.
                 finish();

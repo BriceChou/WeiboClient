@@ -67,7 +67,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 // you should change the showAccessToken() to getAccessToken()
                 // Below this JAVA files :
                 // PostWeiboActivity / HomeFragment / UserFragment
-                startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 break;
             default:
         }

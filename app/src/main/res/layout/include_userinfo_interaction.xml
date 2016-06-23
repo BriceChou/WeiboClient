@@ -2,15 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal" >
+    android:orientation="horizontal">
 
-    <LinearLayout
-        style="@style/LinearLayoutUserInfo" >
+    <LinearLayout style="@style/LinearLayoutUserInfo">
 
         <TextView
             android:id="@+id/tv_status_count"
             style="@style/TextViewBody"
-            android:text="0"/>
+            android:text="0" />
 
         <TextView
             style="@style/TextViewBody"
@@ -19,13 +18,12 @@
             android:textColor="@color/txt_gray" />
     </LinearLayout>
 
-    <LinearLayout
-        style="@style/LinearLayoutUserInfo" >
+    <LinearLayout style="@style/LinearLayoutUserInfo">
 
         <TextView
             android:id="@+id/tv_friends_count"
             style="@style/TextViewBody"
-            android:text="0"/>
+            android:text="0" />
 
         <TextView
             style="@style/TextViewBody"
@@ -34,12 +32,12 @@
             android:textColor="@color/txt_gray" />
     </LinearLayout>
 
-    <LinearLayout
-        style="@style/LinearLayoutUserInfo" >
+    <LinearLayout style="@style/LinearLayoutUserInfo">
+
         <TextView
             android:id="@+id/tv_follows_count"
             style="@style/TextViewBody"
-            android:text="0"/>
+            android:text="0" />
 
         <TextView
             style="@style/TextViewBody"

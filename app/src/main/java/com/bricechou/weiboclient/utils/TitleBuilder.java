@@ -32,6 +32,7 @@ public class TitleBuilder {
         mImageViewRight = (ImageView) mView.findViewById(R.id.titlebar_iv_right);
         mEditTextSearch = (EditText) mView.findViewById(R.id.titlebar_et_search);
     }
+
     //used in Activity
     public TitleBuilder(Activity context) {
         mView = context.findViewById(R.id.rl_titlebar);
@@ -45,23 +46,26 @@ public class TitleBuilder {
     }
 
     //setting center titlebar
-    public TitleBuilder setCenterText (String text) {
+    public TitleBuilder setCenterText(String text) {
         mTextViewCenter.setVisibility(TextUtils.isEmpty(text) ? View.GONE : View.VISIBLE);
         mTextViewCenter.setText(text);
         return this;
     }
+
     //setting left titlebar
-    public TitleBuilder setLeftText (String text) {
+    public TitleBuilder setLeftText(String text) {
         mTextViewLeft.setVisibility(TextUtils.isEmpty(text) ? View.GONE : View.VISIBLE);
         mTextViewLeft.setText(text);
         return this;
     }
-    public TitleBuilder setLeftImage (int resId) {
+
+    public TitleBuilder setLeftImage(int resId) {
         mImageViewLeft.setVisibility(resId > 0 ? View.VISIBLE : View.GONE);
         mImageViewLeft.setImageResource(resId);
         return this;
     }
-    public TitleBuilder setLeftOnclickListener (View.OnClickListener listener) {
+
+    public TitleBuilder setLeftOnclickListener(View.OnClickListener listener) {
         if (mTextViewLeft.getVisibility() == View.VISIBLE) {
             mTextViewLeft.setOnClickListener(listener);
         } else if (mImageViewLeft.getVisibility() == View.VISIBLE) {
@@ -69,18 +73,21 @@ public class TitleBuilder {
         }
         return this;
     }
+
     //setting right titlebar
-    public TitleBuilder setRightText (String text) {
+    public TitleBuilder setRightText(String text) {
         mTextViewRight.setVisibility(TextUtils.isEmpty(text) ? View.GONE : View.VISIBLE);
         mTextViewRight.setText(text);
         return this;
     }
-    public TitleBuilder setRightImage (int resId) {
+
+    public TitleBuilder setRightImage(int resId) {
         mImageViewRight.setVisibility(resId > 0 ? View.VISIBLE : View.GONE);
         mImageViewRight.setImageResource(resId);
         return this;
     }
-    public TitleBuilder setRightOnclickListener (View.OnClickListener listener) {
+
+    public TitleBuilder setRightOnclickListener(View.OnClickListener listener) {
         if (mTextViewRight.getVisibility() == View.VISIBLE) {
             mTextViewRight.setOnClickListener(listener);
         } else if (mImageViewRight.getVisibility() == View.VISIBLE) {
@@ -88,7 +95,8 @@ public class TitleBuilder {
         }
         return this;
     }
-    public TitleBuilder setSearchText(int resId){
+
+    public TitleBuilder setSearchText(int resId) {
         mEditTextSearch.setVisibility(resId > 0 ? View.VISIBLE : View.GONE);
         return this;
     }

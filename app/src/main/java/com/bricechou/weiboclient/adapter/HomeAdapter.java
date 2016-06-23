@@ -150,7 +150,7 @@ public class HomeAdapter extends BaseAdapter {
         holder.mLinearLayoutMainContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext,"页面正在跳转到详细页面!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "页面正在跳转到详细页面!", Toast.LENGTH_SHORT).show();
                 mContext.startActivity(new Intent(mContext, WeiboDetailActivity.class));
             }
         });
@@ -158,20 +158,20 @@ public class HomeAdapter extends BaseAdapter {
         holder.mLinearLayoutRetweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext,"您转发我了!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "您转发我了!", Toast.LENGTH_SHORT).show();
             }
         });
         holder.mLinearLayoutComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(mContext,"您评论我了!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "您评论我了!", Toast.LENGTH_SHORT).show();
             }
         });
         holder.mLinearLayoutLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext,"您赞赞我了!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "您赞赞我了!", Toast.LENGTH_SHORT).show();
             }
         });
 

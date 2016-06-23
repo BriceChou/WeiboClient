@@ -17,7 +17,7 @@ public class LoginUserInformation {
     public LoginUserInformation() {
     }
 
-    public void setLoginUser(LoginUserInformation loginUserInformation,User mUser) {
+    public void setLoginUser(LoginUserInformation loginUserInformation, User mUser) {
         loginUserInformation.loginUser.createdAt = mUser.created_at;
         loginUserInformation.loginUser.description = mUser.description;
         loginUserInformation.loginUser.domain = mUser.domain;

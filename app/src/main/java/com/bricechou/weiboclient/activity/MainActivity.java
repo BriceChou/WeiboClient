@@ -8,7 +8,6 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.Toast;
 
 import com.bricechou.weiboclient.R;
 import com.bricechou.weiboclient.fragment.FragmentController;
@@ -69,7 +68,7 @@ public class MainActivity extends FragmentActivity implements OnCheckedChangeLis
         // @author BriceChou
         switch (v.getId()) {
             case R.id.iv_add:
-                startActivity(new Intent(MainActivity.this,PostWeiboActivity.class));
+                startActivity(new Intent(MainActivity.this, PostWeiboActivity.class));
                 break;
             default:
         }

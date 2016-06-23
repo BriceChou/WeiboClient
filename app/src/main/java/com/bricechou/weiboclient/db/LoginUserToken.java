@@ -9,7 +9,7 @@ import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
 /**
  * To save Oauth2AccessToken object by SharedPreferences.
- *
+ * <p/>
  * Created by BriceChou on 16-6-3.
  */
 

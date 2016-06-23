@@ -96,7 +96,8 @@
 
     </LinearLayout>
 
-    <include layout="@layout/include_message_bottom"/>
+    <include layout="@layout/include_message_bottom" />
+
     <ListView
         android:id="@+id/lv_message_conversation"
         style="@style/ListViewCommon"
