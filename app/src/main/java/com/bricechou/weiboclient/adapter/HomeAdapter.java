@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bricechou.weiboclient.R;
 import com.bricechou.weiboclient.utils.StringFormat;
 import com.bricechou.weiboclient.utils.TimeFormat;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sina.weibo.sdk.openapi.models.Status;
 import com.sina.weibo.sdk.openapi.models.User;
@@ -31,12 +32,12 @@ public class HomeAdapter extends BaseAdapter {
     private final static String TAG = "HomeAdapter";
     private Context mContext;
     private ArrayList<Status> mStatusList;
-    private ImageLoader mImageLoader;
+    //private ImageLoader mImageLoader;
 
     public HomeAdapter(Context context, ArrayList<Status> statusList) {
         this.mContext = context;
         this.mStatusList = statusList;
-        mImageLoader = ImageLoader.getInstance();
+        //mImageLoader = ImageLoader.getInstance();
     }
 
     @Override
@@ -120,7 +121,7 @@ public class HomeAdapter extends BaseAdapter {
         // bind data into the view
         Status status = getItem(position);
         User user = status.user;
-        mImageLoader.displayImage(user.profile_image_url, holder.mImageViewPortrait);
+        //mImageLoader.displayImage(user.profile_image_url, holder.mImageViewPortrait);
         holder.mTextViewUsername.setText(user.name);
         holder.mTextViewCaption.setText(TimeFormat.timeToString(status.created_at) + " 来自 " + StringFormat.formatStatusSource(status.source));
         holder.mTextViewStatusContent.setText(status.text);
@@ -161,12 +162,12 @@ public class HomeAdapter extends BaseAdapter {
             iv_image.setVisibility(View.GONE);
 
             StatusGridImagesAdapter mStatusGridImagesAdapter = new StatusGridImagesAdapter(mContext, status);
-            gv_image.setAdapter(mStatusGridImagesAdapter);
+            //gv_image.setAdapter(mStatusGridImagesAdapter);
         } else if (thumbnail_pic != "") {
             imgContainer.setVisibility(View.VISIBLE);
             gv_image.setVisibility(View.GONE);
             iv_image.setVisibility(View.VISIBLE);
-            mImageLoader.displayImage(thumbnail_pic, iv_image);
+            //mImageLoader.displayImage(thumbnail_pic, iv_image);
         } else {
             imgContainer.setVisibility(View.GONE);
         }

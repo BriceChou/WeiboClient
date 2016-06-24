@@ -7,10 +7,14 @@
 
     <include layout="@layout/include_titlebar"/>
     
-    <ListView
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/lv_home"
+        ptr:ptrDrawable="@drawable/default_ptr_flip"
+        ptr:ptrAnimationStyle="flip"
+        ptr:ptrHeaderTextColor="#919191"
         style="@style/ListViewCommon"
         android:dividerHeight="8dp" >
-    </ListView>
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
 
 </LinearLayout>

@@ -1,5 +1,6 @@
 package com.bricechou.weiboclient.api;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.util.Log;
 
@@ -17,6 +18,7 @@ import com.sina.weibo.sdk.net.RequestListener;
 public class WeiboRequestListener implements RequestListener {
     private static final String TAG = "WeiboRequestListener";
     private Context mContext; // define the current activity
+    private Dialog mProgressDialog;
 
     /**
      * initial WeiboRequestListener constructor
