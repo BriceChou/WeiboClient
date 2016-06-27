@@ -11,10 +11,7 @@ import java.util.regex.Pattern;
  * @author BriceChou
  * @datetime 16-6-13 14:47
  */
-
 public class StringFormat {
-
-
     private final static String TAG = "StringFormat";
 
     /**
@@ -40,5 +37,4 @@ public class StringFormat {
         }
         return source;
     }
-
 }

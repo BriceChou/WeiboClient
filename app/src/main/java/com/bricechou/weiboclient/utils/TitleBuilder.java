@@ -13,7 +13,6 @@ import com.bricechou.weiboclient.R;
  * Created by user on 6/6/16.
  */
 public class TitleBuilder {
-
     private View mView; //defined RelativeLayout view;
     private TextView mTextViewCenter; //the titlebar center text;
     private TextView mTextViewLeft; //the titlebar left text;

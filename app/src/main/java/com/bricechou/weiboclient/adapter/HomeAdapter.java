@@ -48,13 +48,13 @@ public class HomeAdapter extends BaseAdapter {
     }
 
     @Override
-    public Status getItem(int i) {
-        return mStatusList.get(i);
+    public Status getItem(int position) {
+        return mStatusList.get(position);
     }
 
     @Override
-    public long getItemId(int i) {
-        return i;
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
@@ -206,7 +206,7 @@ public class HomeAdapter extends BaseAdapter {
 
     /**
      * To manage the Homepage layout resource.
-     * Only create this class once time.
+     * Just create this class once time.
      *
      * @author BriceChou
      * @datetime 16-6-12 11:39

@@ -4,11 +4,10 @@ import com.sina.weibo.sdk.openapi.models.Status;
 
 /**
  * This is a Model for current login user.
- * To record user related information.
  *
  * @author BriceChou
  * @datetime 16-6-17 11:31
- * @TODO
+ * @TODO To record user related information.
  */
 public class LoginUser {
     private final static String TAG = "LoginUser";

@@ -18,7 +18,6 @@ import com.sina.weibo.sdk.openapi.models.Status;
  * @TODO To show the grid layout image.
  */
 public class StatusGridImagesAdapter extends BaseAdapter {
-
     private Context mContext;
     private Status mStatus;
     private ImageLoader mImageLoader;
@@ -81,7 +80,7 @@ public class StatusGridImagesAdapter extends BaseAdapter {
 
     /**
      * To manage the StatusGridImages layout resource.
-     * Only create this class once time.
+     * Just create this class once time.
      *
      * @author BriceChou
      * @datetime 16-6-21 15:54

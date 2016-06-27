@@ -34,7 +34,7 @@ public class MessageAdapter extends BaseAdapter {
 
     /**
      * To manage the Message page layout resource.
-     * Only create this class once time.
+     * Just create this class once time.
      *
      * @author BriceChou
      * @datetime 16-6-12 11:39

@@ -29,7 +29,7 @@ public class WeiboRequestListener implements RequestListener {
     }
 
     /**
-     * when we get the weibo content successed,this function will be executed.
+     * when we get the weibo content success,this function will be executed.
      *
      * @author BriceChou
      * @datetime 16-6-6 15:59
@@ -37,15 +37,9 @@ public class WeiboRequestListener implements RequestListener {
      */
     @Override
     public void onComplete(String response) {
-        Log.i(TAG, "onComplete: successed load the weibo content.");
+        Log.i(TAG, "onComplete: success load the weibo content.");
     }
 
-    /**
-     * print the log to tell the developer about exception
-     *
-     * @author BriceChou
-     * @datetime 16-6-6 17:18
-     */
     @Override
     public void onWeiboException(WeiboException e) {
         Log.e(TAG, "onWeiboException: " + e.getMessage());

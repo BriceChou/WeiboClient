@@ -1,12 +1,5 @@
 package com.bricechou.weiboclient.api;
 
-/**
- * Implements the WeiboAuthListener class
- *
- * @author BriceChou
- * @datetime 16-6-14 11:36
- */
-
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -21,6 +14,7 @@ import com.sina.weibo.sdk.exception.WeiboException;
 
 /**
  * Implements asynchronous request to open the Weibo web login page.
+ * When we using it, we don't need to implements all method.
  *
  * @author BriceChou
  * @datetime 16-5-30 上午11:12
@@ -34,11 +28,6 @@ public class LoginAuthListener implements WeiboAuthListener {
         this.mContext = context;
     }
 
-    /**
-     * When user cancel to login and show the message
-     *
-     * @author BriceChou
-     */
     @Override
     public void onCancel() {
         Toast.makeText(mContext,
@@ -72,12 +61,9 @@ public class LoginAuthListener implements WeiboAuthListener {
     }
 
     /**
-     * When got a error information ,this function will be called.
-     *
-     * @param e
-     * @author BriceChou
-     * @datetime 16-5-30 上午11:31
      * @TODO How to solve the error information and advise user how to do this.
+     * @datetime 16-5-30 上午11:31
+     * @author BriceChou
      */
     @Override
     public void onWeiboException(WeiboException e) {

@@ -7,17 +7,20 @@
     android:orientation="vertical"
     tools:context="com.bricechou.weiboclient.activity.WeiboDetailActivity">
 
-    <include layout="@layout/include_detail_titlebar"></include>
+    <include layout="@layout/include_detail_titlebar" />
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/rl_body"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <include
             android:id="@+id/include_detail"
             layout="@layout/include_detail" />
-    </RelativeLayout>
+
+        <include layout="@layout/include_detail_bottom" />
+    </LinearLayout>
 
 </LinearLayout>

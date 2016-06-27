@@ -24,12 +24,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         mButtonSubmit.setOnClickListener(this);
     }
 
-    /**
-     * Initial Weibo instance
-     *
-     * @author BriceChou
-     * @datetime 16-6-14 17:02
-     */
     private void initWeibo() {
         mAuthInfo = new AuthInfo(this, Constants.APP_KEY, Constants.REDIRECT_URL, Constants.SCOPE);
         // Bind the weibo instance together with SSO auth method
@@ -52,11 +46,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         initView();
     }
 
-    /**
-     * When user click the button, this function will be called.
-     *
-     * @author BriceChou
-     */
     @Override
     public void onClick(View view) {
         switch (view.getId()) {

@@ -20,7 +20,6 @@ import com.sina.weibo.sdk.openapi.StatusesAPI;
  * @datetime 16-6-14 14:10
  * @TODO add weibo content image and emoticon
  */
-
 public class PostWeiboActivity extends Activity implements View.OnClickListener {
 
     private final static String TAG = "PostWeiboActivity";

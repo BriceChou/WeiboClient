@@ -32,12 +32,6 @@ public class HomeFragment extends BaseFragment {
     private LoginUserInformation mLoginUserInformation;
     private User mUser;
 
-    /**
-     * To show the weibo homepage
-     *
-     * @comment by BriceChou
-     * @datetime 16-6-6 17:28
-     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         initView();
@@ -91,12 +85,6 @@ public class HomeFragment extends BaseFragment {
         });
     }
 
-    /**
-     * initial the weibo content and display in the home page
-     *
-     * @author BriceChou
-     * @datetime 16-6-6 15:14
-     */
     private void initWeiboContent() {
         mStatusesAPI = new StatusesAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.showAccessToken());
         // mStatusesAPI = new StatusesAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.getAccessToken());

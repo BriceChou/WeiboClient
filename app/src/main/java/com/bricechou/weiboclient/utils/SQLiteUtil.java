@@ -15,7 +15,6 @@ import java.util.ArrayList;
  * @author BriceChou
  * @datetime 16-6-17 13:57
  */
-
 public class SQLiteUtil {
     public static final String DATABASE_NAME = "weiboclient.db";
     private static final String TAG = "SQLiteUtil";

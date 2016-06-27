@@ -21,12 +21,6 @@ public class LoginUserToken {
     private static final String KEY_EXPIRES_IN = "expires_in";
     private static final String KEY_REFRESH_TOKEN = "refresh_token";
 
-    /**
-     * To save the current login user Token data into the SharedPreferences.
-     *
-     * @author BriceChou
-     * @datetime 16-6-3 上午11:35
-     */
     public static void saveAccessToken(Context context, Oauth2AccessToken accessToken) {
         if (null == accessToken) {
             Log.e(TAG, "saveAccessToken: accessToken is NULL.");
@@ -45,12 +39,6 @@ public class LoginUserToken {
         editor.commit();
     }
 
-    /**
-     * To get the Oauth2AccessToken instance by context.
-     *
-     * @datetime 16-6-3 下午2:05
-     * @author BriceChou
-     */
     public static Oauth2AccessToken getAccessToken(Context context) {
         if (null == context) {
             Log.e(TAG, "getAccessToken: context is NULL.");
@@ -65,9 +53,6 @@ public class LoginUserToken {
         return accessToken;
     }
 
-    /**
-     * To clear all Token information in the SharedPreferences.
-     */
     public static void clear(Context context) {
         if (null == context) {
             Log.e(TAG, "clear: context is NULL.");
