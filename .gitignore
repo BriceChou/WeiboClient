@@ -4,8 +4,11 @@
 /.idea/workspace.xml
 /.idea/libraries
 /build
-/weiboSDK/build
-/weiboSDK/weiboSDK.iml
-/weiboSDK/lint.xml
+weiboSDK/build
+weiboSDK/weiboSDK.iml
+weiboSDK/lint.xml
 *.md
+.DS_Store
+/captures
+*.log
 .idea
