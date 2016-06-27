@@ -17,7 +17,7 @@
 
         <!--main text-->
         <TextView
-            android:id="@+id/tv_item_content"
+            android:id="@+id/tv_item_content_detail"
             style="@style/TextViewBody"
             android:layout_width="match_parent"
             android:layout_marginTop="-16dp"
@@ -25,13 +25,13 @@
             android:text="这里是发表的正文部分" />
         <!--attachment images-->
         <include
-            android:id="@+id/include_status_image"
+            android:id="@+id/include_status_image_detail"
             layout="@layout/include_status_image"
             android:visibility="gone" />
 
         <!--the part of retweed-->
         <include
-            android:id="@+id/include_status_retweeted"
+            android:id="@+id/include_status_retweeted_detail"
             layout="@layout/include_status_retweeted"
             android:visibility="gone" />
     </LinearLayout>

@@ -2,6 +2,7 @@ package com.bricechou.weiboclient.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,12 +93,15 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onComplete(String response) {
                 super.onComplete(response);
-
                 if (!TextUtils.isEmpty(response)) {
                     if (response.startsWith("{\"statuses\"")) {
                         // the Status instance load the data from JSON data.
                         mStatusList = mStatusList.parse(response);
-                        lv_home.setAdapter(new HomeAdapter(mMainActivity, mStatusList.statusList));
+                        if (null != mStatusList) {
+                            lv_home.setAdapter(new HomeAdapter(mMainActivity, mStatusList.statusList));
+                        } else {
+                            onComplete(response);
+                        }
                     }
                 }
             }

@@ -10,17 +10,16 @@
     <include layout="@layout/include_detail_titlebar" />
 
     <LinearLayout
-        android:id="@+id/rl_body"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <include
-            android:id="@+id/include_detail"
-            layout="@layout/include_detail" />
+        <include layout="@layout/include_detail" />
 
         <include layout="@layout/include_detail_bottom" />
     </LinearLayout>
+
+
 
 </LinearLayout>

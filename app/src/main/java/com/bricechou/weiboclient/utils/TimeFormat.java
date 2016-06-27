@@ -7,6 +7,7 @@ package com.bricechou.weiboclient.utils;
  * @datetime 16-6-13 17:00
  */
 public class TimeFormat {
+
     /**
      * if current time day before the weibo created time day,only show the weibo created time day
      * else only show the created time with second minutes hours

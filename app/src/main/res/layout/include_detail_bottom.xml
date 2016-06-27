@@ -11,18 +11,18 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/rb_retweets"
+            android:id="@+id/rb_retweets_detail"
             style="@style/RadioButtonStatusDetailBottom"
             android:text="转发" />
 
         <RadioButton
-            android:id="@+id/rb_comments"
+            android:id="@+id/rb_comments_detail"
             style="@style/RadioButtonStatusDetailBottom"
             android:checked="true"
             android:text="评论" />
 
         <RadioButton
-            android:id="@+id/rb_likes"
+            android:id="@+id/rb_likes_detail"
             style="@style/RadioButtonStatusDetailBottom"
             android:text="赞" />
     </RadioGroup>

@@ -2,6 +2,8 @@ package com.bricechou.weiboclient.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -15,7 +17,6 @@ import android.widget.Toast;
 
 import com.bricechou.weiboclient.R;
 import com.bricechou.weiboclient.activity.WeiboDetailActivity;
-import com.bricechou.weiboclient.utils.StringFormat;
 import com.bricechou.weiboclient.utils.TimeFormat;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sina.weibo.sdk.openapi.models.Status;
@@ -121,37 +122,42 @@ public class HomeAdapter extends BaseAdapter {
         }
 
         // bind data into the view
-        Status status = getItem(position);
-        User user = status.user;
-        mImageLoader.displayImage(user.profile_image_url, holder.mImageViewPortrait);
-        holder.mTextViewUsername.setText(user.name);
-        holder.mTextViewCaption.setText(TimeFormat.timeToString(status.created_at) + " 来自 " + StringFormat.formatStatusSource(status.source));
-        holder.mTextViewStatusContent.setText(status.text);
-        setImages(status, holder.mFrameLayoutStatusImage, holder.mImageViewCustomImages, holder.mImageViewStatusImage);
+        final Status mStatus = getItem(position);
+        User mUser = mStatus.user;
+        mImageLoader.displayImage(mUser.profile_image_url, holder.mImageViewPortrait);
+        holder.mTextViewUsername.setText(mUser.name);
+        holder.mTextViewCaption.setText(TimeFormat.timeToString(mStatus.created_at) + " 来自 " + Html.fromHtml(mStatus.source));
+        holder.mTextViewStatusContent.setText(mStatus.text);
+        setImages(mStatus, holder.mFrameLayoutStatusImage, holder.mImageViewCustomImages, holder.mImageViewStatusImage);
         // retweeted weibo content
-        Status retweeted_status = status.retweeted_status;
-        if (retweeted_status != null) {
-            User retUser = retweeted_status.user;
+        Status retweetedStatus = mStatus.retweeted_status;
+        if (retweetedStatus != null) {
+            User retUser = retweetedStatus.user;
             holder.mLinearLayoutStatusRetweeted.setVisibility(View.VISIBLE);
-            holder.mTextViewRetweetedContent.setText("@" + retUser.name + ":" + retweeted_status.text);
+            holder.mTextViewRetweetedContent.setText("@" + retUser.name + ":" + retweetedStatus.text);
             // show the retweeted weibo content image
-            setImages(retweeted_status, holder.mFrameLayoutRetweetedStatusImage, holder.mImageViewRetweetCustomImage, holder.mImageViewRetweetStatusImage);
+            setImages(retweetedStatus, holder.mFrameLayoutRetweetedStatusImage, holder.mImageViewRetweetCustomImage, holder.mImageViewRetweetStatusImage);
         } else {
             holder.mLinearLayoutStatusRetweeted.setVisibility(View.GONE);
         }
-        holder.mTextViewRetweet.setText(status.reposts_count == 0 ?
-                "转发" : status.reposts_count + "");
-        holder.mTextViewComment.setText(status.comments_count == 0 ?
-                "评论" : status.comments_count + "");
-        holder.mTextViewLike.setText(status.attitudes_count == 0 ?
-                "赞" : status.attitudes_count + "");
+        holder.mTextViewRetweet.setText(mStatus.reposts_count == 0 ?
+                "转发" : mStatus.reposts_count + "");
+        holder.mTextViewComment.setText(mStatus.comments_count == 0 ?
+                "评论" : mStatus.comments_count + "");
+        holder.mTextViewLike.setText(mStatus.attitudes_count == 0 ?
+                "赞" : mStatus.attitudes_count + "");
 
         // set item click listener
         holder.mLinearLayoutMainContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(mContext, "页面正在跳转到详细页面!", Toast.LENGTH_SHORT).show();
-                mContext.startActivity(new Intent(mContext, WeiboDetailActivity.class));
+                Intent mIntent = new Intent(mContext, WeiboDetailActivity.class);
+                // @XXX Think about the best method and solve to pass value problem.
+                Bundle mBundle = new Bundle();
+                mBundle.putSerializable("status", mStatus);
+                mIntent.putExtras(mBundle);
+                mContext.startActivity(mIntent);
             }
         });
 
@@ -185,20 +191,20 @@ public class HomeAdapter extends BaseAdapter {
      * @datetime 16-6-21 10:15
      */
     private void setImages(Status status, FrameLayout imgContainer,
-                           GridView gv_image, ImageView iv_image) {
-        ArrayList<String> pic_urls = status.pic_urls;
-        String thumbnail_pic = status.thumbnail_pic;
-        if (pic_urls != null && pic_urls.size() > 1) {
+                           GridView gridViewImg, ImageView singleImg) {
+        ArrayList<String> picUrls = status.pic_urls;
+        String picUrl = status.thumbnail_pic;
+        if (picUrls != null && picUrls.size() > 1) {
             imgContainer.setVisibility(View.VISIBLE);
-            gv_image.setVisibility(View.VISIBLE);
-            iv_image.setVisibility(View.GONE);
+            gridViewImg.setVisibility(View.VISIBLE);
+            singleImg.setVisibility(View.GONE);
             StatusGridImagesAdapter mStatusGridImagesAdapter = new StatusGridImagesAdapter(mContext, status);
-            gv_image.setAdapter(mStatusGridImagesAdapter);
-        } else if (thumbnail_pic != "") {
+            gridViewImg.setAdapter(mStatusGridImagesAdapter);
+        } else if (picUrl != "") {
             imgContainer.setVisibility(View.VISIBLE);
-            gv_image.setVisibility(View.GONE);
-            iv_image.setVisibility(View.VISIBLE);
-            mImageLoader.displayImage(thumbnail_pic, iv_image);
+            gridViewImg.setVisibility(View.GONE);
+            singleImg.setVisibility(View.VISIBLE);
+            mImageLoader.displayImage(picUrl, singleImg);
         } else {
             imgContainer.setVisibility(View.GONE);
         }

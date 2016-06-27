@@ -1,6 +1,7 @@
 package com.bricechou.weiboclient.model;
 
 import com.sina.weibo.sdk.openapi.models.Status;
+import java.io.Serializable;
 
 /**
  * This is a Model for current login user.
@@ -9,7 +10,7 @@ import com.sina.weibo.sdk.openapi.models.Status;
  * @datetime 16-6-17 11:31
  * @TODO To record user related information.
  */
-public class LoginUser {
+public class LoginUser implements Serializable{
     private final static String TAG = "LoginUser";
     public String name;
     public String screenName;
