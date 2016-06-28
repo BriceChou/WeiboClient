@@ -154,7 +154,6 @@ public class HomeAdapter extends BaseAdapter {
         holder.sLinearLayoutMainContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "页面正在跳转到详细页面!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(mContext, WeiboDetailActivity.class);
                 // @XXX Think about the best method and solve to pass value problem.
                 Bundle bundle = new Bundle();

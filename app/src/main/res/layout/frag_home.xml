@@ -10,6 +10,6 @@
     <ListView
         android:id="@+id/lv_home"
         style="@style/ListViewCommon"
-        android:dividerHeight="8dp"></ListView>
+        android:dividerHeight="8dp"/>
 
 </LinearLayout>

@@ -12,4 +12,4 @@ weiboSDK/lint.xml
 /captures
 *.log
 .idea
-PullToRefresh/
+pullToRefresh/
