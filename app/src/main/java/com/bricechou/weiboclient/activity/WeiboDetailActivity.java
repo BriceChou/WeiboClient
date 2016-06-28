@@ -6,8 +6,10 @@ import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +19,7 @@ import com.bricechou.weiboclient.adapter.StatusGridImagesAdapter;
 import com.bricechou.weiboclient.utils.TimeFormat;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sina.weibo.sdk.openapi.models.Status;
+import com.sina.weibo.sdk.openapi.models.User;
 
 import java.util.ArrayList;
 
@@ -32,13 +35,17 @@ public class WeiboDetailActivity extends Activity implements View.OnClickListene
     private TextView mTextViewUsername;
     private TextView mTextViewCaption;
     // weibo detail content view
+    private LinearLayout mLinearLayoutMainContent;
     private TextView mTextViewContent;
-    private ImageView mImageViewDetailImage;
-    private GridView mImageViewDetailGridImage;
+    private FrameLayout mFrameLayoutStatusImage;
+    private ImageView mImageViewImageDetail;
+    private GridView mGridViewImageDetail;
     // weibo detail status retweeted
     private TextView mTextViewContentRetweeted;
-    private ImageView mImageViewDetailImageRetweeted;
-    private GridView mImageViewDetailGridImageRetweeted;
+    private LinearLayout mLinearLayoutContentRetweeted;
+    private FrameLayout mFrameLayoutStatusImageRetweeted;
+    private ImageView mImageViewImageDetailRetweeted;
+    private GridView mGridViewImageDetailRetweeted;
     // weibo detail bottom
     private RadioButton mRadioButtonComment;
     private RadioButton mRadioButtonRetweet;
@@ -64,7 +71,17 @@ public class WeiboDetailActivity extends Activity implements View.OnClickListene
         mTextViewUsername = (TextView) findViewById(R.id.tv_username);
         mTextViewCaption = (TextView) findViewById(R.id.tv_caption);
         // weibo detail content view
+        mLinearLayoutMainContent = (LinearLayout) findViewById(R.id.ll_mainContent);
         mTextViewContent = (TextView) findViewById(R.id.tv_item_content_detail);
+        mFrameLayoutStatusImage = (FrameLayout) mLinearLayoutMainContent.findViewById(R.id.include_status_image_detail);
+        mGridViewImageDetail = (GridView) mFrameLayoutStatusImage.findViewById(R.id.custom_images);
+        mImageViewImageDetail = (ImageView) mFrameLayoutStatusImage.findViewById(R.id.iv_image);
+        // weibo detail status retweeted
+        mLinearLayoutContentRetweeted = (LinearLayout) findViewById(R.id.include_status_retweeted_detail);
+        mTextViewContentRetweeted = (TextView) mLinearLayoutContentRetweeted.findViewById(R.id.tv_retweeted_content);
+        mFrameLayoutStatusImageRetweeted = (FrameLayout) mLinearLayoutContentRetweeted.findViewById(R.id.include_status_image);
+        mGridViewImageDetailRetweeted = (GridView) mFrameLayoutStatusImageRetweeted.findViewById(R.id.custom_images);
+        mImageViewImageDetailRetweeted = (ImageView) mFrameLayoutStatusImageRetweeted.findViewById(R.id.iv_image);
         // weibo detail bottom button
         mRadioButtonLike = (RadioButton) findViewById(R.id.rb_likes_detail);
         mRadioButtonRetweet = (RadioButton) findViewById(R.id.rb_retweets_detail);
@@ -77,45 +94,36 @@ public class WeiboDetailActivity extends Activity implements View.OnClickListene
         mRadioButtonComment.setOnClickListener(this);
     }
 
+    /**
+     * @TODO Add comments / likes / retweets content list in the detail page bottom.
+     * @author BriceChou
+     * @datetime 16-6-28 15:02
+     */
     private void initViewData() {
         mImageLoader.displayImage(mStatus.user.profile_image_url, mImageViewPortrait);
         mTextViewUsername.setText(mStatus.user.name);
         mTextViewCaption.setText(TimeFormat.timeToString(mStatus.created_at) +
                 "  来自 " + Html.fromHtml(mStatus.source));
-    /*    setImages(mStatus, include_status_image, gv_images, iv_image);*/
+        setImages(mStatus, mFrameLayoutStatusImage, mGridViewImageDetail, mImageViewImageDetail);
         if (TextUtils.isEmpty(mStatus.text)) {
             mTextViewContent.setVisibility(View.GONE);
         } else {
             mTextViewContent.setVisibility(View.VISIBLE);
             mTextViewContent.setText(mStatus.text);
         }
-
-     /*     Status retweetedStatus = mStatus.retweeted_status;
+        Status retweetedStatus = mStatus.retweeted_status;
         if (retweetedStatus != null) {
-            include_retweeted_status.setVisibility(View.VISIBLE);
-            String retweetContent = "@" + retweetedStatus.getUser().getName()
-                    + ":" + retweetedStatus.getText();
-            SpannableString weiboContent = StringUtils.getWeiboContent(
-                    this, tv_retweeted_content, retweetContent);
-            tv_retweeted_content.setText(weiboContent);
-            setImages(retweetedStatus, fl_retweeted_imageview,
-                    gv_retweeted_images, iv_retweeted_image);
+            User retUser = retweetedStatus.user;
+            mLinearLayoutContentRetweeted.setVisibility(View.VISIBLE);
+            mTextViewContentRetweeted.setText("@" + retUser.name + ":" + retweetedStatus.text);
+            setImages(retweetedStatus, mFrameLayoutStatusImageRetweeted,
+                    mGridViewImageDetailRetweeted, mImageViewImageDetailRetweeted);
         } else {
-            include_retweeted_status.setVisibility(View.GONE);
-        }*/
-
+            mLinearLayoutContentRetweeted.setVisibility(View.GONE);
+        }
         mRadioButtonRetweet.setText("转发 " + mStatus.reposts_count);
         mRadioButtonComment.setText("评论 " + mStatus.comments_count);
         mRadioButtonLike.setText("赞 " + mStatus.attitudes_count);
-
-        // bottom_control - 底部互动栏,包括转发/评论/点赞
-       /* tv_share_bottom.setText(status.getReposts_count() == 0 ?
-                "转发" : status.getReposts_count() + "");
-        tv_comment_bottom.setText(status.getComments_count() == 0 ?
-                "评论" : status.getComments_count() + "");
-        tv_like_bottom.setText(status.getAttitudes_count() == 0 ?
-                "赞" : status.getAttitudes_count() + "");*/
-
     }
 
     private void setImages(Status status, ViewGroup imgContainer, GridView gridViewImg, final ImageView singleImg) {
