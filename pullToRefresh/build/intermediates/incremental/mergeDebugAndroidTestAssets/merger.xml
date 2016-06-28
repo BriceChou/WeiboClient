@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="debug"><source path="/local/AndroidProjects/WeiboClient/pullToRefresh/build/intermediates/bundles/debug/assets"/></dataSet><dataSet config="main"><source path="/local/AndroidProjects/WeiboClient/pullToRefresh/src/androidTest/assets"/></dataSet></merger>
+<merger version="3"><dataSet config="debug"><source path="/local/BriceChou/AppDemo/WeiboClient/pullToRefresh/build/intermediates/bundles/debug/assets"/></dataSet><dataSet config="main"><source path="/local/BriceChou/AppDemo/WeiboClient/pullToRefresh/src/androidTest/assets"/></dataSet></merger>
