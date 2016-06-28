@@ -19,7 +19,7 @@
     <string name="toast_function_unfinished">功能尚未开发完成,攻城狮正在努力奋斗中……</string>
     <string name="toast_post_weibo_successed">您已成功发布一条微博!</string>
     <string name="toast_post_weibo_canceled">取消并返回主页面</string>
-
+    <string name="toast_operation_failed">对不起,操作失败,请重试!</string>
     <string name="hint_post_weibo_tip">您说您这不说点什么东东,是不是对不起您点击这个功能呐?</string>
     <string name="tv_post_weibo_title">发布微博</string>
 
