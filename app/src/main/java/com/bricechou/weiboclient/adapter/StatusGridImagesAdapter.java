@@ -18,6 +18,7 @@ import com.sina.weibo.sdk.openapi.models.Status;
  * @TODO To show the grid layout image.
  */
 public class StatusGridImagesAdapter extends BaseAdapter {
+    private static final String TAG = "weiboclient.adapter.StatusGridImagesAdapter";
     private Context mContext;
     private Status mStatus;
     private ImageLoader mImageLoader;
@@ -49,30 +50,30 @@ public class StatusGridImagesAdapter extends BaseAdapter {
         if (convertView == null) {
             holder = new StatusGridImagesViewHolder();
             convertView = View.inflate(mContext, R.layout.item_status_grid_image, null);
-            holder.mImageViewStatusImage = (ImageView) convertView.findViewById(R.id.iv_status_image);
+            holder.sImageViewStatusImage = (ImageView) convertView.findViewById(R.id.iv_status_image);
             convertView.setTag(holder);
         } else {
             holder = (StatusGridImagesViewHolder) convertView.getTag();
         }
 
         // use the program to calculate the every image width.
-        GridView mGridView = (GridView) parent;
+        GridView gridView = (GridView) parent;
         // get the view horizontal spacing and number columns
-        int horizontalSpacing = mGridView.getHorizontalSpacing();
-        int numColumns = mGridView.getNumColumns();
+        int horizontalSpacing = gridView.getHorizontalSpacing();
+        int numColumns = gridView.getNumColumns();
         // calculate the item width
         // three item have two horizontal spacing line
-        int itemWidth = (mGridView.getWidth() - (numColumns - 1) * horizontalSpacing
-                - mGridView.getPaddingLeft() - mGridView.getPaddingRight()) / numColumns;
+        int itemWidth = (gridView.getWidth() - (numColumns - 1) * horizontalSpacing
+                - gridView.getPaddingLeft() - gridView.getPaddingRight()) / numColumns;
 
         // set all grid image view with this width value
         // set height = width
         LayoutParams params = new LayoutParams(itemWidth, itemWidth);
-        holder.mImageViewStatusImage.setLayoutParams(params);
+        holder.sImageViewStatusImage.setLayoutParams(params);
 
         // bind the image data into image view
         String urls = getItem(position);
-        mImageLoader.displayImage(urls, holder.mImageViewStatusImage);
+        mImageLoader.displayImage(urls, holder.sImageViewStatusImage);
 
         return convertView;
     }
@@ -87,6 +88,6 @@ public class StatusGridImagesAdapter extends BaseAdapter {
      */
     public static class StatusGridImagesViewHolder {
         // item_status_grid_image.xml file
-        public ImageView mImageViewStatusImage;
+        public ImageView sImageViewStatusImage;
     }
 }

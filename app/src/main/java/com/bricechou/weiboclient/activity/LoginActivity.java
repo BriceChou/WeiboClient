@@ -13,8 +13,7 @@ import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.auth.sso.SsoHandler;
 
 public class LoginActivity extends Activity implements View.OnClickListener {
-
-    private static final String TAG = "LoginActivity";
+    private static final String TAG = "weiboclient.activity.LoginActivity";
     private AuthInfo mAuthInfo; // A Weibo instance
     private SsoHandler mSsoHandler; // deal with the user login class
     private Button mButtonSubmit;

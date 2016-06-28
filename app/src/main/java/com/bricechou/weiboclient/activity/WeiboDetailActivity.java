@@ -21,7 +21,7 @@ import com.sina.weibo.sdk.openapi.models.Status;
 import java.util.ArrayList;
 
 public class WeiboDetailActivity extends Activity implements View.OnClickListener {
-    private final static String TAG = "WeiboDetailActivity";
+    private final static String TAG = "weiboclient.activity.WeiboDetailActivity";
     private Status mStatus;
     private ImageLoader mImageLoader;
     // tile bar view
@@ -118,7 +118,7 @@ public class WeiboDetailActivity extends Activity implements View.OnClickListene
 
     }
 
-    private void setImages(final Status status, ViewGroup imgContainer, GridView gridViewImg, final ImageView singleImg) {
+    private void setImages(Status status, ViewGroup imgContainer, GridView gridViewImg, final ImageView singleImg) {
         if (status == null) {
             return;
         }
@@ -128,13 +128,11 @@ public class WeiboDetailActivity extends Activity implements View.OnClickListene
             imgContainer.setVisibility(View.VISIBLE);
             gridViewImg.setVisibility(View.GONE);
             singleImg.setVisibility(View.VISIBLE);
-
             mImageLoader.displayImage(picUrl, singleImg);
         } else if (picUrls != null && picUrls.size() > 1) {
             imgContainer.setVisibility(View.VISIBLE);
             gridViewImg.setVisibility(View.VISIBLE);
             singleImg.setVisibility(View.GONE);
-
             StatusGridImagesAdapter mStatusGridImagesAdapter = new StatusGridImagesAdapter(this, status);
             gridViewImg.setAdapter(mStatusGridImagesAdapter);
         } else {

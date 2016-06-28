@@ -15,7 +15,7 @@ import com.sina.weibo.sdk.net.RequestListener;
  */
 
 public class WeiboRequestListener implements RequestListener {
-    private static final String TAG = "WeiboRequestListener";
+    private static final String TAG = "weiboclient.api.WeiboRequestListener";
     private Context mContext; // define the current activity
 
     /**

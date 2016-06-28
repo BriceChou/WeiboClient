@@ -2,7 +2,6 @@ package com.bricechou.weiboclient.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,33 +11,23 @@ import com.bricechou.weiboclient.R;
 import com.bricechou.weiboclient.adapter.HomeAdapter;
 import com.bricechou.weiboclient.api.WeiboRequestListener;
 import com.bricechou.weiboclient.config.Constants;
-import com.bricechou.weiboclient.db.LoginUserInformation;
 import com.bricechou.weiboclient.db.LoginUserToken;
 import com.bricechou.weiboclient.utils.BaseFragment;
 import com.bricechou.weiboclient.utils.TitleBuilder;
 import com.sina.weibo.sdk.openapi.StatusesAPI;
-import com.sina.weibo.sdk.openapi.UsersAPI;
 import com.sina.weibo.sdk.openapi.models.StatusList;
-import com.sina.weibo.sdk.openapi.models.User;
 
-/**
- * Created by sdduser on 5/28/16.
- */
 public class HomeFragment extends BaseFragment {
     private final static String TAG = "HomeFragment";
     private View mView;
-    private ListView lv_home; // fragment_home list view
+    private ListView mListViewHome; // fragment_home list view
     private StatusList mStatusList; // All Weibo content collection
     private StatusesAPI mStatusesAPI; // Weibo content interface
-    private LoginUserInformation mLoginUserInformation;
-    private User mUser;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         initView();
         initWeiboContent();
-        // initLoginUser();
-
         /**
          * Main page titlebar
          *
@@ -64,28 +53,6 @@ public class HomeFragment extends BaseFragment {
         return mView;
     }
 
-    /**
-     * To save the current login user information.
-     *
-     * @author BriceChou
-     * @datetime 16-6-20 13:59
-     * @FIXME We can't save the data into a class model.
-     */
-    private void initLoginUser() {
-        mLoginUserInformation = new LoginUserInformation();
-        UsersAPI mUsersAPI = new UsersAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.showAccessToken());
-        // UsersAPI mUsersAPI = new UsersAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.getAccessToken());
-        mUsersAPI.show(LoginUserToken.showAccessToken().getUid(), new WeiboRequestListener(mMainActivity) {
-            // mUsersAPI.show(LoginUserToken.getAccessToken().getUid(), new WeiboRequestListener(mMainActivity) {
-            @Override
-            public void onComplete(String response) {
-                super.onComplete(response);
-                mUser = mUser.parse(response);
-                mLoginUserInformation.setLoginUser(mLoginUserInformation, mUser);
-            }
-        });
-    }
-
     private void initWeiboContent() {
         mStatusesAPI = new StatusesAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.showAccessToken());
         // mStatusesAPI = new StatusesAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.getAccessToken());
@@ -98,7 +65,7 @@ public class HomeFragment extends BaseFragment {
                         // the Status instance load the data from JSON data.
                         mStatusList = mStatusList.parse(response);
                         if (null != mStatusList) {
-                            lv_home.setAdapter(new HomeAdapter(mMainActivity, mStatusList.statusList));
+                            mListViewHome.setAdapter(new HomeAdapter(mMainActivity, mStatusList.statusList));
                         } else {
                             onComplete(response);
                         }
@@ -110,6 +77,6 @@ public class HomeFragment extends BaseFragment {
 
     private void initView() {
         mView = View.inflate(mMainActivity, R.layout.frag_home, null);
-        lv_home = (ListView) mView.findViewById(R.id.lv_home);
+        mListViewHome = (ListView) mView.findViewById(R.id.lv_home);
     }
 }

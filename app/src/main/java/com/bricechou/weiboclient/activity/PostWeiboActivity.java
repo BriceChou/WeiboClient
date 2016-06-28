@@ -21,8 +21,7 @@ import com.sina.weibo.sdk.openapi.StatusesAPI;
  * @TODO add weibo content image and emoticon
  */
 public class PostWeiboActivity extends Activity implements View.OnClickListener {
-
-    private final static String TAG = "PostWeiboActivity";
+    private final static String TAG = "weiboclient.activity.PostWeiboActivity";
     private ImageView mImageViewBack; // back to main page
     private ImageView mImageViewSend; // send a weibo to server
     private EditText mEditTextContent;  // post weibo content

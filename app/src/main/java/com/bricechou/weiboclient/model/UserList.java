@@ -1,4 +1,4 @@
-package com.bricechou.weiboclient.api;
+package com.bricechou.weiboclient.model;
 
 
 import android.text.TextUtils;
@@ -20,9 +20,9 @@ import java.util.ArrayList;
  */
 
 public class UserList {
-    public int total_number;
-    public String next_cursor;
-    public String previous_cursor;
+    public int totalNumber;
+    public String nextCursor;
+    public String previousCursor;
     public ArrayList<User> userList;
 
     public static UserList parse(String jsonString) {
@@ -32,9 +32,9 @@ public class UserList {
         UserList usersList = new UserList();
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
-            usersList.previous_cursor = jsonObject.optString("previous_cursor", "0");
-            usersList.next_cursor = jsonObject.optString("next_cursor", "0");
-            usersList.total_number = jsonObject.optInt("total_number", 0);
+            usersList.previousCursor = jsonObject.optString("previous_cursor", "0");
+            usersList.nextCursor = jsonObject.optString("next_cursor", "0");
+            usersList.totalNumber = jsonObject.optInt("total_number", 0);
             JSONArray jsonArray = jsonObject.optJSONArray("users");
             if (jsonArray != null && jsonArray.length() > 0) {
                 int length = jsonArray.length();

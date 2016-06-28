@@ -6,13 +6,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.bricechou.weiboclient.R;
-import com.bricechou.weiboclient.activity.MainActivity;
 import com.bricechou.weiboclient.adapter.UserAdapter;
-import com.bricechou.weiboclient.api.UserList;
+import com.bricechou.weiboclient.model.UserList;
 import com.bricechou.weiboclient.api.WeiboRequestListener;
 import com.bricechou.weiboclient.config.Constants;
 import com.bricechou.weiboclient.db.LoginUserToken;
@@ -109,7 +107,7 @@ public class UserFragment extends BaseFragment {
                 super.onComplete(response);
                 Log.i(".....user screen name", response);
                 mUserInfo = mUserInfo.parse(response);
-                mUserAdapter.setUserInfo(mUserInfo).holderLoginData(mView,mImageLoader);
+                mUserAdapter.setUserInfo(mUserInfo).holderLoginData(mView, mImageLoader);
             }
         });
     }

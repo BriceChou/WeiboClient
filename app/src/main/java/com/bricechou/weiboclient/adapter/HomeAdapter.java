@@ -32,7 +32,7 @@ import java.util.ArrayList;
  * @TODO to konw the adapter concept
  */
 public class HomeAdapter extends BaseAdapter {
-    private final static String TAG = "HomeAdapter";
+    private final static String TAG = "weiboclient.adapter.HomeAdapter";
     private Context mContext;
     private ArrayList<Status> mStatusList;
     private ImageLoader mImageLoader;
@@ -64,57 +64,57 @@ public class HomeAdapter extends BaseAdapter {
         if (convertView == null) {
             holder = new HomeViewHolder();
             convertView = View.inflate(mContext, R.layout.item_status, null);
-            holder.mLinearLayoutMainContent = (LinearLayout) convertView
+            holder.sLinearLayoutMainContent = (LinearLayout) convertView
                     .findViewById(R.id.ll_mainContent);
             // weibo avatar
-            holder.mImageViewPortrait = (ImageView) convertView
+            holder.sImageViewPortrait = (ImageView) convertView
                     .findViewById(R.id.iv_portrait);
-            holder.mRelativeLayoutContent = (RelativeLayout) convertView
+            holder.sRelativeLayoutContent = (RelativeLayout) convertView
                     .findViewById(R.id.rl_content);
-            holder.mTextViewUsername = (TextView) convertView
+            holder.sTextViewUsername = (TextView) convertView
                     .findViewById(R.id.tv_username);
-            holder.mTextViewCaption = (TextView) convertView
+            holder.sTextViewCaption = (TextView) convertView
                     .findViewById(R.id.tv_caption);
             // weibo content
-            holder.mTextViewStatusContent = (TextView) convertView
+            holder.sTextViewStatusContent = (TextView) convertView
                     .findViewById(R.id.tv_item_content);
             // weibo content image
-            holder.mFrameLayoutStatusImage = (FrameLayout) convertView
+            holder.sFrameLayoutStatusImage = (FrameLayout) convertView
                     .findViewById(R.id.include_status_image);
-            holder.mImageViewCustomImages = (GridView) holder.mFrameLayoutStatusImage
+            holder.sImageViewCustomImages = (GridView) holder.sFrameLayoutStatusImage
                     .findViewById(R.id.custom_images);
-            holder.mImageViewStatusImage = (ImageView) holder.mFrameLayoutStatusImage
+            holder.sImageViewStatusImage = (ImageView) holder.sFrameLayoutStatusImage
                     .findViewById(R.id.iv_image);
             // retweet weibo content
-            holder.mLinearLayoutStatusRetweeted = (LinearLayout) convertView
+            holder.sLinearLayoutStatusRetweeted = (LinearLayout) convertView
                     .findViewById(R.id.include_status_retweeted);
-            holder.mTextViewRetweetedContent = (TextView) holder.mLinearLayoutStatusRetweeted
+            holder.sTextViewRetweetedContent = (TextView) holder.sLinearLayoutStatusRetweeted
                     .findViewById(R.id.tv_retweeted_content);
             // retweet weibo content image
-            holder.mFrameLayoutRetweetedStatusImage = (FrameLayout) holder.mLinearLayoutStatusRetweeted
+            holder.sFrameLayoutRetweetedStatusImage = (FrameLayout) holder.sLinearLayoutStatusRetweeted
                     .findViewById(R.id.include_status_image);
-            holder.mImageViewRetweetCustomImage = (GridView) holder.mFrameLayoutRetweetedStatusImage
+            holder.sImageViewRetweetCustomImage = (GridView) holder.sFrameLayoutRetweetedStatusImage
                     .findViewById(R.id.custom_images);
-            holder.mImageViewRetweetStatusImage = (ImageView) holder.mFrameLayoutRetweetedStatusImage
+            holder.sImageViewRetweetStatusImage = (ImageView) holder.sFrameLayoutRetweetedStatusImage
                     .findViewById(R.id.iv_image);
             // controller bar
-            holder.mLinearLayoutRetweet = (LinearLayout) convertView
+            holder.sLinearLayoutRetweet = (LinearLayout) convertView
                     .findViewById(R.id.ll_retweet);
-            holder.mImageViewRetweet = (ImageView) convertView
+            holder.sImageViewRetweet = (ImageView) convertView
                     .findViewById(R.id.iv_retweet);
-            holder.mTextViewRetweet = (TextView) convertView
+            holder.sTextViewRetweet = (TextView) convertView
                     .findViewById(R.id.tv_retweet);
-            holder.mLinearLayoutComment = (LinearLayout) convertView
+            holder.sLinearLayoutComment = (LinearLayout) convertView
                     .findViewById(R.id.ll_comment);
-            holder.mImageViewComment = (ImageView) convertView
+            holder.sImageViewComment = (ImageView) convertView
                     .findViewById(R.id.iv_comment);
-            holder.mTextViewComment = (TextView) convertView
+            holder.sTextViewComment = (TextView) convertView
                     .findViewById(R.id.tv_comment);
-            holder.mLinearLayoutLike = (LinearLayout) convertView
+            holder.sLinearLayoutLike = (LinearLayout) convertView
                     .findViewById(R.id.ll_like);
-            holder.mImageViewLike = (ImageView) convertView
+            holder.sImageViewLike = (ImageView) convertView
                     .findViewById(R.id.iv_like);
-            holder.mTextViewLike = (TextView) convertView
+            holder.sTextViewLike = (TextView) convertView
                     .findViewById(R.id.tv_like);
             convertView.setTag(holder);
         } else {
@@ -122,59 +122,62 @@ public class HomeAdapter extends BaseAdapter {
         }
 
         // bind data into the view
-        final Status mStatus = getItem(position);
-        User mUser = mStatus.user;
-        mImageLoader.displayImage(mUser.profile_image_url, holder.mImageViewPortrait);
-        holder.mTextViewUsername.setText(mUser.name);
-        holder.mTextViewCaption.setText(TimeFormat.timeToString(mStatus.created_at) + " 来自 " + Html.fromHtml(mStatus.source));
-        holder.mTextViewStatusContent.setText(mStatus.text);
-        setImages(mStatus, holder.mFrameLayoutStatusImage, holder.mImageViewCustomImages, holder.mImageViewStatusImage);
+        final Status status = getItem(position);
+        User user = status.user;
+        mImageLoader.displayImage(user.profile_image_url, holder.sImageViewPortrait);
+        holder.sTextViewUsername.setText(user.name);
+        holder.sTextViewCaption.setText(TimeFormat.timeToString(status.created_at) +
+                " 来自 " + Html.fromHtml(status.source));
+        holder.sTextViewStatusContent.setText(status.text);
+        setImages(status, holder.sFrameLayoutStatusImage, holder.sImageViewCustomImages,
+                holder.sImageViewStatusImage);
         // retweeted weibo content
-        Status retweetedStatus = mStatus.retweeted_status;
+        Status retweetedStatus = status.retweeted_status;
         if (retweetedStatus != null) {
             User retUser = retweetedStatus.user;
-            holder.mLinearLayoutStatusRetweeted.setVisibility(View.VISIBLE);
-            holder.mTextViewRetweetedContent.setText("@" + retUser.name + ":" + retweetedStatus.text);
+            holder.sLinearLayoutStatusRetweeted.setVisibility(View.VISIBLE);
+            holder.sTextViewRetweetedContent.setText("@" + retUser.name + ":" + retweetedStatus.text);
             // show the retweeted weibo content image
-            setImages(retweetedStatus, holder.mFrameLayoutRetweetedStatusImage, holder.mImageViewRetweetCustomImage, holder.mImageViewRetweetStatusImage);
+            setImages(retweetedStatus, holder.sFrameLayoutRetweetedStatusImage, holder.sImageViewRetweetCustomImage,
+                    holder.sImageViewRetweetStatusImage);
         } else {
-            holder.mLinearLayoutStatusRetweeted.setVisibility(View.GONE);
+            holder.sLinearLayoutStatusRetweeted.setVisibility(View.GONE);
         }
-        holder.mTextViewRetweet.setText(mStatus.reposts_count == 0 ?
-                "转发" : mStatus.reposts_count + "");
-        holder.mTextViewComment.setText(mStatus.comments_count == 0 ?
-                "评论" : mStatus.comments_count + "");
-        holder.mTextViewLike.setText(mStatus.attitudes_count == 0 ?
-                "赞" : mStatus.attitudes_count + "");
+        holder.sTextViewRetweet.setText(status.reposts_count == 0 ?
+                "转发" : status.reposts_count + "");
+        holder.sTextViewComment.setText(status.comments_count == 0 ?
+                "评论" : status.comments_count + "");
+        holder.sTextViewLike.setText(status.attitudes_count == 0 ?
+                "赞" : status.attitudes_count + "");
 
         // set item click listener
-        holder.mLinearLayoutMainContent.setOnClickListener(new View.OnClickListener() {
+        holder.sLinearLayoutMainContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(mContext, "页面正在跳转到详细页面!", Toast.LENGTH_SHORT).show();
-                Intent mIntent = new Intent(mContext, WeiboDetailActivity.class);
+                Intent intent = new Intent(mContext, WeiboDetailActivity.class);
                 // @XXX Think about the best method and solve to pass value problem.
-                Bundle mBundle = new Bundle();
-                mBundle.putSerializable("status", mStatus);
-                mIntent.putExtras(mBundle);
-                mContext.startActivity(mIntent);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("status", status);
+                intent.putExtras(bundle);
+                mContext.startActivity(intent);
             }
         });
 
-        holder.mLinearLayoutRetweet.setOnClickListener(new View.OnClickListener() {
+        holder.sLinearLayoutRetweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(mContext, "您转发我了!", Toast.LENGTH_SHORT).show();
             }
         });
-        holder.mLinearLayoutComment.setOnClickListener(new View.OnClickListener() {
+        holder.sLinearLayoutComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Toast.makeText(mContext, "您评论我了!", Toast.LENGTH_SHORT).show();
             }
         });
-        holder.mLinearLayoutLike.setOnClickListener(new View.OnClickListener() {
+        holder.sLinearLayoutLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(mContext, "您赞赞我了!", Toast.LENGTH_SHORT).show();
@@ -198,8 +201,8 @@ public class HomeAdapter extends BaseAdapter {
             imgContainer.setVisibility(View.VISIBLE);
             gridViewImg.setVisibility(View.VISIBLE);
             singleImg.setVisibility(View.GONE);
-            StatusGridImagesAdapter mStatusGridImagesAdapter = new StatusGridImagesAdapter(mContext, status);
-            gridViewImg.setAdapter(mStatusGridImagesAdapter);
+            StatusGridImagesAdapter _StatusGridImagesAdapter = new StatusGridImagesAdapter(mContext, status);
+            gridViewImg.setAdapter(_StatusGridImagesAdapter);
         } else if (picUrl != "") {
             imgContainer.setVisibility(View.VISIBLE);
             gridViewImg.setVisibility(View.GONE);
@@ -219,35 +222,35 @@ public class HomeAdapter extends BaseAdapter {
      */
     public static class HomeViewHolder {
         // item_status xml file content
-        public LinearLayout mLinearLayoutMainContent;
+        public LinearLayout sLinearLayoutMainContent;
         // include_portrait xml file content
-        public ImageView mImageViewPortrait;
-        public RelativeLayout mRelativeLayoutContent;
+        public ImageView sImageViewPortrait;
+        public RelativeLayout sRelativeLayoutContent;
         // user name
-        public TextView mTextViewUsername;
+        public TextView sTextViewUsername;
         // user identification form what phone client
-        public TextView mTextViewCaption;
+        public TextView sTextViewCaption;
         // item_status.xml -->> weibo content
-        public TextView mTextViewStatusContent;
+        public TextView sTextViewStatusContent;
         // include_status_image.xml -->> weibo content image
-        public FrameLayout mFrameLayoutStatusImage;
-        public GridView mImageViewCustomImages;
-        public ImageView mImageViewStatusImage;
+        public FrameLayout sFrameLayoutStatusImage;
+        public GridView sImageViewCustomImages;
+        public ImageView sImageViewStatusImage;
         // include_status_retweeted.xml -->> retweeted weibo content comment
-        public LinearLayout mLinearLayoutStatusRetweeted;
-        public TextView mTextViewRetweetedContent;
-        public FrameLayout mFrameLayoutRetweetedStatusImage;
-        public GridView mImageViewRetweetCustomImage;
-        public ImageView mImageViewRetweetStatusImage;
+        public LinearLayout sLinearLayoutStatusRetweeted;
+        public TextView sTextViewRetweetedContent;
+        public FrameLayout sFrameLayoutRetweetedStatusImage;
+        public GridView sImageViewRetweetCustomImage;
+        public ImageView sImageViewRetweetStatusImage;
         // include_status_controlbar.xml -->> retweet,comment,like
-        public LinearLayout mLinearLayoutRetweet;
-        public ImageView mImageViewRetweet;
-        public TextView mTextViewRetweet;
-        public LinearLayout mLinearLayoutComment;
-        public ImageView mImageViewComment;
-        public TextView mTextViewComment;
-        public LinearLayout mLinearLayoutLike;
-        public ImageView mImageViewLike;
-        public TextView mTextViewLike;
+        public LinearLayout sLinearLayoutRetweet;
+        public ImageView sImageViewRetweet;
+        public TextView sTextViewRetweet;
+        public LinearLayout sLinearLayoutComment;
+        public ImageView sImageViewComment;
+        public TextView sTextViewComment;
+        public LinearLayout sLinearLayoutLike;
+        public ImageView sImageViewLike;
+        public TextView sTextViewLike;
     }
 }

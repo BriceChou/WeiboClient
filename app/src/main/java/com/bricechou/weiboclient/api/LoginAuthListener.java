@@ -20,7 +20,7 @@ import com.sina.weibo.sdk.exception.WeiboException;
  * @datetime 16-5-30 上午11:12
  */
 public class LoginAuthListener implements WeiboAuthListener {
-    private final static String TAG = "LoginAuthListener";
+    private final static String TAG = "weiboclient.api.LoginAuthListener";
     private Context mContext;
     private Oauth2AccessToken mAccessToken;
 
