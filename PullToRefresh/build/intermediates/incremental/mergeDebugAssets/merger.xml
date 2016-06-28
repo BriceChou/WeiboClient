@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/local/BriceChou/AppDemo/WeiboClient/PullToRefresh/src/main/assets"/><source path="/local/BriceChou/AppDemo/WeiboClient/PullToRefresh/build/generated/assets/shaders/debug"/></dataSet><dataSet config="debug"><source path="/local/BriceChou/AppDemo/WeiboClient/PullToRefresh/src/debug/assets"/></dataSet></merger>
