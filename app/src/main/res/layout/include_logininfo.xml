@@ -25,7 +25,63 @@
         <TextView
             android:id="@+id/tv_loginname"
             style="@style/TextViewSubhead"
+            android:layout_alignParentTop="true"
             android:text="账户昵称" />
+
+        <ImageView
+            android:id="@+id/iv_id"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toEndOf="@+id/tv_loginname"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/avatar_enterprise_vip" />
+
+        <ImageView
+            android:id="@+id/iv_sign1"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/iv_id"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/avatar_grassroot" />
+
+        <ImageView
+            android:id="@+id/iv_sign2"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/iv_sign1"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/avatar_vgirl" />
+
+        <ImageView
+            android:id="@+id/iv_vip"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/iv_sign2"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/avatar_vip" />
+
+        <ImageView
+            android:id="@+id/iv_vip2"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/iv_vip"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/common_icon_membership_level6" />
+
+        <ImageView
+            android:id="@+id/iv_vip3"
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:layout_alignBottom="@+id/iv_vip2"
+            android:layout_toEndOf="@+id/iv_vip2"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/userinfo_membership_level6" />
 
         <TextView
             android:id="@+id/tv_logincaption"
@@ -34,7 +90,6 @@
             android:layout_marginTop="8dp"
             android:text="简介：暂无介绍"
             android:textColor="@color/txt_gray" />
-
     </RelativeLayout>
 
 </LinearLayout>
