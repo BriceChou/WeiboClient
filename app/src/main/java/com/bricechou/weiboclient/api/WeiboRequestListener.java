@@ -37,7 +37,7 @@ public class WeiboRequestListener implements RequestListener {
      */
     @Override
     public void onComplete(String response) {
-        Log.i(TAG, "onComplete: success load the weibo content.");
+        Log.i(TAG, "Operation success.");
     }
 
     @Override

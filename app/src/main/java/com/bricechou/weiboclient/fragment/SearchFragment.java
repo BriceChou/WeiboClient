@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.bricechou.weiboclient.R;
 import com.bricechou.weiboclient.adapter.SearchItemAdapter;
@@ -41,14 +42,16 @@ public class SearchFragment extends BaseFragment {
                     @Override
                     public void onClick(View v) {
                         //leftbar click event
-
+                        Toast.makeText(mMainActivity,
+                                R.string.toast_function_unfinished, Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setRightOnclickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         //rightbar click event
-
+                        Toast.makeText(mMainActivity,
+                                R.string.toast_function_unfinished, Toast.LENGTH_SHORT).show();
                     }
                 });
         mSearchItems = new ArrayList<SearchItem>();

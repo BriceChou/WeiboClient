@@ -11,6 +11,7 @@ import com.bricechou.weiboclient.R;
 import com.bricechou.weiboclient.api.WeiboRequestListener;
 import com.bricechou.weiboclient.config.Constants;
 import com.bricechou.weiboclient.db.LoginUserToken;
+import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.openapi.StatusesAPI;
 
 /**
@@ -60,6 +61,11 @@ public class PostWeiboActivity extends Activity implements View.OnClickListener 
             public void onComplete(String response) {
                 super.onComplete(response);
                 Toast.makeText(PostWeiboActivity.this, R.string.toast_post_weibo_successed, Toast.LENGTH_SHORT).show();
+           }
+            @Override
+            public void onWeiboException(WeiboException e) {
+                super.onWeiboException(e);
+                Toast.makeText(PostWeiboActivity.this, R.string.toast_operation_failed, Toast.LENGTH_SHORT).show();
             }
         });
     }
