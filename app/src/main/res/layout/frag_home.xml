@@ -10,7 +10,6 @@
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/lv_home"
         style="@style/ListViewCommon"
-        android:dividerHeight="8dp">
-    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+        android:dividerHeight="8dp"></com.handmark.pulltorefresh.library.PullToRefreshListView>
 
 </LinearLayout>

@@ -8,21 +8,21 @@
     tools:context="com.bricechou.weiboclient.activity.WeiboDetailActivity">
 
     <include layout="@layout/include_detail_titlebar" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
 
-            <include layout="@layout/include_detail" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-            <include layout="@layout/include_detail_bottom" />
-        </LinearLayout>
+        <include layout="@layout/include_detail" />
 
-        <ListView
-            android:id="@+id/weibo_detail_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="0dp"
-            android:visibility="gone"/>
+        <include layout="@layout/include_detail_bottom" />
+    </LinearLayout>
 
+    <ListView
+        android:id="@+id/weibo_detail_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:visibility="gone" />
 </LinearLayout>
