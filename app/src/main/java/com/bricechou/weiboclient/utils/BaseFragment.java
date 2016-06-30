@@ -13,6 +13,7 @@ import com.bricechou.weiboclient.activity.MainActivity;
 public class BaseFragment extends Fragment {
 
     protected MainActivity mMainActivity;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +21,7 @@ public class BaseFragment extends Fragment {
         // @comment by BriceChou
         mMainActivity = (MainActivity) getActivity();
     }
+
     protected void intent2Activity(Class<? extends Activity> tarActivity) {
         Intent intent = new Intent(mMainActivity, tarActivity);
         startActivity(intent);

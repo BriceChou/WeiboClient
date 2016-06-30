@@ -10,10 +10,8 @@ import com.bricechou.weiboclient.R;
 import com.bricechou.weiboclient.utils.BaseFragment;
 import com.bricechou.weiboclient.utils.TitleBuilder;
 
-/**
- * Created by sdduser on 5/28/16.
- */
 public class MessageFragment extends BaseFragment {
+    private static final String TAG = "weiboclient.fragment.MessageFragment";
     private View mView;
 
     @Override

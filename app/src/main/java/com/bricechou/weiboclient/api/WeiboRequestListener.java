@@ -3,6 +3,7 @@ package com.bricechou.weiboclient.api;
 import android.content.Context;
 import android.util.Log;
 
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
 
@@ -37,11 +38,11 @@ public class WeiboRequestListener implements RequestListener {
      */
     @Override
     public void onComplete(String response) {
-        Log.i(TAG, "Operation success.");
+        Log.i(TAG, "Weibo request operation success.");
     }
 
     @Override
     public void onWeiboException(WeiboException e) {
-        Log.e(TAG, "onWeiboException: " + e.getMessage());
+        Log.e(TAG, " Weibo request operation onWeiboException: " + e.getMessage());
     }
 }

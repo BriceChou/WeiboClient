@@ -32,7 +32,7 @@ import java.util.ArrayList;
  * @TODO to konw the adapter concept
  */
 public class HomeAdapter extends BaseAdapter {
-    private final static String TAG = "weiboclient.adapter.HomeAdapter";
+    private static final String TAG = "weiboclient.adapter.HomeAdapter";
     private Context mContext;
     private ArrayList<Status> mStatusList;
     private ImageLoader mImageLoader;

@@ -24,7 +24,7 @@ import com.sina.weibo.sdk.openapi.models.User;
 import java.util.ArrayList;
 
 public class WeiboDetailActivity extends Activity implements View.OnClickListener {
-    private final static String TAG = "weiboclient.activity.WeiboDetailActivity";
+    private static final String TAG = "weiboclient.activity.WeiboDetailActivity";
     private Status mStatus;
     private ImageLoader mImageLoader;
     // tile bar view

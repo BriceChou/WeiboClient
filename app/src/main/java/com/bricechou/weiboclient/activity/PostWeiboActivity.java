@@ -22,7 +22,7 @@ import com.sina.weibo.sdk.openapi.StatusesAPI;
  * @TODO add weibo content image and emoticon
  */
 public class PostWeiboActivity extends Activity implements View.OnClickListener {
-    private final static String TAG = "weiboclient.activity.PostWeiboActivity";
+    private static final String TAG = "weiboclient.activity.PostWeiboActivity";
     private ImageView mImageViewBack; // back to main page
     private ImageView mImageViewSend; // send a weibo to server
     private EditText mEditTextContent;  // post weibo content
@@ -61,7 +61,8 @@ public class PostWeiboActivity extends Activity implements View.OnClickListener 
             public void onComplete(String response) {
                 super.onComplete(response);
                 Toast.makeText(PostWeiboActivity.this, R.string.toast_post_weibo_successed, Toast.LENGTH_SHORT).show();
-           }
+            }
+
             @Override
             public void onWeiboException(WeiboException e) {
                 super.onWeiboException(e);
