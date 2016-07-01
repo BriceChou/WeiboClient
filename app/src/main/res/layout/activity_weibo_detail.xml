@@ -11,7 +11,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <include layout="@layout/include_detail" />
@@ -19,10 +19,11 @@
         <include layout="@layout/include_detail_bottom" />
     </LinearLayout>
 
-    <ListView
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/weibo_detail_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="0dp"
-        android:visibility="gone"/>
+        android:layout_height="match_parent"
+        android:cacheColorHint="@color/transparent"
+        android:listSelector="@color/transparent">
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
 </LinearLayout>

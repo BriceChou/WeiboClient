@@ -55,7 +55,8 @@ public class UserFragment extends BaseFragment {
         // mUsersAPI = new UsersAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.getAccessToken());
         // mOauth2AccessToken = LoginUserToken.getAccessToken(mMainActivity);
         // mUid = Long.parseLong(mOauth2AccessToken.getUid());
-        mUid = Long.parseLong("2851891152");
+//        mUid = Long.parseLong("2851891152"); //BriceChou
+        mUid = Long.parseLong("5242690824"); //wanwan
         // mUid = Long.parseLong(mOauth2AccessToken.getUid());
         //titlebar
         mImageLoader = ImageLoader.getInstance();

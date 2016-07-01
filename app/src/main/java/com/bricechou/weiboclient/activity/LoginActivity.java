@@ -49,7 +49,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login_submit:
-                // initWeibo();
+                //initWeibo();
                 // @HACK it's use to test some activity.
                 // If you want to fix and use your own ,
                 // you should change the showAccessToken() to getAccessToken()

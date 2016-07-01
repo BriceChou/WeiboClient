@@ -172,8 +172,13 @@ public class HomeAdapter extends BaseAdapter {
         holder.sLinearLayoutComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Toast.makeText(mContext, "您评论我了!", Toast.LENGTH_SHORT).show();
+                if(status.comments_count > 0) {
+                    Intent intent = new Intent(mContext, WeiboDetailActivity.class);
+                    intent.putExtra("status", status);
+                    mContext.startActivity(intent);
+                } else {
+                    Toast.makeText(mContext, "您评论我了!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         holder.sLinearLayoutLike.setOnClickListener(new View.OnClickListener() {
