@@ -66,8 +66,8 @@ public class HomeFragment extends BaseFragment {
 
     private void initWeiboContent() {
         mStatusesAPI = new StatusesAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.showAccessToken());
-        // mStatusesAPI = new StatusesAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.getAccessToken());
-        mStatusesAPI.friendsTimeline(0, 0, 20, 1, false, 0, false, new WeiboRequestListener(mMainActivity) {
+        // mStatusesAPI = new StatusesAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.getAccessToken(mMainActivity));
+        mStatusesAPI.friendsTimeline(0, 0, 3, 1, false, 0, false, new WeiboRequestListener(mMainActivity) {
             @Override
             public void onComplete(String response) {
                 super.onComplete(response);

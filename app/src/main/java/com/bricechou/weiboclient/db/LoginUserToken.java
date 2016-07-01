@@ -36,6 +36,7 @@ public class LoginUserToken {
         editor.putString(KEY_REFRESH_TOKEN, accessToken.getRefreshToken());
         editor.putLong(KEY_EXPIRES_IN, accessToken.getExpiresTime());
         // commit all data in the editor.
+        Log.i("token~~~~",accessToken.getToken());
         editor.commit();
     }
 
@@ -73,7 +74,9 @@ public class LoginUserToken {
      */
     public static Oauth2AccessToken showAccessToken() {
         Oauth2AccessToken accessToken = new Oauth2AccessToken();
-        accessToken.setToken("2.005KPAHDDkQmLCfb61244d50Rb_7xC");
+
+//        accessToken.setToken("2.005KPAHDDkQmLCfb61244d50Rb_7xC"); // BriceChou
+        accessToken.setToken("2.0074nniFDkQmLCeb9d82635f3hL8gB"); // wanwang
         accessToken.setRefreshToken("2.005KPAHDDkQmLCf648c5fafdaOK6ME");
         accessToken.setUid("2851891152");
         accessToken.setExpiresIn("157679999");

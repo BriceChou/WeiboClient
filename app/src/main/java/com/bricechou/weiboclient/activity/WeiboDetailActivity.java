@@ -4,20 +4,29 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bricechou.weiboclient.R;
+import com.bricechou.weiboclient.adapter.CommentsAdapter;
 import com.bricechou.weiboclient.adapter.StatusGridImagesAdapter;
+import com.bricechou.weiboclient.api.WeiboRequestListener;
+import com.bricechou.weiboclient.config.Constants;
+import com.bricechou.weiboclient.db.LoginUserToken;
 import com.bricechou.weiboclient.utils.TimeFormat;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.sina.weibo.sdk.openapi.CommentsAPI;
+import com.sina.weibo.sdk.openapi.models.CommentList;
 import com.sina.weibo.sdk.openapi.models.Status;
 import com.sina.weibo.sdk.openapi.models.User;
 
@@ -50,6 +59,12 @@ public class WeiboDetailActivity extends Activity implements View.OnClickListene
     private RadioButton mRadioButtonComment;
     private RadioButton mRadioButtonRetweet;
     private RadioButton mRadioButtonLike;
+    //weibo detail comments listview
+    private PullToRefreshListView mPullToRefreshListView;
+
+    private CommentsAPI mCommentsAPI;
+    private CommentList mCommentList;
+    private CommentsAdapter mCommentsAdapter;
 
 
     @Override
@@ -60,6 +75,7 @@ public class WeiboDetailActivity extends Activity implements View.OnClickListene
         mImageLoader = ImageLoader.getInstance();
         initView();
         initViewData();
+        initCommentsData();
     }
 
     private void initView() {
@@ -86,6 +102,8 @@ public class WeiboDetailActivity extends Activity implements View.OnClickListene
         mRadioButtonLike = (RadioButton) findViewById(R.id.rb_likes_detail);
         mRadioButtonRetweet = (RadioButton) findViewById(R.id.rb_retweets_detail);
         mRadioButtonComment = (RadioButton) findViewById(R.id.rb_comments_detail);
+
+        mPullToRefreshListView = (PullToRefreshListView)findViewById(R.id.weibo_detail_list);
 
         mImageViewBack.setOnClickListener(this);
         mImageViewMore.setOnClickListener(this);
@@ -124,6 +142,28 @@ public class WeiboDetailActivity extends Activity implements View.OnClickListene
         mRadioButtonRetweet.setText("转发 " + mStatus.reposts_count);
         mRadioButtonComment.setText("评论 " + mStatus.comments_count);
         mRadioButtonLike.setText("赞 " + mStatus.attitudes_count);
+    }
+
+    private void initCommentsData() {
+        mCommentsAPI = new CommentsAPI(this, Constants.APP_KEY, LoginUserToken.showAccessToken());
+        mCommentsAPI.show(Long.parseLong(mStatus.id), 0, 0, 20, 1, 0,new WeiboRequestListener(this) {
+            @Override
+            public void onComplete(String response) {
+                super.onComplete(response);
+                if (!TextUtils.isEmpty(response)) {
+                    if (response.startsWith("{\"comments\"")) {
+                        Log.i("~~~~~~~~~~~~~~~~~~~~~~",response);
+                        mCommentList = mCommentList.parse(response);
+                        if (null != mCommentList) {
+                            mCommentsAdapter = new CommentsAdapter(WeiboDetailActivity.this, mCommentList.commentList);
+                            mPullToRefreshListView.setAdapter(mCommentsAdapter);
+                        } else {
+                            onComplete(response);
+                        }
+                    }
+                }
+            }
+        });
     }
 
     private void setImages(Status status, ViewGroup imgContainer, GridView gridViewImg, final ImageView singleImg) {
