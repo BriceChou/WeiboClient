@@ -32,7 +32,7 @@ public class HomeFragment extends BaseFragment {
     private PullToRefreshListView mRefreshListViewHome; // fragment_home list view
     private StatusList mStatusList; // All Weibo content collection
     private StatusesAPI mStatusesAPI; // Weibo content interface
-    private ArrayList<Status> mStatuses = new ArrayList<Status>();
+    private ArrayList<Status> mStatuses;
     private HomeAdapter mHomeAdapter;
     private int mCurrentPage = 1;
     private boolean mIsPullToDown = false;
@@ -87,6 +87,7 @@ public class HomeFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mStatusesAPI = new StatusesAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.showAccessToken());
+        mStatuses = new ArrayList<Status>();
         initView();
         initWeiboContent();
         initRefreshView();
@@ -105,11 +106,8 @@ public class HomeFragment extends BaseFragment {
                 if (!TextUtils.isEmpty(response)) {
                     if (response.startsWith("{\"statuses\"")) {
                         // the Status instance load the data from JSON data.
-                        mStatusList = StatusList.parse(response);
-                        if (page == 1) {
-                            mStatuses.clear();
-                        }
                         mCurrentPage = page;
+                        mStatusList = StatusList.parse(response);
                         if (mStatusList.statusList.size() > 0) {
                             setViewData(mStatusList.statusList);
                         }
@@ -121,28 +119,28 @@ public class HomeFragment extends BaseFragment {
 
     private void refreshViewDone() {
         mRefreshListViewHome.onRefreshComplete();
+        removeFootView(mRefreshListViewHome, mFootView);
     }
 
     private void setViewData(ArrayList<Status> statuses) {
-        ArrayList<Status> mTotalStatuses = new ArrayList<Status>();
-        if (mCurrentPage == 1) {
-            int length = statuses.size(),
-                    i;
-            for (i = 0; i < length; i++) {
-                mStatuses.add(statuses.get(i));
+        ArrayList<Status> mTempStatuses = new ArrayList<Status>();
+        mTempStatuses.addAll(mStatuses);
+        if (mStatuses != null) {
+            mStatuses.clear();
+            for (Status tempSatus : statuses) {
+                if (!mStatuses.add(tempSatus)) mStatuses.remove(tempSatus);
             }
-            mHomeAdapter = new HomeAdapter(mMainActivity, mStatuses);
+            for (Status tempSatus : mTempStatuses) {
+                if (!mStatuses.add(tempSatus)) mStatuses.remove(tempSatus);
+            }
         } else {
-            for (int j = 0; j < mStatuses.size(); j++) {
-                mTotalStatuses.add(mStatuses.get(j));
+            for (Status tempSatus : statuses) {
+                if (!mStatuses.add(tempSatus)) mStatuses.remove(tempSatus);
             }
-            for (int i = 0; i < statuses.size(); i++) {
-                mTotalStatuses.add(statuses.get(i));
-            }
-            mHomeAdapter = new HomeAdapter(mMainActivity, mTotalStatuses);
         }
-        refreshViewDone();
+        mHomeAdapter = new HomeAdapter(mMainActivity, mStatuses);
         mRefreshListViewHome.setAdapter(mHomeAdapter);
+        refreshViewDone();
     }
 
     private void addFootView(PullToRefreshListView plv, View footView) {
