@@ -16,20 +16,20 @@
 
 package com.sina.weibo.sdk.openapi.models;
 
-import java.util.ArrayList;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 /**
  * 微博结构体。
- * 
+ *
  * @author SINA
  * @since 2013-11-22
  */
-public class Status {
-    
+public class Status extends BaseEntity{
+
     /** 微博创建时间 */
     public String created_at;
     /** 微博ID */
@@ -82,7 +82,7 @@ public class Status {
     public ArrayList<String> pic_urls;
     /** 微博流内的推广微博ID */
     //public Ad ad;
-    
+
     public static Status parse(String jsonString) {
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
@@ -90,15 +90,15 @@ public class Status {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        
+
         return null;
     }
-    
+
     public static Status parse(JSONObject jsonObject) {
         if (null == jsonObject) {
             return null;
         }
-        
+
         Status status = new Status();
         status.created_at       = jsonObject.optString("created_at");
         status.id               = jsonObject.optString("id");
@@ -108,12 +108,12 @@ public class Status {
         status.source           = jsonObject.optString("source");
         status.favorited        = jsonObject.optBoolean("favorited", false);
         status.truncated        = jsonObject.optBoolean("truncated", false);
-        
+
         // Have NOT supported
         status.in_reply_to_status_id   = jsonObject.optString("in_reply_to_status_id");
         status.in_reply_to_user_id     = jsonObject.optString("in_reply_to_user_id");
         status.in_reply_to_screen_name = jsonObject.optString("in_reply_to_screen_name");
-        
+
         status.thumbnail_pic    = jsonObject.optString("thumbnail_pic");
         status.bmiddle_pic      = jsonObject.optString("bmiddle_pic");
         status.original_pic     = jsonObject.optString("original_pic");
@@ -125,7 +125,7 @@ public class Status {
         status.attitudes_count  = jsonObject.optInt("attitudes_count");
         status.mlevel           = jsonObject.optInt("mlevel", -1);    // Have NOT supported
         status.visible          = Visible.parse(jsonObject.optJSONObject("visible"));
-        
+
         JSONArray picUrlsArray = jsonObject.optJSONArray("pic_urls");
         if (picUrlsArray != null && picUrlsArray.length() > 0) {
             int length = picUrlsArray.length();
@@ -138,9 +138,9 @@ public class Status {
                 }
             }
         }
-        
+
         //status.ad = jsonObject.optString("ad", "");
-        
+
         return status;
     }
 }

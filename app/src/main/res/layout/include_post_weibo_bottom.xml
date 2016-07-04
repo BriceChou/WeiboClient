@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <!-- Horizontal parting line -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/divider_gray"/>
+        android:background="@color/divider_gray" />
     <!-- show the bottom menu bar
          @auth BriceChou
          @TODO change the menu bar icon
@@ -17,90 +17,92 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/ll_emoticon"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:orientation="horizontal"
             android:layout_weight="1"
+            android:background="@drawable/bg_tran2gray_sel"
             android:gravity="center"
-            android:background="@drawable/bg_tran2gray_sel">
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/iv_post_weibo_emoticon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:background="@drawable/icon_emoticon"/>
+                android:background="@drawable/icon_emoticon" />
         </LinearLayout>
         <!-- Vertical parting line -->
         <View
             android:layout_width="1px"
             android:layout_height="25dp"
-            android:background="@color/divider_gray"/>
+            android:background="@color/divider_gray" />
 
         <LinearLayout
             android:id="@+id/ll_mention"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:orientation="horizontal"
             android:layout_weight="1"
+            android:background="@drawable/bg_tran2gray_sel"
             android:gravity="center"
-            android:background="@drawable/bg_tran2gray_sel">
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/iv_post_weibo_mention"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:background="@drawable/icon_mention"/>
+                android:background="@drawable/icon_mention" />
         </LinearLayout>
         <!-- Vertical parting line -->
         <View
             android:layout_width="1px"
             android:layout_height="25dp"
-            android:background="@color/divider_gray"/>
+            android:background="@color/divider_gray" />
+
         <LinearLayout
             android:id="@+id/ll_add_image"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:orientation="horizontal"
             android:layout_weight="1"
+            android:background="@drawable/bg_tran2gray_sel"
             android:gravity="center"
-            android:background="@drawable/bg_tran2gray_sel">
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/iv_post_weibo_image"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:background="@drawable/icon_image"/>
+                android:background="@drawable/icon_image" />
         </LinearLayout>
         <!-- Vertical parting line -->
         <View
             android:layout_width="1px"
             android:layout_height="25dp"
-            android:background="@color/divider_gray"/>
+            android:background="@color/divider_gray" />
+
         <LinearLayout
             android:id="@+id/ll_topic"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:orientation="horizontal"
             android:layout_weight="1"
+            android:background="@drawable/bg_tran2gray_sel"
             android:gravity="center"
-            android:background="@drawable/bg_tran2gray_sel">
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/iv_post_weibo_topic"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:background="@drawable/icon_topic"/>
+                android:background="@drawable/icon_topic" />
         </LinearLayout>
     </LinearLayout>
     <!--Horizontal parting line-->
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/divider_gray"/>
+        android:background="@color/divider_gray" />
 
 </LinearLayout>

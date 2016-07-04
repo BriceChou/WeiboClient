@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.util.Log;
 
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
 
@@ -16,7 +17,7 @@ import com.sina.weibo.sdk.net.RequestListener;
  */
 
 public class WeiboRequestListener implements RequestListener {
-    private static final String TAG = "WeiboRequestListener";
+    private static final String TAG = "api.WeiboRequestListener";
     private Context mContext; // define the current activity
     private Dialog mProgressDialog;
 
@@ -31,7 +32,7 @@ public class WeiboRequestListener implements RequestListener {
     }
 
     /**
-     * when we get the weibo content successed,this function will be executed.
+     * when we get the weibo content success,this function will be executed.
      *
      * @author BriceChou
      * @datetime 16-6-6 15:59
@@ -39,17 +40,11 @@ public class WeiboRequestListener implements RequestListener {
      */
     @Override
     public void onComplete(String response) {
-        Log.i(TAG, "onComplete: successed load the weibo content.");
+        Log.i(TAG, "Weibo request operation success.");
     }
 
-    /**
-     * print the log to tell the developer about exception
-     *
-     * @author BriceChou
-     * @datetime 16-6-6 17:18
-     */
     @Override
     public void onWeiboException(WeiboException e) {
-        Log.e(TAG, "onWeiboException: " + e.getMessage());
+        Log.e(TAG, " Weibo request operation onWeiboException: " + e.getMessage());
     }
 }

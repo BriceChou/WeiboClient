@@ -15,14 +15,13 @@ import java.util.ArrayList;
  * @author BriceChou
  * @datetime 16-6-17 13:57
  */
-
 public class SQLiteUtil {
     public static final String DATABASE_NAME = "weiboclient.db";
-    private static final String TAG = "SQLiteUtil";
+    private static final String TAG = "weiboclient.utils.SQLiteUtil";
     private SQLiteOpenHelper mSQLiteOpenHelper;
     private SQLiteDatabase mSQLiteDatabase;
-    private ArrayList<String> colums;
-    private Class<?> adpater;
+    private ArrayList<String> mColums;
+    private Class<?> mAdpater;
 
     public SQLiteUtil(Context context, Class<?> adpater) {
         mSQLiteOpenHelper = new SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
@@ -35,8 +34,8 @@ public class SQLiteUtil {
             }
         };
         mSQLiteDatabase = mSQLiteOpenHelper.getWritableDatabase();
-        colums = new ArrayList<String>();
-        this.adpater = adpater;
+        mColums = new ArrayList<String>();
+        this.mAdpater = adpater;
     }
 
     /**
@@ -89,7 +88,7 @@ public class SQLiteUtil {
      * @datetime 16-6-17 15:31
      */
     public void createTable(String tableName, String primaryKey) {
-        Field[] fields = adpater.getDeclaredFields();
+        Field[] fields = mAdpater.getDeclaredFields();
         if (!hasTable(tableName)) {
             StringBuffer createTableSql = new StringBuffer("CREATE TABLE " + tableName + "(");
             int length = fields.length,
@@ -114,7 +113,7 @@ public class SQLiteUtil {
             int length = fields.length,
                     i;
             for (i = 0; i < length; i++) {
-                colums.add(fields[i].getName());
+                mColums.add(fields[i].getName());
             }
         }
     }
@@ -146,7 +145,7 @@ public class SQLiteUtil {
 
     public void save(Object obj, String tableName) {
         StringBuffer sql = new StringBuffer("INSERT INTO " + tableName + " (");
-        Field[] fields = adpater.getDeclaredFields();
+        Field[] fields = mAdpater.getDeclaredFields();
         if (hasTable(tableName)) {
             int length = fields.length,
                     i;

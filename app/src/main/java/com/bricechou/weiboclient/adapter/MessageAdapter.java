@@ -12,6 +12,8 @@ import android.widget.BaseAdapter;
  * @TODO This is not important feature. So we finish it at the end of the project.
  */
 public class MessageAdapter extends BaseAdapter {
+    private static final String TAG = "weiboclient.adapter.MessageAdapter";
+
     @Override
     public int getCount() {
         return 0;
@@ -34,7 +36,7 @@ public class MessageAdapter extends BaseAdapter {
 
     /**
      * To manage the Message page layout resource.
-     * Only create this class once time.
+     * Just create this class once time.
      *
      * @author BriceChou
      * @datetime 16-6-12 11:39

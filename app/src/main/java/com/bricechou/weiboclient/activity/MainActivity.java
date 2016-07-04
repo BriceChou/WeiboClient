@@ -8,16 +8,12 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.Toast;
 
 import com.bricechou.weiboclient.R;
 import com.bricechou.weiboclient.fragment.FragmentController;
 
-/**
- * Created by sdduser on 5/27/16.
- */
 public class MainActivity extends FragmentActivity implements OnCheckedChangeListener, OnClickListener {
-
+    private static final String TAG = "weiboclient.activity.MainActivity";
     private RadioGroup mRadioGroup;//切换选项卡
     private ImageView mImageView;//发表新微博
     private FragmentController mController;
@@ -69,10 +65,9 @@ public class MainActivity extends FragmentActivity implements OnCheckedChangeLis
         // @author BriceChou
         switch (v.getId()) {
             case R.id.iv_add:
-                startActivity(new Intent(MainActivity.this,PostWeiboActivity.class));
+                startActivity(new Intent(MainActivity.this, PostWeiboActivity.class));
                 break;
             default:
-                break;
         }
     }
 }

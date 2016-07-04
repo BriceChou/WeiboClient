@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.bricechou.weiboclient.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.sina.weibo.sdk.openapi.models.User;
 
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ import java.util.ArrayList;
  * Created by user on 6/15/16.
  */
 public class UserAdapter extends BaseAdapter {
-    private final static String TAG = "UserAdapter";
+    private static final String TAG = "UserAdapter";
     private Context mContext;
     private ArrayList<User> mUserList;
     private User mUserInfo;
@@ -36,7 +35,7 @@ public class UserAdapter extends BaseAdapter {
         return this;
     }
 
-    public void holderLoginData(View view,ImageLoader mImageLoader) {
+    public void holderLoginData(View view, ImageLoader mImageLoader) {
 
         ViewHolder holder = new ViewHolder();
         holder.mImageViewAvatar = (ImageView) view
@@ -51,7 +50,7 @@ public class UserAdapter extends BaseAdapter {
                 .findViewById(R.id.tv_friends_count);
         holder.mTextViewFollows = (TextView) view
                 .findViewById(R.id.tv_follows_count);
-        mImageLoader.displayImage(mUserInfo.profile_image_url,holder.mImageViewAvatar);
+        mImageLoader.displayImage(mUserInfo.profile_image_url, holder.mImageViewAvatar);
         holder.mTextViewLoginName.setText(mUserInfo.screen_name);
         holder.mTextViewLoginCaption.setText("简介：" + mUserInfo.description);
         holder.mTextViewFriends.setText(String.valueOf(mUserInfo.friends_count));
@@ -100,7 +99,7 @@ public class UserAdapter extends BaseAdapter {
 
         // bind data
         final User user = getItem(position);
-        ImageLoader.getInstance().displayImage(user.profile_image_url,holder.mImageViewAvatar);
+        ImageLoader.getInstance().displayImage(user.profile_image_url, holder.mImageViewAvatar);
         holder.mTextViewUsername.setText(user.screen_name);
         holder.mTextViewCaption.setText(user.description);
         return convertView;

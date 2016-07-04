@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_gray">
+    android:background="@color/bg_gray"
+    android:orientation="vertical">
 
     <!--@TODO 后期优化:全部独立出去,分为Top,Content,Bottom三块布局拆分main_layout 用三个FrameLayout 进行占位处理
         @comment by BriceChou
@@ -26,37 +25,41 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_gravity="bottom"
+        android:background="@color/bottom_gray"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:background="@color/bottom_gray">
+        android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/rb_home"
             style="@style/RadioButtonBottomTab"
-            android:drawableTop="@drawable/icon_home"
             android:checked="true"
-            android:text="@string/text_home"/>
+            android:drawableTop="@drawable/icon_home"
+            android:text="@string/text_home" />
+
         <RadioButton
             android:id="@+id/rb_message"
             style="@style/RadioButtonBottomTab"
             android:drawableTop="@drawable/icon_message"
-            android:text="@string/text_message"/>
+            android:text="@string/text_message" />
+
         <ImageView
             android:id="@+id/iv_add"
             android:layout_width="56dp"
             android:layout_height="40dp"
+            android:background="@drawable/correct_oran_sel"
             android:padding="8dp"
-            android:src="@drawable/icon_add"
-            android:background="@drawable/correct_oran_sel" />
+            android:src="@drawable/icon_add" />
+
         <RadioButton
             android:id="@+id/rb_search"
             style="@style/RadioButtonBottomTab"
             android:drawableTop="@drawable/icon_square"
-            android:text="@string/text_square"/>
+            android:text="@string/text_square" />
+
         <RadioButton
             android:id="@+id/rb_user"
             style="@style/RadioButtonBottomTab"
             android:drawableTop="@drawable/icon_userinfo"
-            android:text="@string/text_user"/>
+            android:text="@string/text_user" />
     </RadioGroup>
 </LinearLayout>

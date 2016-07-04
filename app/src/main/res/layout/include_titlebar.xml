@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_titlebar"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/titlebar_iv_left"
@@ -12,48 +12,53 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:visibility="gone" />
+
     <TextView
         android:id="@+id/titlebar_tv_left"
         style="@style/TextViewLeftAndRight"
         android:visibility="gone" />
+
     <TextView
         android:id="@+id/titlebar_tv_center"
         style="@style/TextViewTitle"
+        android:layout_centerInParent="true"
         android:gravity="center"
-        android:maxWidth="224dp"
-        android:layout_centerInParent="true" />
+        android:maxWidth="224dp" />
+
     <ImageView
         android:id="@+id/titlebar_iv_right"
         android:layout_width="48dp"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:visibility="gone" />
+
     <TextView
         android:id="@+id/titlebar_tv_right"
         style="@style/TextViewLeftAndRight"
         android:layout_alignParentRight="true"
         android:visibility="gone" />
+
     <EditText
         android:id="@+id/titlebar_et_search"
         android:layout_width="300dp"
         android:layout_height="30dp"
-        android:gravity="top|left"
         android:layout_margin="10dp"
+        android:background="@drawable/bg_search"
         android:drawableLeft="@mipmap/titlebar_search"
         android:drawablePadding="5dp"
-        android:padding="5dp"
-        android:background="@drawable/bg_search"
-        android:textSize="12sp"
+        android:gravity="top|left"
+        android:hint="@string/hint_search"
         android:imeOptions="actionSearch"
         android:inputType="text"
-        android:hint="@string/hint_search"
-        android:visibility="gone"/>
+        android:padding="5dp"
+        android:textSize="12sp"
+        android:visibility="gone" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_alignParentBottom="true"
-        android:background="@color/bg_agray"/>
+        android:background="@color/bg_agray" />
 
 </RelativeLayout>

@@ -4,15 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bricechou.weiboclient.R;
 import com.bricechou.weiboclient.utils.BaseFragment;
 import com.bricechou.weiboclient.utils.TitleBuilder;
 
-/**
- * Created by sdduser on 5/28/16.
- */
 public class MessageFragment extends BaseFragment {
+    private static final String TAG = "weiboclient.fragment.MessageFragment";
     private View mView;
 
     @Override
@@ -25,15 +24,15 @@ public class MessageFragment extends BaseFragment {
                 .setLeftOnclickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-
+                        Toast.makeText(mMainActivity,
+                                R.string.toast_function_unfinished, Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setRightOnclickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-
+                        Toast.makeText(mMainActivity,
+                                R.string.toast_function_unfinished, Toast.LENGTH_SHORT).show();
                     }
                 });
         return mView;

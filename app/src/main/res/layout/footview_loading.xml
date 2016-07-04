@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
     android:orientation="horizontal"
     android:gravity="center"
     android:layout_width="match_parent"
@@ -9,13 +10,32 @@
     <ProgressBar
         android:layout_width="24dp"
         android:layout_height="24dp"/>
+=======
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <ProgressBar
+        android:layout_width="24dp"
+        android:layout_height="24dp" />
+>>>>>>> temp
 
     <TextView
         style="@style/TextViewSubhead"
         android:layout_height="56dp"
+<<<<<<< HEAD
         android:gravity="center_vertical"
         android:layout_marginLeft="8dp"
         android:text="加载更多..."
         android:textColor="@color/txt_gray" />
 
 </LinearLayout>
+=======
+        android:layout_marginLeft="8dp"
+        android:gravity="center_vertical"
+        android:text="加载更多..."
+        android:textColor="@color/txt_gray" />
+
+</LinearLayout>
+>>>>>>> temp

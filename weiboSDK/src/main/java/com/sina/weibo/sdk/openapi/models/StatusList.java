@@ -33,7 +33,7 @@ import com.sina.weibo.sdk.openapi.StatusesAPI;
  * @author SINA
  * @since 2013-11-22
  */
-public class StatusList {
+public class StatusList extends BaseEntity {
     
     /** 微博列表 */
     public ArrayList<Status> statusList;

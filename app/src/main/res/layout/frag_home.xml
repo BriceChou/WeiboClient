@@ -1,20 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:ptr="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_gray">
+    android:background="@color/bg_gray"
+    android:orientation="vertical">
 
+<<<<<<< HEAD
     <include layout="@layout/include_titlebar"/>
     
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         xmlns:ptr="http://schemas.android.com/apk/res-auto"
+=======
+    <include layout="@layout/include_titlebar" />
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+>>>>>>> temp
         android:id="@+id/lv_home"
         ptr:ptrDrawable="@drawable/default_ptr_flip"
         ptr:ptrAnimationStyle="flip"
         ptr:ptrHeaderTextColor="#919191"
         style="@style/ListViewCommon"
+<<<<<<< HEAD
         android:dividerHeight="8dp" >
     </com.handmark.pulltorefresh.library.PullToRefreshListView>
+=======
+        android:dividerHeight="8dp"
+        android:fadingEdge="none"
+        android:fastScrollEnabled="false"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:smoothScrollbar="true"
+        ptr:ptrMode="both"></com.handmark.pulltorefresh.library.PullToRefreshListView>
+>>>>>>> temp
 
 </LinearLayout>

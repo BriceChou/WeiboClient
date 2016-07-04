@@ -27,7 +27,7 @@ import android.text.TextUtils;
  * @author SINA
  * @since 2013-11-24
  */
-public class Geo {
+public class Geo extends BaseEntity {
     
     /** 经度坐标 */
     public String longitude;

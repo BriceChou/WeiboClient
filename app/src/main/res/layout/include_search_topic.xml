@@ -2,45 +2,53 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/white"
     android:layout_marginTop="12dp"
-    android:gravity="center_vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
-        <TextView
-            style="@style/LinearLayoutTopic"
-            android:text="#欧洲杯#"/>
-        <View
-            android:layout_width="1px"
-            android:layout_height="30dp"
-            android:background="@color/divider_gray"
-            android:gravity="center_vertical"/>
-        <TextView
-            style="@style/LinearLayoutTopic"
-            android:text="#薛之谦答熊孩子#"/>
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/divider_gray"/>
+    android:background="@color/white"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
         <TextView
             style="@style/LinearLayoutTopic"
-            android:text="#我们15个这一年#" />
+            android:text="#欧洲杯#" />
+
         <View
             android:layout_width="1px"
             android:layout_height="30dp"
             android:background="@color/divider_gray"
-            android:gravity="center_vertical"/>
+            android:gravity="center_vertical" />
+
+        <TextView
+            style="@style/LinearLayoutTopic"
+            android:text="#薛之谦答熊孩子#" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/divider_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/LinearLayoutTopic"
+            android:text="#我们15个这一年#" />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="30dp"
+            android:background="@color/divider_gray"
+            android:gravity="center_vertical" />
+
         <TextView
             style="@style/LinearLayoutTopic"
             android:text="热门话题" />

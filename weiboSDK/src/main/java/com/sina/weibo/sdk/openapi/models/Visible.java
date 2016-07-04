@@ -24,7 +24,7 @@ import org.json.JSONObject;
  * @author SINA
  * @since 2013-11-24
  */
-public class Visible {
+public class Visible extends BaseEntity {
     
     public static final int VISIBLE_NORMAL  = 0;
     public static final int VISIBLE_PRIVACY = 1;
