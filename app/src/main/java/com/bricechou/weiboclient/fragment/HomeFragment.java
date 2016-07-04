@@ -28,21 +28,29 @@ import java.util.ArrayList;
 public class HomeFragment extends BaseFragment {
     private static final String TAG = "fragment.HomeFragment";
     private View mView;
-    private View mFootView;
-    private PullToRefreshListView mRefreshListViewHome; // fragment_home list view
-    private StatusList mStatusList; // All Weibo content collection
-    private StatusesAPI mStatusesAPI; // Weibo content interface
+    //    private View mFootView;
+    // fragment_home list view
+    private PullToRefreshListView mRefreshListViewHome;
+    // All Weibo content collection
+    private StatusList mStatusList;
+    // To get Weibo content interface
+    private StatusesAPI mStatusesAPI;
     private ArrayList<Status> mStatuses;
     private HomeAdapter mHomeAdapter;
+    // Is getting a new weibo content or old weibo content?
     private boolean mPullToDown = false;
+    // Record the Weibo content id in the top of current page.
     private long mSinceId = 0;
+    // Record the Weibo content id in the bottom of current page.
     private long mMaxId = 0;
+    // To record user current weibo content position
     private int mListViewY = 0;
 
     private void initView() {
         mView = View.inflate(mMainActivity, R.layout.frag_home, null);
-        mFootView = View.inflate(mMainActivity, R.layout.footview_loading, null);
+//        mFootView = View.inflate(mMainActivity, R.layout.footview_loading, null);
         mRefreshListViewHome = (PullToRefreshListView) mView.findViewById(R.id.lv_home);
+        // To set the refresh list view can up and down refresh page.
         mRefreshListViewHome.setMode(Mode.BOTH);
         // @comment by BriceChou
         // @datetime 16-6-14 17:56
@@ -67,6 +75,14 @@ public class HomeFragment extends BaseFragment {
                 });
     }
 
+    private void initWeiboContent() {
+        loadStatusData(0, 0, Constants.SHOW_STATUS_COUNTS, 1);
+    }
+
+    /**
+     * @TODO add foot view
+     * @author BriceChou
+     */
     private void initRefreshView() {
 //        mRefreshListViewHome.setOnLastItemVisibleListener(new OnLastItemVisibleListener() {
 //            @Override
@@ -78,19 +94,17 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 mPullToDown = true;
+                // Load the up-to-date weibo content
                 loadSinceStatusData(mSinceId);
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 mPullToDown = false;
+                // Load the old weibo content
                 loadMaxStatusData(mMaxId);
             }
         });
-    }
-
-    private void initWeiboContent() {
-        loadStatusData(0, 0, Constants.SHOW_STATUS_COUNTS, 1);
     }
 
     @Override
@@ -138,13 +152,16 @@ public class HomeFragment extends BaseFragment {
 
     private void setViewData(ArrayList<Status> statuses) {
         ArrayList<Status> tempStatuses = new ArrayList<Status>();
+        // To judge is loading a new weibo content.
         if (mPullToDown) {
             if (mStatuses.size() > 0) {
+                // Remove the duplicate weibo content.
                 String newStatusId = statuses.get(statuses.size() - 1).id;
                 if (mStatuses.get(0).id.equals(newStatusId)) {
                     mStatuses.remove(0);
                 }
             }
+            // Make the recent weibo content show in the top of page.
             tempStatuses.addAll(mStatuses);
             mStatuses.clear();
             mStatuses.addAll(statuses);
@@ -152,6 +169,7 @@ public class HomeFragment extends BaseFragment {
             mListViewY = 0;
         } else {
             if (mStatuses.size() > 0) {
+                // Remove the duplicate weibo content.
                 String oldStatusId = statuses.get(0).id;
                 if (mStatuses.get(mStatuses.size() - 1).id.equals(oldStatusId)) {
                     mStatuses.remove(mStatuses.size() - 1);
@@ -163,6 +181,7 @@ public class HomeFragment extends BaseFragment {
         mMaxId = Long.parseLong(statuses.get(statuses.size() - 1).id);
         mSinceId = Long.parseLong(statuses.get(0).id);
         refreshViewDone();
+        // reset all data
         mPullToDown = false;
         mHomeAdapter = new HomeAdapter(mMainActivity, mStatuses);
         mRefreshListViewHome.setAdapter(mHomeAdapter);
