@@ -8,19 +8,21 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginTop="30dp"
-        android:src="@mipmap/guide_title"/>
+        android:layout_height="40dp"
+        android:layout_gravity="clip_vertical"
+        android:layout_marginTop="40dp"
+        android:src="@mipmap/guide_title" />
+
 
     <Button
         android:id="@+id/login_submit"
         android:layout_width="80dp"
         android:layout_height="40dp"
-        android:layout_marginTop="120dp"
-        android:layout_gravity="center|center_vertical"
+        android:layout_gravity="center"
+        android:layout_marginTop="140dp"
         android:background="@mipmap/helper_orange_button_guide"
         android:text="登录微博"
-        android:textSize="16sp"/>
+        android:textSize="16sp" />
 
     <include layout="@layout/include_copyright" />
 </FrameLayout>

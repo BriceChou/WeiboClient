@@ -2,19 +2,13 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
-        config {
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
-            storeFile file('./debug.keystore')
-            storePassword 'android'
-        }
     }
     compileSdkVersion 19
-    buildToolsVersion "19.1.0"
+    buildToolsVersion '19.1.0'
     defaultConfig {
         applicationId "com.bricechou.weiboclient"
         minSdkVersion 18
-        targetSdkVersion 19
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
@@ -24,8 +18,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-            signingConfig signingConfigs.config
         }
+    }
+    productFlavors {
     }
 }
 
