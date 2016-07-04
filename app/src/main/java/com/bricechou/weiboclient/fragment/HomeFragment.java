@@ -28,9 +28,6 @@ import java.util.ArrayList;
 public class HomeFragment extends BaseFragment {
     private static final String TAG = "fragment.HomeFragment";
     private View mView;
-    //    private View mFootView;
-    // fragment_home list view
-    private PullToRefreshListView mRefreshListViewHome;
     // All Weibo content collection
     private StatusList mStatusList;
     // To get Weibo content interface
@@ -45,6 +42,9 @@ public class HomeFragment extends BaseFragment {
     private long mMaxId = 0;
     // To record user current weibo content position
     private int mListViewY = 0;
+    // fragment_home pull to refresh list view
+    private PullToRefreshListView mRefreshListViewHome;
+//    private View mFootView;
 
     private void initView() {
         mView = View.inflate(mMainActivity, R.layout.frag_home, null);
