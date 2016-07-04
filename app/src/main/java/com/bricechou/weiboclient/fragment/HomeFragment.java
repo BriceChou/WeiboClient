@@ -16,8 +16,8 @@ import com.bricechou.weiboclient.db.LoginUserToken;
 import com.bricechou.weiboclient.utils.BaseFragment;
 import com.bricechou.weiboclient.utils.TitleBuilder;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.sina.weibo.sdk.openapi.legacy.StatusesAPI;
 import com.sina.weibo.sdk.openapi.models.Status;
@@ -34,13 +34,16 @@ public class HomeFragment extends BaseFragment {
     private StatusesAPI mStatusesAPI; // Weibo content interface
     private ArrayList<Status> mStatuses;
     private HomeAdapter mHomeAdapter;
-    private int mCurrentPage = 1;
-    private boolean mIsPullToDown = false;
+    private boolean mPullToDown = false;
+    private long mSinceId = 0;
+    private long mMaxId = 0;
+    private int mListViewY = 0;
 
     private void initView() {
         mView = View.inflate(mMainActivity, R.layout.frag_home, null);
         mFootView = View.inflate(mMainActivity, R.layout.footview_loading, null);
         mRefreshListViewHome = (PullToRefreshListView) mView.findViewById(R.id.lv_home);
+        mRefreshListViewHome.setMode(Mode.BOTH);
         // @comment by BriceChou
         // @datetime 16-6-14 17:56
         // @FIXME Show the current user name
@@ -65,23 +68,29 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initRefreshView() {
-        mRefreshListViewHome.setOnRefreshListener(new OnRefreshListener<ListView>() {
+//        mRefreshListViewHome.setOnLastItemVisibleListener(new OnLastItemVisibleListener() {
+//            @Override
+//            public void onLastItemVisible() {
+//                addFootView(mRefreshListViewHome, mFootView);
+//            }
+//        });
+        mRefreshListViewHome.setOnRefreshListener(new OnRefreshListener2<ListView>() {
             @Override
-            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                loadStatusData(1);
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                mPullToDown = true;
+                loadSinceStatusData(mSinceId);
             }
-        });
-        mRefreshListViewHome.setOnLastItemVisibleListener(new OnLastItemVisibleListener() {
+
             @Override
-            public void onLastItemVisible() {
-                addFootView(mRefreshListViewHome, mFootView);
-                loadStatusData(mCurrentPage + 1);
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                mPullToDown = false;
+                loadMaxStatusData(mMaxId);
             }
         });
     }
 
     private void initWeiboContent() {
-        loadStatusData(1);
+        loadStatusData(0, 0, Constants.SHOW_STATUS_COUNTS, 1);
     }
 
     @Override
@@ -94,22 +103,27 @@ public class HomeFragment extends BaseFragment {
         return mView;
     }
 
-    private void loadStatusData(final int page) {
-        loadStatusData(0, 0, page);
+    private void loadSinceStatusData(final long sinceId) {
+        loadStatusData(sinceId, 0, Constants.SHOW_STATUS_COUNTS, 1);
     }
 
-    private void loadStatusData(final long sinceId, final long maxId, final int page) {
-        mStatusesAPI.homeTimeline(sinceId, maxId, Constants.SHOW_STATUS_COUNTS, page, false, 0, false, new WeiboRequestListener(mMainActivity) {
+    private void loadMaxStatusData(final long maxId) {
+        loadStatusData(0, maxId, Constants.SHOW_STATUS_COUNTS, 1);
+    }
+
+    private void loadStatusData(final long sinceId, final long maxId, final int counts, final int page) {
+        mStatusesAPI.homeTimeline(sinceId, maxId, counts, page, false, 1, false, new WeiboRequestListener(mMainActivity) {
             @Override
             public void onComplete(String response) {
                 super.onComplete(response);
                 if (!TextUtils.isEmpty(response)) {
                     if (response.startsWith("{\"statuses\"")) {
                         // the Status instance load the data from JSON data.
-                        mCurrentPage = page;
                         mStatusList = StatusList.parse(response);
                         if (mStatusList.statusList.size() > 0) {
                             setViewData(mStatusList.statusList);
+                        } else {
+                            refreshViewDone();
                         }
                     }
                 }
@@ -119,41 +133,53 @@ public class HomeFragment extends BaseFragment {
 
     private void refreshViewDone() {
         mRefreshListViewHome.onRefreshComplete();
-        removeFootView(mRefreshListViewHome, mFootView);
+//        removeFootView(mRefreshListViewHome, mFootView);
     }
 
     private void setViewData(ArrayList<Status> statuses) {
-        ArrayList<Status> mTempStatuses = new ArrayList<Status>();
-        mTempStatuses.addAll(mStatuses);
-        if (mStatuses != null) {
+        ArrayList<Status> tempStatuses = new ArrayList<Status>();
+        if (mPullToDown) {
+            if (mStatuses.size() > 0) {
+                String newStatusId = statuses.get(statuses.size() - 1).id;
+                if (mStatuses.get(0).id.equals(newStatusId)) {
+                    mStatuses.remove(0);
+                }
+            }
+            tempStatuses.addAll(mStatuses);
             mStatuses.clear();
-            for (Status tempSatus : statuses) {
-                if (!mStatuses.add(tempSatus)) mStatuses.remove(tempSatus);
-            }
-            for (Status tempSatus : mTempStatuses) {
-                if (!mStatuses.add(tempSatus)) mStatuses.remove(tempSatus);
-            }
+            mStatuses.addAll(statuses);
+            mStatuses.addAll(tempStatuses);
+            mListViewY = 0;
         } else {
-            for (Status tempSatus : statuses) {
-                if (!mStatuses.add(tempSatus)) mStatuses.remove(tempSatus);
+            if (mStatuses.size() > 0) {
+                String oldStatusId = statuses.get(0).id;
+                if (mStatuses.get(mStatuses.size() - 1).id.equals(oldStatusId)) {
+                    mStatuses.remove(mStatuses.size() - 1);
+                }
             }
+            mListViewY = mStatuses.size();
+            mStatuses.addAll(statuses);
         }
+        mMaxId = Long.parseLong(statuses.get(statuses.size() - 1).id);
+        mSinceId = Long.parseLong(statuses.get(0).id);
+        refreshViewDone();
+        mPullToDown = false;
         mHomeAdapter = new HomeAdapter(mMainActivity, mStatuses);
         mRefreshListViewHome.setAdapter(mHomeAdapter);
-        refreshViewDone();
+        mRefreshListViewHome.getRefreshableView().setSelection(mListViewY);
     }
 
-    private void addFootView(PullToRefreshListView plv, View footView) {
-        ListView lv = plv.getRefreshableView();
-        if (lv.getFooterViewsCount() == 1) {
-            lv.addFooterView(footView);
-        }
-    }
-
-    private void removeFootView(PullToRefreshListView plv, View footView) {
-        ListView lv = plv.getRefreshableView();
-        if (lv.getFooterViewsCount() > 1) {
-            lv.removeFooterView(footView);
-        }
-    }
+//    private void addFootView(PullToRefreshListView plv, View footView) {
+//        ListView lv = plv.getRefreshableView();
+//        if (lv.getFooterViewsCount() == 1) {
+//            lv.addFooterView(footView);
+//        }
+//    }
+//
+//    private void removeFootView(PullToRefreshListView plv, View footView) {
+//        ListView lv = plv.getRefreshableView();
+//        if (lv.getFooterViewsCount() > 1) {
+//            lv.removeFooterView(footView);
+//        }
+//    }
 }
