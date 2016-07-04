@@ -127,7 +127,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void loadStatusData(final long sinceId, final long maxId, final int counts, final int page) {
-        mStatusesAPI.homeTimeline(sinceId, maxId, counts, page, false, 1, false, new WeiboRequestListener(mMainActivity) {
+        mStatusesAPI.homeTimeline(sinceId, maxId, counts, page, false, 0, false, new WeiboRequestListener(mMainActivity) {
             @Override
             public void onComplete(String response) {
                 super.onComplete(response);
@@ -135,7 +135,7 @@ public class HomeFragment extends BaseFragment {
                     if (response.startsWith("{\"statuses\"")) {
                         // the Status instance load the data from JSON data.
                         mStatusList = StatusList.parse(response);
-                        if (mStatusList.statusList.size() > 0) {
+                        if (null != mStatusList.statusList) {
                             setViewData(mStatusList.statusList);
                         } else {
                             Log.d(TAG, "Refresh onComplete: No Result.");
@@ -156,7 +156,7 @@ public class HomeFragment extends BaseFragment {
         ArrayList<Status> tempStatuses = new ArrayList<Status>();
         // To judge is loading a new weibo content.
         if (mPullToDown) {
-            if (mStatuses.size() > 0) {
+            if (null != mStatuses && mStatuses.size() > 0) {
                 // Remove the duplicate weibo content.
                 String newStatusId = statuses.get(statuses.size() - 1).id;
                 if (mStatuses.get(0).id.equals(newStatusId)) {
@@ -170,7 +170,7 @@ public class HomeFragment extends BaseFragment {
             mStatuses.addAll(tempStatuses);
             mListViewY = 0;
         } else {
-            if (mStatuses.size() > 0) {
+            if (null != mStatuses && mStatuses.size() > 0) {
                 // Remove the duplicate weibo content.
                 String oldStatusId = statuses.get(0).id;
                 if (mStatuses.get(mStatuses.size() - 1).id.equals(oldStatusId)) {
