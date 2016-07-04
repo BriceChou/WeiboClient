@@ -2,6 +2,7 @@ package com.bricechou.weiboclient.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -137,6 +138,7 @@ public class HomeFragment extends BaseFragment {
                         if (mStatusList.statusList.size() > 0) {
                             setViewData(mStatusList.statusList);
                         } else {
+                            Log.d(TAG, "Refresh onComplete: No Result.");
                             refreshViewDone();
                         }
                     }

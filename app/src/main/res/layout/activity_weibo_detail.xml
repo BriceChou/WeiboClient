@@ -24,6 +24,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:cacheColorHint="@color/transparent"
-        android:listSelector="@color/transparent">
-    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+        android:listSelector="@color/transparent"></com.handmark.pulltorefresh.library.PullToRefreshListView>
 </LinearLayout>

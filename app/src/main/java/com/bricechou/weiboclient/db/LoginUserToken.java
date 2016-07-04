@@ -36,7 +36,6 @@ public class LoginUserToken {
         editor.putString(KEY_REFRESH_TOKEN, accessToken.getRefreshToken());
         editor.putLong(KEY_EXPIRES_IN, accessToken.getExpiresTime());
         // commit all data in the editor.
-        Log.i("token~~~~", accessToken.getToken());
         editor.commit();
     }
 

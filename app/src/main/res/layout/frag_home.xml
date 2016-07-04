@@ -17,6 +17,6 @@
         android:footerDividersEnabled="false"
         android:headerDividersEnabled="false"
         android:smoothScrollbar="true"
-        ptr:ptrMode="both" ></com.handmark.pulltorefresh.library.PullToRefreshListView>
+        ptr:ptrMode="both"></com.handmark.pulltorefresh.library.PullToRefreshListView>
 
 </LinearLayout>
