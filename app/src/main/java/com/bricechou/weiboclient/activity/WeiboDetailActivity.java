@@ -7,12 +7,15 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +26,7 @@ import com.bricechou.weiboclient.api.WeiboRequestListener;
 import com.bricechou.weiboclient.config.Constants;
 import com.bricechou.weiboclient.db.LoginUserToken;
 import com.bricechou.weiboclient.utils.TimeFormat;
+import com.bricechou.weiboclient.utils.TitleBuilder;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sina.weibo.sdk.openapi.CommentsAPI;
@@ -32,13 +36,15 @@ import com.sina.weibo.sdk.openapi.models.User;
 
 import java.util.ArrayList;
 
-public class WeiboDetailActivity extends Activity implements View.OnClickListener {
+public class WeiboDetailActivity extends Activity {
     private final static String TAG = "weiboclient.activity.WeiboDetailActivity";
     private Status mStatus;
     private ImageLoader mImageLoader;
     // tile bar view
-    private ImageView mImageViewBack;
-    private ImageView mImageViewMore;
+    private RelativeLayout mTitlebar;
+    //item_status.xml include_status_retweeted.xml
+    private View mItemStatus;
+    private View mRetweetedStatus;
     // weibo detail portrait view
     private ImageView mImageViewPortrait;
     private TextView mTextViewUsername;
@@ -56,6 +62,13 @@ public class WeiboDetailActivity extends Activity implements View.OnClickListene
     private ImageView mImageViewImageDetailRetweeted;
     private GridView mGridViewImageDetailRetweeted;
     // weibo detail bottom
+    // shadow_tab
+    private View mShadowDetailTab;
+    private RadioButton mShadowButtonRetweet;
+    private RadioButton mShadowButtonLike;
+    private RadioButton mShadowButtonComment;
+    // listView headerView
+    private View mDetailTab;
     private RadioButton mRadioButtonComment;
     private RadioButton mRadioButtonRetweet;
     private RadioButton mRadioButtonLike;
@@ -79,37 +92,88 @@ public class WeiboDetailActivity extends Activity implements View.OnClickListene
     }
 
     private void initView() {
-        // Title bar view
-        mImageViewBack = (ImageView) findViewById(R.id.weibo_detail_back);
-        mImageViewMore = (ImageView) findViewById(R.id.weibo_detail_more);
+        initTitleBar();
+        initDetailHead();
+        initTab();
+        initListView();
+    }
+    private void initTitleBar() {
+        mTitlebar = (RelativeLayout) findViewById(R.id.rl_titlebar);
+        mTitlebar.setBackgroundResource(R.color.bg_gray);
+        new TitleBuilder(this)
+                .setCenterText("微博正文")
+                .setLeftImage(R.drawable.navigationbar_back)
+                .setRightImage(R.drawable.navigationbar_more)
+                .setLeftOnclickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        // Exit this activity.
+                        finish();
+                    }
+                })
+                .setRightOnclickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(WeiboDetailActivity.this, R.string.toast_function_unfinished, Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+    private void initDetailHead() {
+        mItemStatus = View.inflate(this, R.layout.item_status, null);
+        mItemStatus.setBackgroundResource(R.color.white);
+        //hide the id.ll_bottom_control in item_status.xml
+        mItemStatus.findViewById(R.id.ll_bottom_control).setVisibility(View.GONE);
         // weibo detail portrait view
-        mImageViewPortrait = (ImageView) findViewById(R.id.iv_portrait);
-        mTextViewUsername = (TextView) findViewById(R.id.tv_username);
-        mTextViewCaption = (TextView) findViewById(R.id.tv_caption);
+        mImageViewPortrait = (ImageView) mItemStatus.findViewById(R.id.iv_portrait);
+        mTextViewUsername = (TextView) mItemStatus.findViewById(R.id.tv_username);
+        mTextViewCaption = (TextView) mItemStatus.findViewById(R.id.tv_caption);
         // weibo detail content view
-        mLinearLayoutMainContent = (LinearLayout) findViewById(R.id.ll_mainContent);
-        mTextViewContent = (TextView) findViewById(R.id.tv_item_content_detail);
-        mFrameLayoutStatusImage = (FrameLayout) mLinearLayoutMainContent.findViewById(R.id.include_status_image_detail);
-        mGridViewImageDetail = (GridView) mFrameLayoutStatusImage.findViewById(R.id.custom_images);
-        mImageViewImageDetail = (ImageView) mFrameLayoutStatusImage.findViewById(R.id.iv_image);
+        mLinearLayoutMainContent = (LinearLayout) mItemStatus.findViewById(R.id.ll_mainContent);
+        mTextViewContent = (TextView) mItemStatus.findViewById(R.id.tv_item_content);
+        mFrameLayoutStatusImage = (FrameLayout) mItemStatus.findViewById(R.id.include_status_image);
+        mGridViewImageDetail = (GridView) mItemStatus.findViewById(R.id.custom_images);
+        mImageViewImageDetail = (ImageView) mItemStatus.findViewById(R.id.iv_image);
         // weibo detail status retweeted
-        mLinearLayoutContentRetweeted = (LinearLayout) findViewById(R.id.include_status_retweeted_detail);
-        mTextViewContentRetweeted = (TextView) mLinearLayoutContentRetweeted.findViewById(R.id.tv_retweeted_content);
-        mFrameLayoutStatusImageRetweeted = (FrameLayout) mLinearLayoutContentRetweeted.findViewById(R.id.include_status_image);
+        mRetweetedStatus = mItemStatus.findViewById(R.id.include_status_retweeted);
+        mLinearLayoutContentRetweeted = (LinearLayout) mItemStatus.findViewById(R.id.include_status_retweeted);
+        mTextViewContentRetweeted = (TextView) mItemStatus.findViewById(R.id.tv_retweeted_content);
+        mFrameLayoutStatusImageRetweeted = (FrameLayout) mRetweetedStatus.findViewById(R.id.include_status_image);
         mGridViewImageDetailRetweeted = (GridView) mFrameLayoutStatusImageRetweeted.findViewById(R.id.custom_images);
         mImageViewImageDetailRetweeted = (ImageView) mFrameLayoutStatusImageRetweeted.findViewById(R.id.iv_image);
+
+    }
+    private void initTab() {
         // weibo detail bottom button
-        mRadioButtonLike = (RadioButton) findViewById(R.id.rb_likes_detail);
-        mRadioButtonRetweet = (RadioButton) findViewById(R.id.rb_retweets_detail);
-        mRadioButtonComment = (RadioButton) findViewById(R.id.rb_comments_detail);
-
+        // shadow
+        mShadowDetailTab = findViewById(R.id.status_detail_tab);
+        mShadowButtonRetweet = (RadioButton) mShadowDetailTab.findViewById(R.id.rb_retweets_detail);
+        mShadowButtonComment = (RadioButton) mShadowDetailTab.findViewById(R.id.rb_comments_detail);
+        mShadowButtonLike = (RadioButton) mShadowDetailTab.findViewById(R.id.rb_likes_detail);
+        // header
+        mDetailTab = View.inflate(this, R.layout.include_detail_bottom, null);
+        mRadioButtonRetweet = (RadioButton) mDetailTab.findViewById(R.id.rb_retweets_detail);
+        mRadioButtonComment = (RadioButton) mDetailTab.findViewById(R.id.rb_comments_detail);
+        mRadioButtonLike = (RadioButton) mDetailTab.findViewById(R.id.rb_likes_detail);
+    }
+    private void initListView() {
         mPullToRefreshListView = (PullToRefreshListView)findViewById(R.id.weibo_detail_list);
+        final ListView lv = mPullToRefreshListView.getRefreshableView();
+        lv.addHeaderView(mItemStatus);
+        lv.addHeaderView(mDetailTab);
+        mPullToRefreshListView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
-        mImageViewBack.setOnClickListener(this);
-        mImageViewMore.setOnClickListener(this);
-        mRadioButtonLike.setOnClickListener(this);
-        mRadioButtonRetweet.setOnClickListener(this);
-        mRadioButtonComment.setOnClickListener(this);
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                // 0-pullHead 1-detailHead 2-tab
+                mShadowDetailTab.setVisibility(firstVisibleItem >= 2 ?
+                        View.VISIBLE : View.GONE);
+            }
+        });
     }
 
     /**
@@ -139,6 +203,11 @@ public class WeiboDetailActivity extends Activity implements View.OnClickListene
         } else {
             mLinearLayoutContentRetweeted.setVisibility(View.GONE);
         }
+        //shadow
+        mShadowButtonRetweet.setText("转发 " + mStatus.reposts_count);
+        mShadowButtonComment.setText("评论 " + mStatus.comments_count);
+        mShadowButtonLike.setText("赞 " + mStatus.attitudes_count);
+        //head
         mRadioButtonRetweet.setText("转发 " + mStatus.reposts_count);
         mRadioButtonComment.setText("评论 " + mStatus.comments_count);
         mRadioButtonLike.setText("赞 " + mStatus.attitudes_count);
@@ -185,21 +254,6 @@ public class WeiboDetailActivity extends Activity implements View.OnClickListene
             gridViewImg.setAdapter(mStatusGridImagesAdapter);
         } else {
             imgContainer.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.weibo_detail_back:
-                // Exit this activity.
-                finish();
-                break;
-            case R.id.weibo_detail_more:
-                Toast.makeText(WeiboDetailActivity.this,
-                        R.string.toast_function_unfinished, Toast.LENGTH_SHORT).show();
-                break;
-            default:
         }
     }
 }

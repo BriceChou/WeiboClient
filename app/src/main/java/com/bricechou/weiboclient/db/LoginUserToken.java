@@ -76,7 +76,7 @@ public class LoginUserToken {
         Oauth2AccessToken accessToken = new Oauth2AccessToken();
 
 //        accessToken.setToken("2.005KPAHDDkQmLCfb61244d50Rb_7xC"); // BriceChou
-        accessToken.setToken("2.0074nniFDkQmLCeb9d82635f3hL8gB"); // wanwang
+        accessToken.setToken("2.0074nniFDkQmLCbb3880dabbWg2M7E"); // wanwang
         accessToken.setRefreshToken("2.005KPAHDDkQmLCf648c5fafdaOK6ME");
         accessToken.setUid("2851891152");
         accessToken.setExpiresIn("157679999");

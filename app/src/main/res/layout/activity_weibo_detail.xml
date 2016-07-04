@@ -7,23 +7,24 @@
     android:orientation="vertical"
     tools:context="com.bricechou.weiboclient.activity.WeiboDetailActivity">
 
-    <include layout="@layout/include_detail_titlebar" />
-
-    <LinearLayout
+    <include layout="@layout/include_titlebar" />
+    <RelativeLayout
+        android:id="@+id/rl_body"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <include layout="@layout/include_detail" />
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
+            android:id="@+id/weibo_detail_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="@color/transparent"
+            android:listSelector="@color/transparent">
+        </com.handmark.pulltorefresh.library.PullToRefreshListView>
 
-        <include layout="@layout/include_detail_bottom" />
-    </LinearLayout>
-
-    <com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:id="@+id/weibo_detail_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:cacheColorHint="@color/transparent"
-        android:listSelector="@color/transparent">
-    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+        <include
+            android:id="@+id/status_detail_tab"
+            layout="@layout/include_detail_bottom"
+            android:visibility="gone" />
+    </RelativeLayout>
 </LinearLayout>
