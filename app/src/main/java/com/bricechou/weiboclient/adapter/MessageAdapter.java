@@ -95,6 +95,8 @@ public class MessageAdapter extends BaseAdapter {
         holder.sTextViewtvMessageUsername.setText(comment.user.name);
         if (!TextUtils.isEmpty(comment.user.remark)){
             holder.sTextViewtvMessageRemark.setText("("+comment.user.remark+")");
+        } else {
+            holder.sTextViewtvMessageRemark.setText("");
         }
         holder.sTextViewtvMessageReply.setText(comment.text);
         holder.sTextViewtvMessageCaption.setText(TimeFormat.timeToString(comment.created_at) +

@@ -10,7 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="6dp">
 
         <com.bricechou.weiboclient.widget.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/civ_message_profile"
@@ -45,8 +46,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="0dp"
-                    android:textColor="@color/txt_gray"
                     android:text="备注名"
+                    android:textColor="@color/txt_gray"
                     android:textSize="10sp" />
             </LinearLayout>
 
