@@ -127,7 +127,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void loadStatusData(final long sinceId, final long maxId, final int counts, final int page) {
-        mStatusesAPI.homeTimeline(sinceId, maxId, counts, page, false, 0, false, new WeiboRequestListener(mMainActivity) {
+        mStatusesAPI.homeTimeline(sinceId, maxId, counts, page, false, 1, false, new WeiboRequestListener(mMainActivity) {
             @Override
             public void onComplete(String response) {
                 super.onComplete(response);
