@@ -172,7 +172,7 @@ public class HomeAdapter extends BaseAdapter {
         holder.sLinearLayoutComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(status.comments_count > 0) {
+                if (status.comments_count > 0) {
                     Intent intent = new Intent(mContext, WeiboDetailActivity.class);
                     intent.putExtra("status", status);
                     mContext.startActivity(intent);
@@ -205,8 +205,8 @@ public class HomeAdapter extends BaseAdapter {
             imgContainer.setVisibility(View.VISIBLE);
             gridViewImg.setVisibility(View.VISIBLE);
             singleImg.setVisibility(View.GONE);
-            StatusGridImagesAdapter _StatusGridImagesAdapter = new StatusGridImagesAdapter(mContext, status);
-            gridViewImg.setAdapter(_StatusGridImagesAdapter);
+            StatusGridImagesAdapter statusGridImagesAdapter = new StatusGridImagesAdapter(mContext, status);
+            gridViewImg.setAdapter(statusGridImagesAdapter);
         } else if (picUrl != "") {
             imgContainer.setVisibility(View.VISIBLE);
             gridViewImg.setVisibility(View.GONE);
