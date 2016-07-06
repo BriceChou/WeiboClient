@@ -38,7 +38,11 @@ public class CommentsAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mCommentList.size();
+        if(mCommentList != null){
+            return mCommentList.size();
+        } else {
+            return 0;
+        }
     }
 
     @Override
