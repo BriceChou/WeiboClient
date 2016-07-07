@@ -11,4 +11,9 @@ So the master branch is a stability and available version.
 
 It's a final version of the WeiboClient.
 
-![banner](http://172.31.1.151/index.php/File:Screenshot1.png)
+## License
+```
+        Apache License
+   Version 2.0, January 2004
+http://www.apache.org/licenses/
+```
