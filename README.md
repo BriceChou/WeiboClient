@@ -10,3 +10,5 @@ When we fixed all WeiboClient BUG, we merge branch "developer" into here.
 So the master branch is a stability and available version.
 
 It's a final version of the WeiboClient.
+
+![banner](http://172.31.1.151/index.php/File:Screenshot1.png)
