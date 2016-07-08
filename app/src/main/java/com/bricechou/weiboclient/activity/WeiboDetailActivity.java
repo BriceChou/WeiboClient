@@ -1,9 +1,11 @@
 package com.bricechou.weiboclient.activity;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -25,14 +27,17 @@ import com.bricechou.weiboclient.config.Constants;
 import com.bricechou.weiboclient.db.LoginUserToken;
 import com.bricechou.weiboclient.utils.TimeFormat;
 import com.bricechou.weiboclient.utils.TitleBuilder;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sina.weibo.sdk.openapi.CommentsAPI;
+import com.sina.weibo.sdk.openapi.models.Comment;
 import com.sina.weibo.sdk.openapi.models.CommentList;
 import com.sina.weibo.sdk.openapi.models.Status;
 import com.sina.weibo.sdk.openapi.models.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class WeiboDetailActivity extends Activity {
     private static final String TAG = "weiboclient.activity.WeiboDetailActivity";
@@ -75,7 +80,13 @@ public class WeiboDetailActivity extends Activity {
 
     private CommentsAPI mCommentsAPI;
     private CommentList mCommentList;
+    private ArrayList<Comment> mComments = new ArrayList<Comment>();
+    private ArrayList ids = new ArrayList();
     private CommentsAdapter mCommentsAdapter;
+
+    // footView - loadmore
+    private View footView;
+    private int curPage = 1;
 
 
     @Override
@@ -86,7 +97,8 @@ public class WeiboDetailActivity extends Activity {
         mImageLoader = ImageLoader.getInstance();
         initView();
         initViewData();
-        initCommentsData();
+        addFootView(mPullToRefreshListView,footView);
+        initCommentsData(1);
     }
 
     private void initView() {
@@ -95,6 +107,7 @@ public class WeiboDetailActivity extends Activity {
         initTab();
         initListView();
     }
+
     private void initTitleBar() {
         mTitlebar = (RelativeLayout) findViewById(R.id.rl_titlebar);
         mTitlebar.setBackgroundResource(R.color.bg_gray);
@@ -116,6 +129,7 @@ public class WeiboDetailActivity extends Activity {
                     }
                 });
     }
+
     private void initDetailHead() {
         mItemStatus = View.inflate(this, R.layout.item_status, null);
         mItemStatus.setBackgroundResource(R.color.white);
@@ -140,6 +154,7 @@ public class WeiboDetailActivity extends Activity {
         mImageViewImageDetailRetweeted = (ImageView) mFrameLayoutStatusImageRetweeted.findViewById(R.id.iv_image);
 
     }
+
     private void initTab() {
         // weibo detail bottom button
         // shadow
@@ -153,11 +168,33 @@ public class WeiboDetailActivity extends Activity {
         mRadioButtonComment = (RadioButton) mDetailTab.findViewById(R.id.rb_comments_detail);
         mRadioButtonLike = (RadioButton) mDetailTab.findViewById(R.id.rb_likes_detail);
     }
+
     private void initListView() {
-        mPullToRefreshListView = (PullToRefreshListView)findViewById(R.id.weibo_detail_list);
+        mPullToRefreshListView = (PullToRefreshListView) findViewById(R.id.weibo_detail_list);
+        footView = View.inflate(this, R.layout.footview_loading, null);
+        mCommentsAdapter = new CommentsAdapter(WeiboDetailActivity.this, mComments);
+        mPullToRefreshListView.setAdapter(mCommentsAdapter);
         final ListView lv = mPullToRefreshListView.getRefreshableView();
         lv.addHeaderView(mItemStatus);
         lv.addHeaderView(mDetailTab);
+
+        // pulldown
+        mPullToRefreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+
+            @Override
+            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+                initCommentsData(1);
+            }
+        });
+        // pullup
+        mPullToRefreshListView.setOnLastItemVisibleListener(
+                new PullToRefreshBase.OnLastItemVisibleListener() {
+
+                    @Override
+                    public void onLastItemVisible() {
+                        initCommentsData(curPage + 1);
+                    }
+                });
         mPullToRefreshListView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
             @Override
@@ -211,9 +248,9 @@ public class WeiboDetailActivity extends Activity {
         mRadioButtonLike.setText("赞 " + mStatus.attitudes_count);
     }
 
-    private void initCommentsData() {
+    private void initCommentsData(final int requestPage) {
         mCommentsAPI = new CommentsAPI(this, Constants.APP_KEY, LoginUserToken.showAccessToken());
-        mCommentsAPI.show(Long.parseLong(mStatus.id), 0, 0, 20, 1, 0,new WeiboRequestListener(this) {
+        mCommentsAPI.show(Long.parseLong(mStatus.id), 0, 0, 10, requestPage, 0, new WeiboRequestListener(this) {
             @Override
             public void onComplete(String response) {
                 super.onComplete(response);
@@ -221,15 +258,17 @@ public class WeiboDetailActivity extends Activity {
                     if (response.startsWith("{\"comments\"")) {
                         mCommentList = mCommentList.parse(response);
                         if (null != mCommentList) {
-                            mCommentsAdapter = new CommentsAdapter(WeiboDetailActivity.this, mCommentList.commentList);
-                            mPullToRefreshListView.setAdapter(mCommentsAdapter);
+                            addData(mCommentList, requestPage);
                         } else {
                             onComplete(response);
                         }
                     }
                 }
+
+                curPage = requestPage;
             }
         });
+        onAllDone();
     }
 
     private void setImages(Status status, ViewGroup imgContainer, GridView gridViewImg, final ImageView singleImg) {
@@ -252,5 +291,49 @@ public class WeiboDetailActivity extends Activity {
         } else {
             imgContainer.setVisibility(View.GONE);
         }
+    }
+
+    private void addData(CommentList response, int page) {
+        if (page == 1) {
+            mComments.clear();
+            for (Comment comment : response.commentList) {
+                mComments.add(comment);
+            }
+        } else {
+            for (int i = 0; i < mComments.size(); i++) {
+                ids.add(mComments.get(i).id);
+            }
+            for (Comment comment : response.commentList) {
+                if (!ids.contains(comment.id)) {
+                    mComments.add(comment);
+                }
+            }
+            if (mComments.size() < response.total_number) {
+                addFootView(mPullToRefreshListView, footView);
+            } else {
+                removeFootView(mPullToRefreshListView, footView);
+            }
+        }
+//        mCommentsAdapter.notifyDataSetChanged();
+
+
+    }
+
+    private void addFootView(PullToRefreshListView plv, View footView) {
+        ListView lv = plv.getRefreshableView();
+        if (lv.getFooterViewsCount() == 1) {
+            lv.addFooterView(footView);
+        }
+    }
+
+    private void removeFootView(PullToRefreshListView plv, View footView) {
+        ListView lv = plv.getRefreshableView();
+        if (lv.getFooterViewsCount() > 1) {
+            lv.removeFooterView(footView);
+        }
+    }
+
+    private void onAllDone() {
+        mPullToRefreshListView.onRefreshComplete();
     }
 }
