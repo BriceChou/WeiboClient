@@ -10,7 +10,7 @@ public class Constants {
     // When user cancel to login weibo,this URL will be called.
     public static final String REDIRECT_URL = "https://api.weibo.com/oauth2/default.html";
     // Show the weibo content counts number.
-    public static final int SHOW_STATUS_COUNTS = 10;
+    public static final int SHOW_STATUS_COUNTS = 20;
     /**
      * @param all                            To request all SCOPE permission.
      * @param email                          user email permission

@@ -23,11 +23,13 @@ import com.bricechou.weiboclient.adapter.StatusGridImagesAdapter;
 import com.bricechou.weiboclient.api.WeiboRequestListener;
 import com.bricechou.weiboclient.config.Constants;
 import com.bricechou.weiboclient.db.LoginUserToken;
+import com.bricechou.weiboclient.model.Counts;
 import com.bricechou.weiboclient.utils.TimeFormat;
 import com.bricechou.weiboclient.utils.TitleBuilder;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sina.weibo.sdk.openapi.CommentsAPI;
+import com.sina.weibo.sdk.openapi.legacy.StatusesAPI;
 import com.sina.weibo.sdk.openapi.models.CommentList;
 import com.sina.weibo.sdk.openapi.models.Status;
 import com.sina.weibo.sdk.openapi.models.User;
@@ -36,7 +38,6 @@ import java.util.ArrayList;
 
 public class WeiboDetailActivity extends Activity {
     private static final String TAG = "weiboclient.activity.WeiboDetailActivity";
-    private Status mStatus;
     private ImageLoader mImageLoader;
     // tile bar view
     private RelativeLayout mTitlebar;
@@ -72,7 +73,8 @@ public class WeiboDetailActivity extends Activity {
     private RadioButton mRadioButtonLike;
     //weibo detail comments listview
     private PullToRefreshListView mPullToRefreshListView;
-
+    private StatusesAPI mStatusesAPI;
+    private Counts mCounts;
     private CommentsAPI mCommentsAPI;
     private CommentList mCommentList;
     private CommentsAdapter mCommentsAdapter;
@@ -82,11 +84,11 @@ public class WeiboDetailActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weibo_detail);
-        mStatus = (Status) this.getIntent().getSerializableExtra("status");
+        Status status = (Status) this.getIntent().getSerializableExtra("status");
         mImageLoader = ImageLoader.getInstance();
         initView();
-        initViewData();
-        initCommentsData();
+        // Show the old data
+        initViewData(status, mCounts);
     }
 
     private void initView() {
@@ -95,6 +97,7 @@ public class WeiboDetailActivity extends Activity {
         initTab();
         initListView();
     }
+
     private void initTitleBar() {
         mTitlebar = (RelativeLayout) findViewById(R.id.rl_titlebar);
         mTitlebar.setBackgroundResource(R.color.bg_gray);
@@ -116,6 +119,7 @@ public class WeiboDetailActivity extends Activity {
                     }
                 });
     }
+
     private void initDetailHead() {
         mItemStatus = View.inflate(this, R.layout.item_status, null);
         mItemStatus.setBackgroundResource(R.color.white);
@@ -140,6 +144,7 @@ public class WeiboDetailActivity extends Activity {
         mImageViewImageDetailRetweeted = (ImageView) mFrameLayoutStatusImageRetweeted.findViewById(R.id.iv_image);
 
     }
+
     private void initTab() {
         // weibo detail bottom button
         // shadow
@@ -153,8 +158,9 @@ public class WeiboDetailActivity extends Activity {
         mRadioButtonComment = (RadioButton) mDetailTab.findViewById(R.id.rb_comments_detail);
         mRadioButtonLike = (RadioButton) mDetailTab.findViewById(R.id.rb_likes_detail);
     }
+
     private void initListView() {
-        mPullToRefreshListView = (PullToRefreshListView)findViewById(R.id.weibo_detail_list);
+        mPullToRefreshListView = (PullToRefreshListView) findViewById(R.id.weibo_detail_list);
         final ListView lv = mPullToRefreshListView.getRefreshableView();
         lv.addHeaderView(mItemStatus);
         lv.addHeaderView(mDetailTab);
@@ -179,19 +185,20 @@ public class WeiboDetailActivity extends Activity {
      * @author BriceChou
      * @datetime 16-6-28 15:02
      */
-    private void initViewData() {
-        mImageLoader.displayImage(mStatus.user.profile_image_url, mImageViewPortrait);
-        mTextViewUsername.setText(mStatus.user.name);
-        mTextViewCaption.setText(TimeFormat.timeToString(mStatus.created_at) +
-                "  来自 " + Html.fromHtml(mStatus.source));
-        setImages(mStatus, mFrameLayoutStatusImage, mGridViewImageDetail, mImageViewImageDetail);
-        if (TextUtils.isEmpty(mStatus.text)) {
+    private void initViewData(Status status, Counts counts) {
+        refreshStatusCounts(status);
+        mImageLoader.displayImage(status.user.profile_image_url, mImageViewPortrait);
+        mTextViewUsername.setText(status.user.name);
+        mTextViewCaption.setText(TimeFormat.timeToString(status.created_at) +
+                "  来自 " + Html.fromHtml(status.source));
+        setImages(status, mFrameLayoutStatusImage, mGridViewImageDetail, mImageViewImageDetail);
+        if (TextUtils.isEmpty(status.text)) {
             mTextViewContent.setVisibility(View.GONE);
         } else {
             mTextViewContent.setVisibility(View.VISIBLE);
-            mTextViewContent.setText(mStatus.text);
+            mTextViewContent.setText(status.text);
         }
-        Status retweetedStatus = mStatus.retweeted_status;
+        Status retweetedStatus = status.retweeted_status;
         if (retweetedStatus != null) {
             User retUser = retweetedStatus.user;
             mLinearLayoutContentRetweeted.setVisibility(View.VISIBLE);
@@ -201,19 +208,11 @@ public class WeiboDetailActivity extends Activity {
         } else {
             mLinearLayoutContentRetweeted.setVisibility(View.GONE);
         }
-        //shadow
-        mShadowButtonRetweet.setText("转发 " + mStatus.reposts_count);
-        mShadowButtonComment.setText("评论 " + mStatus.comments_count);
-        mShadowButtonLike.setText("赞 " + mStatus.attitudes_count);
-        //head
-        mRadioButtonRetweet.setText("转发 " + mStatus.reposts_count);
-        mRadioButtonComment.setText("评论 " + mStatus.comments_count);
-        mRadioButtonLike.setText("赞 " + mStatus.attitudes_count);
     }
 
-    private void initCommentsData() {
+    private void initCommentsData(long id) {
         mCommentsAPI = new CommentsAPI(this, Constants.APP_KEY, LoginUserToken.showAccessToken());
-        mCommentsAPI.show(Long.parseLong(mStatus.id), 0, 0, 20, 1, 0,new WeiboRequestListener(this) {
+        mCommentsAPI.show(id, 0, 0, 20, 1, 0, new WeiboRequestListener(this) {
             @Override
             public void onComplete(String response) {
                 super.onComplete(response);
@@ -223,13 +222,40 @@ public class WeiboDetailActivity extends Activity {
                         if (null != mCommentList) {
                             mCommentsAdapter = new CommentsAdapter(WeiboDetailActivity.this, mCommentList.commentList);
                             mPullToRefreshListView.setAdapter(mCommentsAdapter);
-                        } else {
-                            onComplete(response);
                         }
                     }
                 }
             }
         });
+    }
+
+    private void refreshStatusCounts(final Status status) {
+        initCommentsData(Long.parseLong(status.id));
+        mStatusesAPI = new StatusesAPI(this, Constants.APP_KEY, LoginUserToken.showAccessToken());
+        String[] ids = new String[]{status.id};
+        mStatusesAPI.count(ids, new WeiboRequestListener(this) {
+            @Override
+            public void onComplete(String response) {
+                super.onComplete(response);
+                if (!TextUtils.isEmpty(response)) {
+                    mCounts = Counts.parse(response);
+                    if (null != mCounts) {
+                        setCountsData();
+                    }
+                }
+            }
+        });
+    }
+
+    private void setCountsData() {
+        //shadow
+        mShadowButtonRetweet.setText("转发 " + mCounts.reposts);
+        mShadowButtonComment.setText("评论 " + mCounts.comments);
+        mShadowButtonLike.setText("赞 " + mCounts.attitudes);
+        //head
+        mRadioButtonRetweet.setText("转发 " + mCounts.reposts);
+        mRadioButtonComment.setText("评论 " + mCounts.comments);
+        mRadioButtonLike.setText("赞 " + mCounts.attitudes);
     }
 
     private void setImages(Status status, ViewGroup imgContainer, GridView gridViewImg, final ImageView singleImg) {

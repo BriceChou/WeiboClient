@@ -3,7 +3,6 @@ package com.bricechou.weiboclient.api;
 import android.content.Context;
 import android.util.Log;
 
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
 

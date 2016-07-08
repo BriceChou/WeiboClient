@@ -2,7 +2,6 @@ package com.bricechou.weiboclient.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import com.bricechou.weiboclient.db.LoginUserToken;
 import com.bricechou.weiboclient.utils.BaseFragment;
 import com.bricechou.weiboclient.utils.TitleBuilder;
 import com.sina.weibo.sdk.openapi.CommentsAPI;
-import com.sina.weibo.sdk.openapi.models.Comment;
 import com.sina.weibo.sdk.openapi.models.CommentList;
 
 public class MessageFragment extends BaseFragment {
@@ -28,7 +26,7 @@ public class MessageFragment extends BaseFragment {
     private MessageAdapter mMessageAdapter;
     private ListView mListViewMessage;
 
-    private void initView(){
+    private void initView() {
         mView = View.inflate(mMainActivity, R.layout.frag_message, null);
         mListViewMessage = (ListView) mView.findViewById(R.id.lv_message);
 
@@ -52,21 +50,19 @@ public class MessageFragment extends BaseFragment {
                 });
     }
 
-    private void initMessage(){
+    private void initMessage() {
         mCommentsAPI = new CommentsAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.showAccessToken());
-        mCommentsAPI.toME(0,0,10,1,0,0,new WeiboRequestListener(mMainActivity){
+        mCommentsAPI.toME(0, 0, 10, 1, 0, 0, new WeiboRequestListener(mMainActivity) {
             @Override
             public void onComplete(String response) {
                 super.onComplete(response);
-                if (!TextUtils.isEmpty(response)){
+                if (!TextUtils.isEmpty(response)) {
                     if (response.startsWith("{\"comments\"")) {
                         mCommentList = CommentList.parse(response);
-                        if (null != mCommentList.commentList){
-                            mMessageAdapter = new MessageAdapter(mMainActivity,mCommentList.commentList);
+                        if (null != mCommentList.commentList) {
+                            mMessageAdapter = new MessageAdapter(mMainActivity, mCommentList.commentList);
                             mListViewMessage.setAdapter(mMessageAdapter);
                         }
-                    } else {
-                        onComplete(response);
                     }
                 }
             }
