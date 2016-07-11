@@ -1,11 +1,9 @@
 package com.bricechou.weiboclient.activity;
 
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -32,14 +30,13 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sina.weibo.sdk.openapi.CommentsAPI;
-import com.sina.weibo.sdk.openapi.models.Comment;
 import com.sina.weibo.sdk.openapi.legacy.StatusesAPI;
+import com.sina.weibo.sdk.openapi.models.Comment;
 import com.sina.weibo.sdk.openapi.models.CommentList;
 import com.sina.weibo.sdk.openapi.models.Status;
 import com.sina.weibo.sdk.openapi.models.User;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class WeiboDetailActivity extends Activity {
     private static final String TAG = "weiboclient.activity.WeiboDetailActivity";
@@ -96,12 +93,12 @@ public class WeiboDetailActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weibo_detail);
-         mStatus = (Status) this.getIntent().getSerializableExtra("status");
+        mStatus = (Status) this.getIntent().getSerializableExtra("status");
         mImageLoader = ImageLoader.getInstance();
         initView();
-        addFootView(mPullToRefreshListView,footView);
+        addFootView(mPullToRefreshListView, footView);
         // Show the old data
-        initViewData(mStatus,1);
+        initViewData(mStatus, 1);
     }
 
     private void initView() {
@@ -186,7 +183,7 @@ public class WeiboDetailActivity extends Activity {
 
             @Override
             public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                refreshStatusCounts(mStatus,1);
+                refreshStatusCounts(mStatus, 1);
             }
         });
         // pullup
@@ -195,7 +192,7 @@ public class WeiboDetailActivity extends Activity {
 
                     @Override
                     public void onLastItemVisible() {
-                        refreshStatusCounts(mStatus,curPage + 1);
+                        refreshStatusCounts(mStatus, curPage + 1);
                     }
                 });
         mPullToRefreshListView.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -215,7 +212,7 @@ public class WeiboDetailActivity extends Activity {
     }
 
     private void initViewData(Status status, int page) {
-        refreshStatusCounts(status,page);
+        refreshStatusCounts(status, page);
         mImageLoader.displayImage(status.user.profile_image_url, mImageViewPortrait);
         mTextViewUsername.setText(status.user.name);
         mTextViewCaption.setText(TimeFormat.timeToString(status.created_at) +
@@ -239,7 +236,7 @@ public class WeiboDetailActivity extends Activity {
         }
     }
 
-    private void initCommentsData(long id,final int requestPage) {
+    private void initCommentsData(long id, final int requestPage) {
         mCommentsAPI = new CommentsAPI(this, Constants.APP_KEY, LoginUserToken.showAccessToken());
         mCommentsAPI.show(id, 0, 0, 10, requestPage, 0, new WeiboRequestListener(this) {
             @Override
@@ -261,8 +258,8 @@ public class WeiboDetailActivity extends Activity {
         });
     }
 
-    private void refreshStatusCounts(final Status status,int page) {
-        initCommentsData(Long.parseLong(status.id),page);
+    private void refreshStatusCounts(final Status status, int page) {
+        initCommentsData(Long.parseLong(status.id), page);
         mStatusesAPI = new StatusesAPI(this, Constants.APP_KEY, LoginUserToken.showAccessToken());
         String[] ids = new String[]{status.id};
         mStatusesAPI.count(ids, new WeiboRequestListener(this) {
