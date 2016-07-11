@@ -96,7 +96,9 @@ public class WeiboDetailActivity extends Activity {
         mStatus = (Status) this.getIntent().getSerializableExtra("status");
         mImageLoader = ImageLoader.getInstance();
         initView();
-        addFootView(mPullToRefreshListView, footView);
+        if (mStatus.comments_count != 0) {
+            addFootView(mPullToRefreshListView, footView);
+        }
         // Show the old data
         initViewData(mStatus, 1);
     }
@@ -311,9 +313,11 @@ public class WeiboDetailActivity extends Activity {
 
     private void addData(CommentList response, int page) {
         if (page == 1) {
-            mComments.clear();
-            for (Comment comment : response.commentList) {
-                mComments.add(comment);
+            if(response.commentList != null) {
+                mComments.clear();
+                for (Comment comment : response.commentList) {
+                    mComments.add(comment);
+                }
             }
         } else {
             for (int i = 0; i < mComments.size(); i++) {
@@ -325,7 +329,7 @@ public class WeiboDetailActivity extends Activity {
                 }
             }
         }
-        if (mComments.size() < response.total_number) {
+        if (mComments.size() != 0 && mComments.size() < response.total_number) {
             addFootView(mPullToRefreshListView, footView);
         } else {
             removeFootView(mPullToRefreshListView, footView);
