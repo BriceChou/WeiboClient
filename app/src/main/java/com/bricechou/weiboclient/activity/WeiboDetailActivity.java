@@ -259,7 +259,6 @@ public class WeiboDetailActivity extends Activity {
                 curPage = requestPage;
             }
         });
-        onAllDone();
     }
 
     private void refreshStatusCounts(final Status status,int page) {
@@ -328,15 +327,16 @@ public class WeiboDetailActivity extends Activity {
                     mComments.add(comment);
                 }
             }
-            if (mComments.size() < response.total_number) {
-                addFootView(mPullToRefreshListView, footView);
-            } else {
-                removeFootView(mPullToRefreshListView, footView);
-            }
         }
-//        mCommentsAdapter.notifyDataSetChanged();
-
-
+        if (mComments.size() < response.total_number) {
+            addFootView(mPullToRefreshListView, footView);
+        } else {
+            removeFootView(mPullToRefreshListView, footView);
+            //when the commentItem is last item,remove OnLastItemVisibleListener.
+            mPullToRefreshListView.setOnLastItemVisibleListener(null);
+        }
+        mCommentsAdapter.notifyDataSetChanged();
+        onAllDone();
     }
 
     private void addFootView(PullToRefreshListView plv, View footView) {
