@@ -25,6 +25,7 @@ import com.bricechou.weiboclient.adapter.StatusGridImagesAdapter;
 import com.bricechou.weiboclient.api.WeiboRequestListener;
 import com.bricechou.weiboclient.config.Constants;
 import com.bricechou.weiboclient.db.LoginUserToken;
+import com.bricechou.weiboclient.model.Counts;
 import com.bricechou.weiboclient.utils.TimeFormat;
 import com.bricechou.weiboclient.utils.TitleBuilder;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -32,6 +33,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sina.weibo.sdk.openapi.CommentsAPI;
 import com.sina.weibo.sdk.openapi.models.Comment;
+import com.sina.weibo.sdk.openapi.legacy.StatusesAPI;
 import com.sina.weibo.sdk.openapi.models.CommentList;
 import com.sina.weibo.sdk.openapi.models.Status;
 import com.sina.weibo.sdk.openapi.models.User;
@@ -41,7 +43,6 @@ import java.util.List;
 
 public class WeiboDetailActivity extends Activity {
     private static final String TAG = "weiboclient.activity.WeiboDetailActivity";
-    private Status mStatus;
     private ImageLoader mImageLoader;
     // tile bar view
     private RelativeLayout mTitlebar;
@@ -77,7 +78,9 @@ public class WeiboDetailActivity extends Activity {
     private RadioButton mRadioButtonLike;
     //weibo detail comments listview
     private PullToRefreshListView mPullToRefreshListView;
-
+    private StatusesAPI mStatusesAPI;
+    private Counts mCounts;
+    private Status mStatus;
     private CommentsAPI mCommentsAPI;
     private CommentList mCommentList;
     private ArrayList<Comment> mComments = new ArrayList<Comment>();
@@ -93,12 +96,12 @@ public class WeiboDetailActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weibo_detail);
-        mStatus = (Status) this.getIntent().getSerializableExtra("status");
+         mStatus = (Status) this.getIntent().getSerializableExtra("status");
         mImageLoader = ImageLoader.getInstance();
         initView();
-        initViewData();
         addFootView(mPullToRefreshListView,footView);
-        initCommentsData(1);
+        // Show the old data
+        initViewData(mStatus,1);
     }
 
     private void initView() {
@@ -183,7 +186,7 @@ public class WeiboDetailActivity extends Activity {
 
             @Override
             public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                initCommentsData(1);
+                refreshStatusCounts(mStatus,1);
             }
         });
         // pullup
@@ -192,7 +195,7 @@ public class WeiboDetailActivity extends Activity {
 
                     @Override
                     public void onLastItemVisible() {
-                        initCommentsData(curPage + 1);
+                        refreshStatusCounts(mStatus,curPage + 1);
                     }
                 });
         mPullToRefreshListView.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -211,24 +214,20 @@ public class WeiboDetailActivity extends Activity {
         });
     }
 
-    /**
-     * @TODO Add comments / likes / retweets content list in the detail page bottom.
-     * @author BriceChou
-     * @datetime 16-6-28 15:02
-     */
-    private void initViewData() {
-        mImageLoader.displayImage(mStatus.user.profile_image_url, mImageViewPortrait);
-        mTextViewUsername.setText(mStatus.user.name);
-        mTextViewCaption.setText(TimeFormat.timeToString(mStatus.created_at) +
-                "  来自 " + Html.fromHtml(mStatus.source));
-        setImages(mStatus, mFrameLayoutStatusImage, mGridViewImageDetail, mImageViewImageDetail);
-        if (TextUtils.isEmpty(mStatus.text)) {
+    private void initViewData(Status status, int page) {
+        refreshStatusCounts(status,page);
+        mImageLoader.displayImage(status.user.profile_image_url, mImageViewPortrait);
+        mTextViewUsername.setText(status.user.name);
+        mTextViewCaption.setText(TimeFormat.timeToString(status.created_at) +
+                "  来自 " + Html.fromHtml(status.source));
+        setImages(status, mFrameLayoutStatusImage, mGridViewImageDetail, mImageViewImageDetail);
+        if (TextUtils.isEmpty(status.text)) {
             mTextViewContent.setVisibility(View.GONE);
         } else {
             mTextViewContent.setVisibility(View.VISIBLE);
-            mTextViewContent.setText(mStatus.text);
+            mTextViewContent.setText(status.text);
         }
-        Status retweetedStatus = mStatus.retweeted_status;
+        Status retweetedStatus = status.retweeted_status;
         if (retweetedStatus != null) {
             User retUser = retweetedStatus.user;
             mLinearLayoutContentRetweeted.setVisibility(View.VISIBLE);
@@ -238,19 +237,11 @@ public class WeiboDetailActivity extends Activity {
         } else {
             mLinearLayoutContentRetweeted.setVisibility(View.GONE);
         }
-        //shadow
-        mShadowButtonRetweet.setText("转发 " + mStatus.reposts_count);
-        mShadowButtonComment.setText("评论 " + mStatus.comments_count);
-        mShadowButtonLike.setText("赞 " + mStatus.attitudes_count);
-        //head
-        mRadioButtonRetweet.setText("转发 " + mStatus.reposts_count);
-        mRadioButtonComment.setText("评论 " + mStatus.comments_count);
-        mRadioButtonLike.setText("赞 " + mStatus.attitudes_count);
     }
 
-    private void initCommentsData(final int requestPage) {
+    private void initCommentsData(long id,final int requestPage) {
         mCommentsAPI = new CommentsAPI(this, Constants.APP_KEY, LoginUserToken.showAccessToken());
-        mCommentsAPI.show(Long.parseLong(mStatus.id), 0, 0, 10, requestPage, 0, new WeiboRequestListener(this) {
+        mCommentsAPI.show(id, 0, 0, 10, requestPage, 0, new WeiboRequestListener(this) {
             @Override
             public void onComplete(String response) {
                 super.onComplete(response);
@@ -269,6 +260,35 @@ public class WeiboDetailActivity extends Activity {
             }
         });
         onAllDone();
+    }
+
+    private void refreshStatusCounts(final Status status,int page) {
+        initCommentsData(Long.parseLong(status.id),page);
+        mStatusesAPI = new StatusesAPI(this, Constants.APP_KEY, LoginUserToken.showAccessToken());
+        String[] ids = new String[]{status.id};
+        mStatusesAPI.count(ids, new WeiboRequestListener(this) {
+            @Override
+            public void onComplete(String response) {
+                super.onComplete(response);
+                if (!TextUtils.isEmpty(response)) {
+                    mCounts = Counts.parse(response);
+                    if (null != mCounts) {
+                        setCountsData();
+                    }
+                }
+            }
+        });
+    }
+
+    private void setCountsData() {
+        //shadow
+        mShadowButtonRetweet.setText("转发 " + mCounts.reposts);
+        mShadowButtonComment.setText("评论 " + mCounts.comments);
+        mShadowButtonLike.setText("赞 " + mCounts.attitudes);
+        //head
+        mRadioButtonRetweet.setText("转发 " + mCounts.reposts);
+        mRadioButtonComment.setText("评论 " + mCounts.comments);
+        mRadioButtonLike.setText("赞 " + mCounts.attitudes);
     }
 
     private void setImages(Status status, ViewGroup imgContainer, GridView gridViewImg, final ImageView singleImg) {

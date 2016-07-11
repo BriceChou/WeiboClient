@@ -6,19 +6,11 @@ package com.bricechou.weiboclient.config;
  * Created by BriceChou on 16-5-30.
  */
 public class Constants {
-
-    /**
-     * @TODO To add MD5 method encrypt and decrypt data.
-     * @author BriceChou
-     */
     public static final String APP_KEY = "2006309463";
-    public static final String APP_SECRET = "94f3b81802a3999b25bf57720c32d98e";
-    // This URL can get the Outh2 access token.
-    public static final String OAUTH2_ACCESS_TOKEN_URL = "https://open.weibo.cn/oauth2/access_token";
     // When user cancel to login weibo,this URL will be called.
     public static final String REDIRECT_URL = "https://api.weibo.com/oauth2/default.html";
     // Show the weibo content counts number.
-    public static final int SHOW_STATUS_COUNTS = 10;
+    public static final int SHOW_STATUS_COUNTS = 20;
     /**
      * @param all                            To request all SCOPE permission.
      * @param email                          user email permission
