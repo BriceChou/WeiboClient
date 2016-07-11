@@ -153,7 +153,6 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void setViewData(ArrayList<Status> statuses) {
-        ArrayList<Status> tempStatuses = new ArrayList<Status>();
         // To judge is loading a new weibo content.
         if (mPullToDown) {
             if (null != mStatuses && mStatuses.size() > 0) {
@@ -163,11 +162,9 @@ public class HomeFragment extends BaseFragment {
                     mStatuses.remove(0);
                 }
             }
-            // Make the recent weibo content show in the top of page.
-            tempStatuses.addAll(mStatuses);
             mStatuses.clear();
+            // Make the recent weibo content show in the top of page.
             mStatuses.addAll(statuses);
-            mStatuses.addAll(tempStatuses);
             mListViewY = 0;
         } else {
             if (null != mStatuses && mStatuses.size() > 0) {
@@ -181,7 +178,7 @@ public class HomeFragment extends BaseFragment {
             mStatuses.addAll(statuses);
         }
         mMaxId = Long.parseLong(statuses.get(statuses.size() - 1).id);
-        mSinceId = Long.parseLong(statuses.get(0).id);
+        mSinceId = Long.parseLong(statuses.get(Constants.SHOW_STATUS_COUNTS/2).id);
         refreshViewDone();
         // reset all data
         mPullToDown = false;
