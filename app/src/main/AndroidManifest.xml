@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- 用于调用 JNI -->
+    <!-- To invoke JNI library. -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
@@ -15,7 +15,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.LoginActivity">
+        <activity
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,31 +25,23 @@
             </intent-filter>
         </activity>
 
-        <!--
-        会根据手机是否安装微博客户端来决定使用 sso 授权还是网页授权,
-        如果安装有微博客户端 则调用微博客户端授权,否则调用 Web 页面方式授权。
-        -->
+        <!-- When you use web login on authorization to Weibo, you need to add WeiboSdkBrowser.
+        If not,this app will be crashed. -->
         <activity
             android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
-        <service
-            android:name="com.sina.weibo.sdk.net.DownloadService"
-            android:exported="false" />
-
-        <!-- 微博的APP KEY 这个也要考虑使用MD5进行加密处理 -->
-        <meta-data
-            android:name="WEIBO_APPKEY"
-            android:value="2006309463" />
-        <meta-data
-            android:name="WEIBO_CHANNEL"
-            android:value="weibo" />
-
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.PostWeiboActivity" />
-        <activity android:name=".activity.WeiboDetailActivity"></activity>
+        <activity
+            android:name=".activity.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PostWeiboActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.WeiboDetailActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

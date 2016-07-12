@@ -38,7 +38,11 @@ public class CommentsAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mCommentList.size();
+        if(mCommentList != null){
+            return mCommentList.size();
+        } else {
+            return 0;
+        }
     }
 
     @Override
@@ -78,7 +82,9 @@ public class CommentsAdapter extends BaseAdapter {
         User user = comment.user;
         mImageLoader.displayImage(user.profile_image_url, holder.sImageViewPortrait);
         holder.sTextViewUsername.setText(user.name);
+        holder.sTextViewUsername.setTextSize(14);
         holder.sTextViewCaption.setText(TimeFormat.timeToString(comment.created_at));
+        holder.sTextViewCaption.setTextSize(10);
         holder.sTextViewComment.setText(comment.text);
         return convertView;
     }

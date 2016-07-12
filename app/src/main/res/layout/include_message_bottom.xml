@@ -1,38 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_message"
     android:layout_width="match_parent"
-    android:layout_height="72dp"
-    android:orientation="horizontal">
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_white2gray_sel"
+    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/iv_message_portrait"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="16dp"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/avatar_default" />
-
-    <RelativeLayout
-        android:id="@+id/rl_message_content"
+    <!-- main message content-->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:padding="8dp">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="6dp">
 
-        <TextView
-            android:id="@+id/tv_message_username"
-            style="@style/TextViewSubhead"
+        <com.bricechou.weiboclient.widget.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/civ_message_profile"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:text="用户名" />
+            android:src="@mipmap/avatar_default"
+            app:civ_border_color="@color/white"
+            app:civ_border_width="2dp" />
 
-        <TextView
-            android:id="@+id/tv_message_caption"
-            style="@style/TextViewCaption"
-            android:layout_alignParentBottom="true"
-            android:layout_below="@+id/tv_username"
-            android:text="你你你哈哈ｉａｈａ阿斯顿啊啊的 啊的阿斯顿阿斯顿阿斯顿阿斯顿!"
-            android:textColor="@color/txt_gray" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    </RelativeLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_message_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="用户名"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_message_remark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:text="备注名"
+                    android:textColor="@color/txt_gray"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_message_reply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="\@你  哈哈哈哈呵呵哈哈哈"
+                android:textSize="14sp" />
+
+            <include
+                android:id="@+id/include_message_comment"
+                layout="@layout/include_message_comment"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_message_caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="6月24日 07:25 来自 iPhone 6"
+                android:textColor="@color/txt_gray"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--message controlbar-->
+    <include layout="@layout/include_message_controlbar" />
 
 </LinearLayout>

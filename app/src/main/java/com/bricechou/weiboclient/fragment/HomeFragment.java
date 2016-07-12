@@ -1,6 +1,5 @@
 package com.bricechou.weiboclient.fragment;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -18,63 +17,18 @@ import com.bricechou.weiboclient.db.LoginUserToken;
 import com.bricechou.weiboclient.utils.BaseFragment;
 import com.bricechou.weiboclient.utils.TitleBuilder;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
-<<<<<<< HEAD
-import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
-import com.sina.weibo.sdk.openapi.StatusesAPI;
-import com.sina.weibo.sdk.openapi.UsersAPI;
-=======
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.sina.weibo.sdk.openapi.legacy.StatusesAPI;
->>>>>>> temp
 import com.sina.weibo.sdk.openapi.models.Status;
 import com.sina.weibo.sdk.openapi.models.StatusList;
 
 import java.util.ArrayList;
-<<<<<<< HEAD
-import java.util.List;
 
-/**
- * Created by sdduser on 5/28/16.
- */
-=======
-
->>>>>>> temp
 public class HomeFragment extends BaseFragment {
     private static final String TAG = "fragment.HomeFragment";
     private View mView;
-<<<<<<< HEAD
-    private PullToRefreshListView lv_home; // fragment_home list view
-    private StatusList mStatusList; // All Weibo content collection
-    private StatusesAPI mStatusesAPI; // Weibo content interface
-    private LoginUserInformation mLoginUserInformation;
-    private User mUser;
-    private View mFootView;
-
-    private HomeAdapter mHomeAdapter;
-    private List<Status> statuses = new ArrayList<Status>();
-    private int mCurPage = 1;
-
-    /**
-     * To show the weibo homepage
-     *
-     * @comment by BriceChou
-     * @datetime 16-6-6 17:28
-     */
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        initView();
-        initWeiboContent(1);
-        // initLoginUser();
-
-
-        return mView;
-=======
     // All Weibo content collection
     private StatusList mStatusList;
     // To get Weibo content interface
@@ -83,8 +37,6 @@ public class HomeFragment extends BaseFragment {
     private HomeAdapter mHomeAdapter;
     // Is getting a new weibo content or old weibo content?
     private boolean mPullToDown = false;
-    // Record the Weibo content id in the top of current page.
-    private long mSinceId = 0;
     // Record the Weibo content id in the bottom of current page.
     private long mMaxId = 0;
     // To record user current weibo content position
@@ -124,7 +76,6 @@ public class HomeFragment extends BaseFragment {
 
     private void initWeiboContent() {
         loadStatusData(0, 0, Constants.SHOW_STATUS_COUNTS, 1);
->>>>>>> temp
     }
 
     /**
@@ -143,7 +94,7 @@ public class HomeFragment extends BaseFragment {
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 mPullToDown = true;
                 // Load the up-to-date weibo content
-                loadSinceStatusData(mSinceId);
+                loadSinceStatusData(0);
             }
 
             @Override
@@ -155,18 +106,6 @@ public class HomeFragment extends BaseFragment {
         });
     }
 
-<<<<<<< HEAD
-    /**
-     * initial the weibo content and display in the home page
-     *
-     * @author BriceChou
-     * @datetime 16-6-6 15:14
-     */
-    private void initWeiboContent(final int page) {
-        mStatusesAPI = new StatusesAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.showAccessToken());
-        // mStatusesAPI = new StatusesAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.getAccessToken());
-        mStatusesAPI.friendsTimeline(0, 0, 3, page, false, 0, false, new WeiboRequestListener(mMainActivity) {
-=======
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mStatusesAPI = new StatusesAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.showAccessToken());
@@ -186,23 +125,13 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void loadStatusData(final long sinceId, final long maxId, final int counts, final int page) {
-        mStatusesAPI.homeTimeline(sinceId, maxId, counts, page, false, 0, false, new WeiboRequestListener(mMainActivity) {
->>>>>>> temp
+        mStatusesAPI.homeTimeline(sinceId, maxId, counts, page, false, 1, false, new WeiboRequestListener(mMainActivity) {
             @Override
             public void onComplete(String response) {
                 super.onComplete(response);
                 if (!TextUtils.isEmpty(response)) {
                     if (response.startsWith("{\"statuses\"")) {
                         // the Status instance load the data from JSON data.
-<<<<<<< HEAD
-                        mStatusList = mStatusList.parse(response);
-                        lv_home.setAdapter(new HomeAdapter(mMainActivity, mStatusList.statusList));
-
-                        if(page == 1) {
-                            statuses.clear();
-                        }
-                        mCurPage = page;
-=======
                         mStatusList = StatusList.parse(response);
                         if (null != mStatusList.statusList) {
                             setViewData(mStatusList.statusList);
@@ -210,114 +139,23 @@ public class HomeFragment extends BaseFragment {
                             Log.d(TAG, "Refresh onComplete: No Result.");
                             refreshViewDone();
                         }
->>>>>>> temp
                     }
                 }
-
-
-            }
-
-        });
-        Log.i(TAG, ""+mCurPage);
-        //mFootView = View.inflate(mMainActivity, R.layout.footview_loading, null);
-    }
-
-<<<<<<< HEAD
-    private void initView() {
-        mView = View.inflate(mMainActivity, R.layout.frag_home, null);
-        lv_home = (PullToRefreshListView) mView.findViewById(R.id.lv_home);
-//        lv_home.setMode(Mode.BOTH);
-        new TitleBuilder(mView)
-                // .setCenterText("" + mLoginUserInformation.loginUser.name)
-                .setCenterText("周晢")
-                .setLeftImage(R.drawable.icon_friendattention)
-                .setRightImage(R.drawable.icon_radar)
-                .setLeftOnclickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                    }
-                })
-                .setRightOnclickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                    }
-                });
-        lv_home.setOnRefreshListener(new OnRefreshListener<ListView>() {
-
-            @Override
-            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                initWeiboContent(1);
-                new FinishRefresh().execute();
             }
         });
-        lv_home.setOnLastItemVisibleListener(new OnLastItemVisibleListener() {
-
-            @Override
-            public void onLastItemVisible() {
-                initWeiboContent(mCurPage + 1);
-            }
-        });
-
     }
 
-    private class FinishRefresh extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... params) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result){
-            mHomeAdapter = new HomeAdapter(mMainActivity, mStatusList.statusList);
-            mHomeAdapter.notifyDataSetChanged();
-            lv_home.onRefreshComplete();
-        }
-    }
-
-
-    //Pull down refresh
-//    lv_home.setOnRefreshListener(new OnRefreshListener2<ListView>() {
-//        @Override
-//        public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-//            initWeiboContent();
-//            new FinishRefresh().execute();
-//            //mHomeAdapter.notifyDataSetChanged();
-//        }
-//
-//        @Override
-//        public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-//            initWeiboContent();
-//            new FinishRefresh().execute();
-//            //mHomeAdapter.notifyDataSetChanged();
-//        }
-//    });
-
-=======
     private void refreshViewDone() {
         mRefreshListViewHome.onRefreshComplete();
 //        removeFootView(mRefreshListViewHome, mFootView);
     }
 
     private void setViewData(ArrayList<Status> statuses) {
-        ArrayList<Status> tempStatuses = new ArrayList<Status>();
         // To judge is loading a new weibo content.
         if (mPullToDown) {
-            if (null != mStatuses && mStatuses.size() > 0) {
-                // Remove the duplicate weibo content.
-                String newStatusId = statuses.get(statuses.size() - 1).id;
-                if (mStatuses.get(0).id.equals(newStatusId)) {
-                    mStatuses.remove(0);
-                }
-            }
-            // Make the recent weibo content show in the top of page.
-            tempStatuses.addAll(mStatuses);
             mStatuses.clear();
+            // Make the recent weibo content show in the top of page.
             mStatuses.addAll(statuses);
-            mStatuses.addAll(tempStatuses);
             mListViewY = 0;
         } else {
             if (null != mStatuses && mStatuses.size() > 0) {
@@ -331,7 +169,6 @@ public class HomeFragment extends BaseFragment {
             mStatuses.addAll(statuses);
         }
         mMaxId = Long.parseLong(statuses.get(statuses.size() - 1).id);
-        mSinceId = Long.parseLong(statuses.get(0).id);
         refreshViewDone();
         // reset all data
         mPullToDown = false;
@@ -353,5 +190,4 @@ public class HomeFragment extends BaseFragment {
 //            lv.removeFooterView(footView);
 //        }
 //    }
->>>>>>> temp
 }

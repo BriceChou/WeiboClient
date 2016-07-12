@@ -18,7 +18,6 @@ import android.widget.Toast;
 import com.bricechou.weiboclient.R;
 import com.bricechou.weiboclient.activity.WeiboDetailActivity;
 import com.bricechou.weiboclient.utils.TimeFormat;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sina.weibo.sdk.openapi.models.Status;
 import com.sina.weibo.sdk.openapi.models.User;
@@ -36,12 +35,12 @@ public class HomeAdapter extends BaseAdapter {
     private static final String TAG = "weiboclient.adapter.HomeAdapter";
     private Context mContext;
     private ArrayList<Status> mStatusList;
-    //private ImageLoader mImageLoader;
+    private ImageLoader mImageLoader;
 
     public HomeAdapter(Context context, ArrayList<Status> statusList) {
         this.mContext = context;
         this.mStatusList = statusList;
-        //mImageLoader = ImageLoader.getInstance();
+        mImageLoader = ImageLoader.getInstance();
     }
 
     @Override
@@ -125,13 +124,6 @@ public class HomeAdapter extends BaseAdapter {
         // bind data into the view
         final Status status = getItem(position);
         User user = status.user;
-<<<<<<< HEAD
-        //mImageLoader.displayImage(user.profile_image_url, holder.mImageViewPortrait);
-        holder.mTextViewUsername.setText(user.name);
-        holder.mTextViewCaption.setText(TimeFormat.timeToString(status.created_at) + " 来自 " + StringFormat.formatStatusSource(status.source));
-        holder.mTextViewStatusContent.setText(status.text);
-        setImages(status, holder.mFrameLayoutStatusImage, holder.mImageViewCustomImages, holder.mImageViewStatusImage);
-=======
         mImageLoader.displayImage(user.profile_image_url, holder.sImageViewPortrait);
         holder.sTextViewUsername.setText(user.name);
         holder.sTextViewCaption.setText(TimeFormat.timeToString(status.created_at) +
@@ -139,7 +131,6 @@ public class HomeAdapter extends BaseAdapter {
         holder.sTextViewStatusContent.setText(status.text);
         setImages(status, holder.sFrameLayoutStatusImage, holder.sImageViewCustomImages,
                 holder.sImageViewStatusImage);
->>>>>>> temp
         // retweeted weibo content
         Status retweetedStatus = status.retweeted_status;
         if (retweetedStatus != null) {
@@ -181,7 +172,7 @@ public class HomeAdapter extends BaseAdapter {
         holder.sLinearLayoutComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(status.comments_count > 0) {
+                if (status.comments_count > 0) {
                     Intent intent = new Intent(mContext, WeiboDetailActivity.class);
                     intent.putExtra("status", status);
                     mContext.startActivity(intent);
@@ -212,28 +203,15 @@ public class HomeAdapter extends BaseAdapter {
         String picUrl = status.thumbnail_pic;
         if (picUrls != null && picUrls.size() > 1) {
             imgContainer.setVisibility(View.VISIBLE);
-<<<<<<< HEAD
-            gv_image.setVisibility(View.VISIBLE);
-            iv_image.setVisibility(View.GONE);
-
-            StatusGridImagesAdapter mStatusGridImagesAdapter = new StatusGridImagesAdapter(mContext, status);
-            //gv_image.setAdapter(mStatusGridImagesAdapter);
-        } else if (thumbnail_pic != "") {
-            imgContainer.setVisibility(View.VISIBLE);
-            gv_image.setVisibility(View.GONE);
-            iv_image.setVisibility(View.VISIBLE);
-            //mImageLoader.displayImage(thumbnail_pic, iv_image);
-=======
             gridViewImg.setVisibility(View.VISIBLE);
             singleImg.setVisibility(View.GONE);
-            StatusGridImagesAdapter _StatusGridImagesAdapter = new StatusGridImagesAdapter(mContext, status);
-            gridViewImg.setAdapter(_StatusGridImagesAdapter);
+            StatusGridImagesAdapter statusGridImagesAdapter = new StatusGridImagesAdapter(mContext, status);
+            gridViewImg.setAdapter(statusGridImagesAdapter);
         } else if (picUrl != "") {
             imgContainer.setVisibility(View.VISIBLE);
             gridViewImg.setVisibility(View.GONE);
             singleImg.setVisibility(View.VISIBLE);
             mImageLoader.displayImage(picUrl, singleImg);
->>>>>>> temp
         } else {
             imgContainer.setVisibility(View.GONE);
         }
