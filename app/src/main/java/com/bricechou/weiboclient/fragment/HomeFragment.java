@@ -37,8 +37,6 @@ public class HomeFragment extends BaseFragment {
     private HomeAdapter mHomeAdapter;
     // Is getting a new weibo content or old weibo content?
     private boolean mPullToDown = false;
-    // Record the Weibo content id in the top of current page.
-    private long mSinceId = 0;
     // Record the Weibo content id in the bottom of current page.
     private long mMaxId = 0;
     // To record user current weibo content position
@@ -96,7 +94,7 @@ public class HomeFragment extends BaseFragment {
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 mPullToDown = true;
                 // Load the up-to-date weibo content
-                loadSinceStatusData(mSinceId);
+                loadSinceStatusData(0);
             }
 
             @Override
@@ -155,13 +153,6 @@ public class HomeFragment extends BaseFragment {
     private void setViewData(ArrayList<Status> statuses) {
         // To judge is loading a new weibo content.
         if (mPullToDown) {
-            if (null != mStatuses && mStatuses.size() > 0) {
-                // Remove the duplicate weibo content.
-                String newStatusId = statuses.get(statuses.size() - 1).id;
-                if (mStatuses.get(0).id.equals(newStatusId)) {
-                    mStatuses.remove(0);
-                }
-            }
             mStatuses.clear();
             // Make the recent weibo content show in the top of page.
             mStatuses.addAll(statuses);
@@ -178,7 +169,6 @@ public class HomeFragment extends BaseFragment {
             mStatuses.addAll(statuses);
         }
         mMaxId = Long.parseLong(statuses.get(statuses.size() - 1).id);
-        mSinceId = Long.parseLong(statuses.get(Constants.SHOW_STATUS_COUNTS/2).id);
         refreshViewDone();
         // reset all data
         mPullToDown = false;
