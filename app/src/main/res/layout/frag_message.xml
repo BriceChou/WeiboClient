@@ -71,9 +71,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
                 android:background="@color/white"
+                android:singleLine="false"
                 android:text="@string/btn_message_good"
-                android:textSize="16sp"
-                android:singleLine="false" />
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/btn_message_comment"
@@ -88,7 +88,7 @@
     <ListView
         android:id="@+id/lv_message"
         style="@style/ListViewCommon"
-        android:dividerHeight="5dp"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:dividerHeight="5dp" />
 
 </LinearLayout>

@@ -43,7 +43,7 @@ public class SearchItemAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        if(convertView == null) {
+        if (convertView == null) {
             holder = new ViewHolder();
             convertView = View.inflate(context, R.layout.item_search, null);
             holder.mViewDivider = convertView.findViewById(R.id.v_divider);
@@ -67,7 +67,7 @@ public class SearchItemAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public static class ViewHolder{
+    public static class ViewHolder {
         //item_search.xml
         public View mViewDivider;
         public ImageView mImageViewIcon;

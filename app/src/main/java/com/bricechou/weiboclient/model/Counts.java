@@ -18,9 +18,9 @@ public class Counts implements Serializable {
         Counts counts = new Counts();
         try {
             JSONArray jsonArray = new JSONArray(jsonString);
-            counts.comments = jsonArray.getJSONObject(0).optInt("comments",0);
-            counts.reposts = jsonArray.getJSONObject(0).optInt("reposts",0);
-            counts.attitudes = jsonArray.getJSONObject(0).optInt("attitudes",0);
+            counts.comments = jsonArray.getJSONObject(0).optInt("comments", 0);
+            counts.reposts = jsonArray.getJSONObject(0).optInt("reposts", 0);
+            counts.attitudes = jsonArray.getJSONObject(0).optInt("attitudes", 0);
         } catch (Exception e) {
             e.printStackTrace();
         }

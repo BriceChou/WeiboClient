@@ -43,9 +43,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:textSize="14sp"
                 android:text="查看对话"
-                android:textColor="@color/txt_gray" />
+                android:textColor="@color/txt_gray"
+                android:textSize="14sp" />
         </LinearLayout>
 
 
@@ -76,8 +76,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="回复"
-                android:textSize="14sp"
-                android:textColor="@color/txt_gray" />
+                android:textColor="@color/txt_gray"
+                android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>
     <!--Horizontal parting line-->

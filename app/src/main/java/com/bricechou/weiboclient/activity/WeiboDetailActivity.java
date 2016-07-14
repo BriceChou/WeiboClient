@@ -313,7 +313,7 @@ public class WeiboDetailActivity extends Activity {
 
     private void addData(CommentList response, int page) {
         if (page == 1) {
-            if(response.commentList != null) {
+            if (response.commentList != null) {
                 mComments.clear();
                 for (Comment comment : response.commentList) {
                     mComments.add(comment);

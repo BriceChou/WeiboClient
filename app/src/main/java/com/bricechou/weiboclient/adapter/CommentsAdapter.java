@@ -1,14 +1,10 @@
 package com.bricechou.weiboclient.adapter;
 
 import android.content.Context;
-import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.FrameLayout;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -16,7 +12,6 @@ import com.bricechou.weiboclient.R;
 import com.bricechou.weiboclient.utils.TimeFormat;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sina.weibo.sdk.openapi.models.Comment;
-import com.sina.weibo.sdk.openapi.models.Status;
 import com.sina.weibo.sdk.openapi.models.User;
 
 import java.util.ArrayList;
@@ -38,7 +33,7 @@ public class CommentsAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        if(mCommentList != null){
+        if (mCommentList != null) {
             return mCommentList.size();
         } else {
             return 0;
@@ -58,7 +53,7 @@ public class CommentsAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
         final CommentViewHolder holder;
-        if(convertView == null) {
+        if (convertView == null) {
             holder = new CommentViewHolder();
             convertView = View.inflate(mContext, R.layout.item_comment, null);
             // user avatar
@@ -74,7 +69,7 @@ public class CommentsAdapter extends BaseAdapter {
             holder.sTextViewComment = (TextView) convertView
                     .findViewById(R.id.tv_comment);
             convertView.setTag(holder);
-        }else {
+        } else {
             holder = (CommentViewHolder) convertView.getTag();
         }
         // bind data into the view

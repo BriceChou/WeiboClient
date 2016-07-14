@@ -8,6 +8,7 @@
     tools:context="com.bricechou.weiboclient.activity.WeiboDetailActivity">
 
     <include layout="@layout/include_titlebar" />
+
     <RelativeLayout
         android:id="@+id/rl_body"
         android:layout_width="match_parent"
@@ -19,8 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:cacheColorHint="@color/transparent"
-            android:listSelector="@color/transparent">
-        </com.handmark.pulltorefresh.library.PullToRefreshListView>
+            android:listSelector="@color/transparent"></com.handmark.pulltorefresh.library.PullToRefreshListView>
 
         <include
             android:id="@+id/status_detail_tab"

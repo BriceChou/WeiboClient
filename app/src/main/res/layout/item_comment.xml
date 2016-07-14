@@ -11,11 +11,11 @@
     <TextView
         android:id="@+id/tv_comment"
         style="@style/TextViewSubhead"
-        android:layout_marginTop="-6dp"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="72dp"
         android:layout_marginRight="12dp"
-        android:textSize="14sp"
-        android:text="评论内容" />
+        android:layout_marginTop="-6dp"
+        android:text="评论内容"
+        android:textSize="14sp" />
 
 </LinearLayout>

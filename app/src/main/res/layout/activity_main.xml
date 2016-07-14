@@ -20,13 +20,13 @@
         android:id="@+id/rg_tab"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_margin="0dp"
-        android:paddingRight="2dp"
-        android:paddingLeft="2dp"
         android:layout_gravity="bottom"
+        android:layout_margin="0dp"
         android:background="@color/bottom_gray"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp">
 
         <RadioButton
             android:id="@+id/rb_home"
