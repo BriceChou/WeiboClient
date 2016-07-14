@@ -1,11 +1,11 @@
 [
     {
-        "merged": "/local/BriceChou/AppDemo/WeiboClient/pullToRefresh/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/default_ptr_flip.png",
-        "source": "/local/BriceChou/AppDemo/WeiboClient/pullToRefresh/build/intermediates/bundles/debug/res/drawable-hdpi-v4/default_ptr_flip.png"
-    },
-    {
         "merged": "/local/BriceChou/AppDemo/WeiboClient/pullToRefresh/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/default_ptr_rotate.png",
         "source": "/local/BriceChou/AppDemo/WeiboClient/pullToRefresh/build/intermediates/bundles/debug/res/drawable-hdpi-v4/default_ptr_rotate.png"
+    },
+    {
+        "merged": "/local/BriceChou/AppDemo/WeiboClient/pullToRefresh/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/default_ptr_flip.png",
+        "source": "/local/BriceChou/AppDemo/WeiboClient/pullToRefresh/build/intermediates/bundles/debug/res/drawable-hdpi-v4/default_ptr_flip.png"
     },
     {
         "merged": "/local/BriceChou/AppDemo/WeiboClient/pullToRefresh/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/indicator_arrow.png",
