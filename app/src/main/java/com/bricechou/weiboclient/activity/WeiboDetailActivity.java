@@ -239,7 +239,8 @@ public class WeiboDetailActivity extends Activity {
     }
 
     private void initCommentsData(long id, final int requestPage) {
-        mCommentsAPI = new CommentsAPI(this, Constants.APP_KEY, LoginUserToken.showAccessToken());
+//        mCommentsAPI = new CommentsAPI(this, Constants.APP_KEY, LoginUserToken.showAccessToken());
+        mCommentsAPI = new CommentsAPI(this, Constants.APP_KEY, LoginUserToken.getAccessToken(this));
         mCommentsAPI.show(id, 0, 0, 10, requestPage, 0, new WeiboRequestListener(this) {
             @Override
             public void onComplete(String response) {
@@ -262,7 +263,7 @@ public class WeiboDetailActivity extends Activity {
 
     private void refreshStatusCounts(final Status status, int page) {
         initCommentsData(Long.parseLong(status.id), page);
-        mStatusesAPI = new StatusesAPI(this, Constants.APP_KEY, LoginUserToken.showAccessToken());
+        mStatusesAPI = new StatusesAPI(this, Constants.APP_KEY, LoginUserToken.getAccessToken(this));
         String[] ids = new String[]{status.id};
         mStatusesAPI.count(ids, new WeiboRequestListener(this) {
             @Override

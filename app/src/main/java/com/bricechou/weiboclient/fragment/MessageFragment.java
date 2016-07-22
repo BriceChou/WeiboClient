@@ -51,7 +51,8 @@ public class MessageFragment extends BaseFragment {
     }
 
     private void initMessage() {
-        mCommentsAPI = new CommentsAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.showAccessToken());
+//        mCommentsAPI = new CommentsAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.showAccessToken());
+        mCommentsAPI = new CommentsAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.getAccessToken(mMainActivity));
         mCommentsAPI.toME(0, 0, 10, 1, 0, 0, new WeiboRequestListener(mMainActivity) {
             @Override
             public void onComplete(String response) {

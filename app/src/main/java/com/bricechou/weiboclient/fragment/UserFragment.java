@@ -49,10 +49,10 @@ public class UserFragment extends BaseFragment {
     private void initView() {
         mView = View.inflate(mMainActivity, R.layout.frag_user, null);
         mFollowList = (ListView) mView.findViewById(R.id.lv_follow_list);
-        mFriendshipsAPI = new FriendshipsAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.showAccessToken());
-        // mFriendshipsAPI = new FriendshipsAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.getAccessToken());
-        mUsersAPI = new UsersAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.showAccessToken());
-        // mUsersAPI = new UsersAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.getAccessToken());
+//        mFriendshipsAPI = new FriendshipsAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.showAccessToken());
+        mFriendshipsAPI = new FriendshipsAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.getAccessToken(mMainActivity));
+//        mUsersAPI = new UsersAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.showAccessToken());
+        mUsersAPI = new UsersAPI(mMainActivity, Constants.APP_KEY, LoginUserToken.getAccessToken(mMainActivity));
         // mOauth2AccessToken = LoginUserToken.getAccessToken(mMainActivity);
         // mUid = Long.parseLong(mOauth2AccessToken.getUid());
 //        mUid = Long.parseLong("2851891152"); //BriceChou

@@ -71,14 +71,14 @@ public class LoginUserToken {
      * @datetime 16-6-7 10:40
      * @XXX we don't input weibo account and password that we use the developer account.
      */
-    public static Oauth2AccessToken showAccessToken() {
-        Oauth2AccessToken accessToken = new Oauth2AccessToken();
-
-        accessToken.setToken("2.005KPAHDDkQmLCfb61244d50Rb_7xC"); // BriceChou
-        // accessToken.setToken("2.0074nniFDkQmLCeb9d82635f3hL8gB"); // wanwang
-        accessToken.setRefreshToken("2.005KPAHDDkQmLCf648c5fafdaOK6ME"); // BriceChou
-        accessToken.setUid("2851891152"); // BriceChou
-        accessToken.setExpiresIn("157679999"); // BriceChou
-        return accessToken;
-    }
+//    public static Oauth2AccessToken showAccessToken() {
+//        Oauth2AccessToken accessToken = new Oauth2AccessToken();
+//
+//        accessToken.setToken("2.005KPAHDDkQmLCfb61244d50Rb_7xC"); // BriceChou
+//        // accessToken.setToken("2.0074nniFDkQmLCeb9d82635f3hL8gB"); // wanwang
+//        accessToken.setRefreshToken("2.005KPAHDDkQmLCf648c5fafdaOK6ME"); // BriceChou
+//        accessToken.setUid("2851891152"); // BriceChou
+//        accessToken.setExpiresIn("157679999"); // BriceChou
+//        return accessToken;
+//    }
 }

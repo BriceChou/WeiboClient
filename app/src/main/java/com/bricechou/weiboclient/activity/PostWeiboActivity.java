@@ -54,8 +54,8 @@ public class PostWeiboActivity extends Activity implements View.OnClickListener 
      * @TODO Show the correct earth location by Google Geographical APIs
      */
     private void postWeibo(String text) {
-        // mStatusesAPI = new StatusesAPI(this, Constants.APP_KEY, LoginUserToken.getAccessToken());
-        mStatusesAPI = new StatusesAPI(this, Constants.APP_KEY, LoginUserToken.showAccessToken());
+        mStatusesAPI = new StatusesAPI(this, Constants.APP_KEY, LoginUserToken.getAccessToken(this));
+        // mStatusesAPI = new StatusesAPI(this, Constants.APP_KEY, LoginUserToken.showAccessToken());
         mStatusesAPI.update(text, "22", "12", new WeiboRequestListener(this) {
             @Override
             public void onComplete(String response) {
